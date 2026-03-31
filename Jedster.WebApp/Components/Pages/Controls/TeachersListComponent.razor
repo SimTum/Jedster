@@ -1,0 +1,32 @@
+﻿@inject IViewTeacherUseCase ViewTeacherUseCase
+
+
+<table class="table">
+    <thead class="table-head">
+        <tr>
+            <th>id</th>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Horas de trabalho</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (teachers is not null && teachers.Count > 0)
+        {
+            foreach (Teacher teacher in teachers)
+            {
+                <TeacherListItemComponent teacher="teacher"> </TeacherListItemComponent>
+            }
+        }
+    </tbody>
+</table>
+@code {
+    private List<Teacher>? teachers;
+
+    protected override async Task OnInitializedAsync()
+    {
+        teachers = (await ViewTeacherUseCase.ExecuteAsync()).ToList();
+        
+    }
+}

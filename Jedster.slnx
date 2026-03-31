@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/Jedster.Plugins/">
+    <Project Path="Jedster.Plugins/Jedster.Plugins.InMemory/Jedster.Plugins.InMemory.csproj" />
+  </Folder>
+  <Project Path="Jedster.CoreBuisness/Jedster.CoreBuisness.csproj" />
+  <Project Path="Jedster.UseCases/Jedster.UseCases.csproj" />
+  <Project Path="Jedster.WebApp/Jedster.WebApp.csproj" />
+</Solution>

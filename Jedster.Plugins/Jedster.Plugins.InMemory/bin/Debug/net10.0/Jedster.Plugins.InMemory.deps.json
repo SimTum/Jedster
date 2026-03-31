@@ -1,0 +1,55 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v10.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v10.0": {
+      "Jedster.Plugins.InMemory/1.0.0": {
+        "dependencies": {
+          "Jedster.UseCases": "1.0.0"
+        },
+        "runtime": {
+          "Jedster.Plugins.InMemory.dll": {}
+        }
+      },
+      "Jedster.CoreBuisness/1.0.0": {
+        "runtime": {
+          "Jedster.CoreBuisness.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Jedster.UseCases/1.0.0": {
+        "dependencies": {
+          "Jedster.CoreBuisness": "1.0.0"
+        },
+        "runtime": {
+          "Jedster.UseCases.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Jedster.Plugins.InMemory/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Jedster.CoreBuisness/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Jedster.UseCases/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

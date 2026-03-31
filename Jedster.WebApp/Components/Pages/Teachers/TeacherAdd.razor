@@ -1,0 +1,44 @@
+﻿@page "/teachers/add"
+@using Jedster.UseCases.Professores.Interfaces
+
+@inject IRegisterTeacherUsecase RegisterTeacherUsecase;
+
+<h3>Preencha os dados do professor</h3>
+
+<EditForm Model="teacher" FormName="RegistryForm" OnInvalidSubmit="Save">
+    <div class="form-group">
+        <label for="name">Nome</label>
+        <InputText id="name" @bind-Value="teacher.Name" class="form-control">
+        </InputText>
+    </div>
+
+    <div class="form-group">
+        <label for="email">Email</label>
+        <InputText id="email" @bind-Value="teacher.Email" class="form-control">
+        </InputText>
+    </div>
+
+    <div class="form-group">
+        <label for="hours">Horas por semana</label>
+        <InputNumber id="hours" @bind-Value="teacher.Hours" class="form-control">
+        </InputNumber>
+    </div>
+    <br/>
+    <button type="submit" class="btn btn-primary">Salvar</button>
+</EditForm>
+
+
+
+
+
+
+@code {
+    [SupplyParameterFromForm]
+    private Teacher teacher { get; set; } = new Teacher {Name = "Bruno", Email="TEst", Hours=10};
+
+    private async Task Save()
+    {
+        await RegisterTeacherUsecase.ExecuteAsync(teacher);
+    }
+
+}
