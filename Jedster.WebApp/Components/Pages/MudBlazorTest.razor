@@ -1,0 +1,49 @@
+@page "/mud"
+
+<MudTable T="UserDto" Items="@_users" Hover="true" Striped="true"
+          Filter="FilterUsers">
+    <ToolBarContent>
+        <MudText Typo="Typo.h6">Users</MudText>
+        <MudSpacer />
+        <MudTextField @bind-Value="_searchString"
+                      Placeholder="Search"
+                      Adornment="Adornment.Start"
+                      AdornmentIcon="@Icons.Material.Filled.Search"
+                      IconSize="Size.Medium" />
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh>
+            <MudTableSortLabel SortBy="new Func<UserDto, object>(x => x.Name)">
+                Name
+            </MudTableSortLabel>
+        </MudTh>
+        <MudTh>Email</MudTh>
+        <MudTh>Role</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Name">@context.Name</MudTd>
+        <MudTd DataLabel="Email">@context.Email</MudTd>
+        <MudTd DataLabel="Role">
+            <MudChip T="string" Color="Color.Primary" Size="Size.Small">@context.Role</MudChip>
+        </MudTd>
+    </RowTemplate>
+    <PagerContent>
+        <MudTablePager />
+    </PagerContent>
+</MudTable>
+
+@code {
+    private string _searchString = "";
+    private readonly List<UserDto> _users =
+    [
+        new("Alice", "alice@email.com", "Admin"),
+        new("Bob", "bob@email.com", "User")
+    ];
+
+    record UserDto(string Name, string Email, string Role);
+
+    private bool FilterUsers(UserDto user) =>
+        string.IsNullOrWhiteSpace(_searchString) ||
+        user.Name.Contains(_searchString, StringComparison.OrdinalIgnoreCase) ||
+        user.Email.Contains(_searchString, StringComparison.OrdinalIgnoreCase);
+}

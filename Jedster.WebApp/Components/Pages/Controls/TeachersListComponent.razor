@@ -1,32 +1,66 @@
-﻿@inject IViewTeacherUseCase ViewTeacherUseCase
+﻿
+@inject IViewTeacherUseCase ViewTeacherUseCase
 
 
-<table class="table">
-    <thead class="table-head">
-        <tr>
-            <th>id</th>
-            <th>Nome</th>
-            <th>Email</th>
-            <th>Horas de trabalho</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (teachers is not null && teachers.Count > 0)
-        {
-            foreach (Teacher teacher in teachers)
-            {
-                <TeacherListItemComponent teacher="teacher"> </TeacherListItemComponent>
-            }
-        }
-    </tbody>
-</table>
+<MudTable T="Teacher" Items="@_teachers" Hover="true" Striped="true" Filter="FilterUsers">
+    <ToolBarContent>
+        <MudText Typo="Typo.h6">Search table</MudText>
+        <MudSpacer/>
+        <MudTextField @bind-Value="_searchString"
+                      Placeholder="Search"
+                      Adornment="Adornment.Start"
+                      AdornmentIcon="@Icons.Material.Filled.Search"
+                      IconSize="Size.Medium"/>
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh>id</MudTh>
+        <MudTh>Nome</MudTh>
+        <MudTh>Email</MudTh>
+        <MudTh>Horas de trabalho</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+
+        <MudTd DataLabel="id"> @context.TeacherId</MudTd>
+        <MudTd DataLabel="Name"> @context.Name</MudTd>
+        <MudTd DataLabel="Email"> @context.Email</MudTd>
+        <MudTd DataLabel="Hours"> @context.Hours</MudTd>
+    </RowTemplate>
+    <PagerContent>
+        <MudTablePager/>
+    </PagerContent>
+</MudTable>
+@* <table class="table"> *@
+@*     <thead class="table-head"> *@
+@*         <tr> *@
+@*             <th>id</th> *@
+@*             <th>Nome</th> *@
+@*             <th>Email</th> *@
+@*             <th>Horas de trabalho</th> *@
+@*         </tr> *@
+@*             <th>Actions</th> *@
+@*     </thead> *@
+@*     <tbody> *@
+@*         @if (teachers is not null && teachers.Count > 0) *@
+@*         { *@
+@*             foreach (Teacher teacher in teachers) *@
+@*             { *@
+@*                 <TeacherListItemComponent teacher="teacher"> </TeacherListItemComponent> *@
+@*             } *@
+@*         } *@
+@*     </tbody> *@
+@* </table> *@
+
 @code {
-    private List<Teacher>? teachers;
+    private List<Teacher>? _teachers;
+    private string _searchString = "";
 
     protected override async Task OnInitializedAsync()
     {
-        teachers = (await ViewTeacherUseCase.ExecuteAsync()).ToList();
-        
+        _teachers = (await ViewTeacherUseCase.ExecuteAsync()).ToList();
     }
+
+    private bool FilterUsers(Teacher teacher) =>
+        string.IsNullOrWhiteSpace(_searchString) ||
+        teacher.Name.ToLower().Contains(_searchString.ToLower());
+
 }

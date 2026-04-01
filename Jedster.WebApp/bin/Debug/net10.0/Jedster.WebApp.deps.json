@@ -10,10 +10,19 @@
         "dependencies": {
           "Jedster.CoreBuisness": "1.0.0",
           "Jedster.Plugins.InMemory": "1.0.0",
-          "Jedster.UseCases": "1.0.0"
+          "Jedster.UseCases": "1.0.0",
+          "MudBlazor": "9.2.0"
         },
         "runtime": {
           "Jedster.WebApp.dll": {}
+        }
+      },
+      "MudBlazor/9.2.0": {
+        "runtime": {
+          "lib/net10.0/MudBlazor.dll": {
+            "assemblyVersion": "9.2.0.0",
+            "fileVersion": "9.2.0.0"
+          }
         }
       },
       "Jedster.CoreBuisness/1.0.0": {
@@ -53,6 +62,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "MudBlazor/9.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ckAndxv3to3CahczgLrqKdzhPV3750B7taqICSIAdKXoh0dSyqcUcjAI5YlE5s7NB7C+NdpkfWpK+dKQwxvUOA==",
+      "path": "mudblazor/9.2.0",
+      "hashPath": "mudblazor.9.2.0.nupkg.sha512"
     },
     "Jedster.CoreBuisness/1.0.0": {
       "type": "project",

@@ -4,6 +4,7 @@ using Jedster.UseCases.Professores;
 using Jedster.UseCases.Professores.Interfaces;
 using Jedster.UseCases.Teachers;
 using Jedster.WebApp.Components;
+using MudBlazor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +16,7 @@ builder.Services.AddSingleton<ITeacherRepository, TeacherRepository>();
 
 builder.Services.AddTransient<IViewTeacherUseCase, ViewTeacherUseCase>();
 builder.Services.AddTransient<IRegisterTeacherUsecase, RegisterTeacherUsecase>();
-
+builder.Services.AddMudServices();
 
 var app = builder.Build();
 

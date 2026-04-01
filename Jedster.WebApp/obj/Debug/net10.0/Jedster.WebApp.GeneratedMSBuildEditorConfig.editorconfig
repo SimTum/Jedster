@@ -1,4 +1,7 @@
 is_global = true
+build_property.MudDebugAnalyzer = 
+build_property.MudAllowedAttributePattern = 
+build_property.MudAllowedAttributeList = 
 build_property.TargetFramework = net10.0
 build_property.TargetFrameworkIdentifier = .NETCoreApp
 build_property.TargetFrameworkVersion = v10.0
@@ -44,6 +47,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp/Components/Pages/Home.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9Ib21lLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp/Components/Pages/MudBlazorTest.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9NdWRCbGF6b3JUZXN0LnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp/Components/Pages/NotFound.razor]

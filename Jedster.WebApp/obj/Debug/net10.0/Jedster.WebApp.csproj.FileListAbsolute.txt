@@ -92,3 +92,7 @@
 /Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp/obj/Debug/net10.0/Jedster.WebApp.genruntimeconfig.cache
 /Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp/obj/Debug/net10.0/ref/Jedster.WebApp.dll
 /Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp/obj/Debug/net10.0/Jedster.WebApp.sourcelink.json
+/Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp/bin/Debug/net10.0/MudBlazor.dll
+/Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp/obj/Debug/net10.0/compressed/tzxjg6is5z-{0}-o2b68hjqqd-o2b68hjqqd.gz
+/Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp/obj/Debug/net10.0/compressed/0wz98yz2xy-{0}-8dleymzaev-8dleymzaev.gz
+/Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp/obj/Debug/net10.0/compressed/o7k4cxtn0u-{0}-0ykner63ol-0ykner63ol.gz
