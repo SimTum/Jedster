@@ -2,6 +2,7 @@ using Jedster.Plugins.InMemory;
 using Jedster.UseCases.PluginInterfaces;
 using Jedster.UseCases.Professores;
 using Jedster.UseCases.Professores.Interfaces;
+using Jedster.UseCases.Teachers;
 using Jedster.WebApp.Components;
 
 var builder = WebApplication.CreateBuilder(args);

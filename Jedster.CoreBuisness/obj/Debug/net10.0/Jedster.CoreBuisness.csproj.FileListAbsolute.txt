@@ -9,3 +9,4 @@
 /Users/simon.tumanov-ext/fatec/jedster/Jedster.CoreBuisness/obj/Debug/net10.0/refint/Jedster.CoreBuisness.dll
 /Users/simon.tumanov-ext/fatec/jedster/Jedster.CoreBuisness/obj/Debug/net10.0/Jedster.CoreBuisness.pdb
 /Users/simon.tumanov-ext/fatec/jedster/Jedster.CoreBuisness/obj/Debug/net10.0/ref/Jedster.CoreBuisness.dll
+/Users/simon.tumanov-ext/fatec/jedster/Jedster.CoreBuisness/obj/Debug/net10.0/Jedster.CoreBuisness.sourcelink.json

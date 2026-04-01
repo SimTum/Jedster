@@ -15,3 +15,4 @@
 /Users/simon.tumanov-ext/fatec/jedster/Jedster.Plugins/Jedster.Plugins.InMemory/obj/Debug/net10.0/refint/Jedster.Plugins.InMemory.dll
 /Users/simon.tumanov-ext/fatec/jedster/Jedster.Plugins/Jedster.Plugins.InMemory/obj/Debug/net10.0/Jedster.Plugins.InMemory.pdb
 /Users/simon.tumanov-ext/fatec/jedster/Jedster.Plugins/Jedster.Plugins.InMemory/obj/Debug/net10.0/ref/Jedster.Plugins.InMemory.dll
+/Users/simon.tumanov-ext/fatec/jedster/Jedster.Plugins/Jedster.Plugins.InMemory/obj/Debug/net10.0/Jedster.Plugins.InMemory.sourcelink.json
