@@ -24,31 +24,12 @@
         <MudTd DataLabel="Name"> @context.Name</MudTd>
         <MudTd DataLabel="Email"> @context.Email</MudTd>
         <MudTd DataLabel="Hours"> @context.Hours</MudTd>
+        <MudTd DataLabel="Edit-Button"> <a href="/edit/{TeacherId}" class="btn btn-secondary">Edit</a></MudTd>
     </RowTemplate>
     <PagerContent>
         <MudTablePager/>
     </PagerContent>
 </MudTable>
-@* <table class="table"> *@
-@*     <thead class="table-head"> *@
-@*         <tr> *@
-@*             <th>id</th> *@
-@*             <th>Nome</th> *@
-@*             <th>Email</th> *@
-@*             <th>Horas de trabalho</th> *@
-@*         </tr> *@
-@*             <th>Actions</th> *@
-@*     </thead> *@
-@*     <tbody> *@
-@*         @if (teachers is not null && teachers.Count > 0) *@
-@*         { *@
-@*             foreach (Teacher teacher in teachers) *@
-@*             { *@
-@*                 <TeacherListItemComponent teacher="teacher"> </TeacherListItemComponent> *@
-@*             } *@
-@*         } *@
-@*     </tbody> *@
-@* </table> *@
 
 @code {
     private List<Teacher>? _teachers;

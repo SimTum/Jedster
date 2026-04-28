@@ -2,20 +2,25 @@
 @using Jedster.UseCases.Professores.Interfaces
 
 @inject IRegisterTeacherUsecase RegisterTeacherUsecase;
+@inject NavigationManager Navigator;
 
 <h3>Preencha os dados do professor</h3>
 
-<EditForm Model="teacher" FormName="RegistryForm" OnInvalidSubmit="Save">
+<EditForm Model="teacher" FormName="RegistryForm" OnValidSubmit="Save" >
+<DataAnnotationsValidator></DataAnnotationsValidator>
+
     <div class="form-group">
         <label for="name">Nome</label>
         <InputText id="name" @bind-Value="teacher.Name" class="form-control">
         </InputText>
+        <ValidationMessage For="() => teacher.Name"></ValidationMessage>
     </div>
 
     <div class="form-group">
         <label for="email">Email</label>
         <InputText id="email" @bind-Value="teacher.Email" class="form-control">
         </InputText>
+        <ValidationMessage For="() => teacher.Email"></ValidationMessage>
     </div>
 
     <div class="form-group">
@@ -25,6 +30,8 @@
     </div>
     <br/>
     <button type="submit" class="btn btn-primary">Salvar</button>
+    &nbsp;
+    <a href="/teachers" class="btn btn-danger">Cancel</a>
 </EditForm>
 
 
@@ -34,11 +41,13 @@
 
 @code {
     [SupplyParameterFromForm]
-    private Teacher teacher { get; set; } = new Teacher {Name = "Bruno", Email="TEst", Hours=10};
+    private Teacher teacher { get; set; } = new Teacher();
 
     private async Task Save()
     {
         await RegisterTeacherUsecase.ExecuteAsync(teacher);
+        Navigator.NavigateTo("/teachers");
     }
+
 
 }
