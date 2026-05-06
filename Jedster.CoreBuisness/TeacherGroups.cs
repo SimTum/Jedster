@@ -1,6 +1,6 @@
 using System;
 
-namespace Jedster.CoreBuisness;
+namespace Jedster.CoreBusiness;
 
 public class TeacherGroups
 {

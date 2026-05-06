@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Jedster.CoreBuisness
+namespace Jedster.CoreBusiness
 {
     public class Teacher
     {

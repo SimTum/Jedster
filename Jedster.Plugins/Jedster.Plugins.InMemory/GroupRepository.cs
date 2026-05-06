@@ -1,8 +1,8 @@
 using System;
 using System.Text.RegularExpressions;
 using Jedster.UseCases.PluginInterfaces;
-using Jedster.CoreBuisness;
-using Group = Jedster.CoreBuisness.Group;
+using Jedster.CoreBusiness;
+using Group = Jedster.CoreBusiness.Group;
 
 namespace Jedster.Plugins.InMemory;
 

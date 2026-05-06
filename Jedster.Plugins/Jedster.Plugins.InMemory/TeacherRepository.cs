@@ -1,4 +1,4 @@
-﻿using Jedster.CoreBuisness;
+﻿using Jedster.CoreBusiness;
 using Jedster.UseCases.PluginInterfaces;
 
 namespace Jedster.Plugins.InMemory;
@@ -26,6 +26,7 @@ public class TeacherRepository : ITeacherRepository
             }
         };
     }
+
     public async Task<IEnumerable<Teacher>> GetTeachersByNameAsync(string name)
     {
         if (string.IsNullOrWhiteSpace(name)) return await Task.FromResult(_teachers);
@@ -39,6 +40,7 @@ public class TeacherRepository : ITeacherRepository
         {
             return Task.CompletedTask;
         }
+
         var maxID = _teachers.Max(x => x.TeacherId);
         teacher.TeacherId = maxID + 1;
 
@@ -46,4 +48,10 @@ public class TeacherRepository : ITeacherRepository
         return Task.CompletedTask;
 
     }
+
+    public Task UpdateTeacherAsync(Teacher teacher)
+    {
+        throw new NotImplementedException();
+    }
 }
+
