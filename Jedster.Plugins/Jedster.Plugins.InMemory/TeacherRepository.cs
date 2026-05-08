@@ -34,6 +34,19 @@ public class TeacherRepository : ITeacherRepository
         return _teachers.Where(x => x.Name.Contains(name, StringComparison.OrdinalIgnoreCase));
     }
 
+    public async Task<Teacher?>
+        GetTeacherByIdAsync(int id)
+    {
+        if (_teachers.Any(x => x.TeacherId == id))
+        {
+            return await Task.FromResult(_teachers.FirstOrDefault(x => x.TeacherId == id));
+        }
+        else
+        {
+            return null;
+        }
+    }
+
     public Task RegisterTeacherAsync(Teacher teacher)
     {
         if (_teachers.Any(x => x.Name.Equals(teacher.Name, StringComparison.OrdinalIgnoreCase)))
@@ -41,17 +54,26 @@ public class TeacherRepository : ITeacherRepository
             return Task.CompletedTask;
         }
 
-        var maxID = _teachers.Max(x => x.TeacherId);
-        teacher.TeacherId = maxID + 1;
+        var maxId = _teachers.Max(x => x.TeacherId);
+        teacher.TeacherId = maxId + 1;
 
         _teachers.Add(teacher);
         return Task.CompletedTask;
-
     }
 
-    public Task UpdateTeacherAsync(Teacher teacher)
+    public Task EditTeacherAsync(Teacher teacher)
     {
-        throw new NotImplementedException();
+        if (_teachers.Any(x =>
+                x.Name.Equals(teacher.Name, StringComparison.OrdinalIgnoreCase) && x.TeacherId != teacher.TeacherId))
+            return Task.CompletedTask;
+
+        var teacherToUpdate = _teachers.FirstOrDefault(x => x.TeacherId == teacher.TeacherId);
+        if (teacherToUpdate is not null)
+        {
+            teacherToUpdate.Name = teacher.Name;
+            teacherToUpdate.Email = teacher.Email;
+        }
+
+        return Task.CompletedTask;
     }
 }
-

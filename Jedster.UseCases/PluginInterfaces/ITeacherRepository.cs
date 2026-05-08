@@ -6,5 +6,6 @@ public interface ITeacherRepository
 {
     Task<IEnumerable<Teacher>> GetTeachersByNameAsync(string name);
     Task RegisterTeacherAsync(Teacher teacher);
-    Task UpdateTeacherAsync(Teacher teacher);
+    Task EditTeacherAsync(Teacher teacher);
+    Task<Teacher?> GetTeacherByIdAsync(int id);
 }

@@ -1,5 +1,7 @@
 ﻿@page "/"
+@using Jedster.UseCases.Teachers.Interfaces
 @inject IViewTeacherUseCase ViewTeacherUseCase
+@inject IEditTeacherUseCase EditTeacherUseCase
 
 
 <PageTitle>Test Page</PageTitle>
@@ -39,6 +41,7 @@
                 </td>
 
             </tr>
+                
         }
     }
 </table>
@@ -47,7 +50,12 @@
 
     protected override async Task OnInitializedAsync()
     {
+        var teacher = new Teacher {
+            TeacherId = 1, Name = "Laura Albuquerque", Email = "Sasha@Yandex.ru", Hours = 10
+        };
+        await EditTeacherUseCase.ExecuteAsync(teacher);
        teachers = (await ViewTeacherUseCase.ExecuteAsync()).ToList();
         
+       
     }
 }
