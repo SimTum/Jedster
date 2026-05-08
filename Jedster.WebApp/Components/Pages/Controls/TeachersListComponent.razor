@@ -34,7 +34,8 @@
 
 @code {
     private List<Teacher>? _teachers;
-    private string _searchString = "";
+    [Parameter]
+    public string _searchString {get; set;} = "";
 
     protected override async Task OnInitializedAsync()
     {
