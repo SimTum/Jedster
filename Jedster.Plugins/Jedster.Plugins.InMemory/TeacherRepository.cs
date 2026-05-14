@@ -47,6 +47,17 @@ public class TeacherRepository : ITeacherRepository
         }
     }
 
+    public Task DeleteTeacherByIdAsync(int id)
+    {
+        var teacherToDelete = _teachers.FirstOrDefault(x => x.TeacherId == id);
+        
+        if (teacherToDelete is not null)
+        {
+            _teachers.Remove(teacherToDelete);
+        } 
+        return Task.CompletedTask;
+    }
+
     public Task RegisterTeacherAsync(Teacher teacher)
     {
         if (_teachers.Any(x => x.Name.Equals(teacher.Name, StringComparison.OrdinalIgnoreCase)))

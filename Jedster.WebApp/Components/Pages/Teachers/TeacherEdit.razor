@@ -53,7 +53,7 @@ else
     protected override async Task OnParametersSetAsync()
     {
         _teacher ??= await ViewTeacherUsecase.ExecuteAsync(TeacherId);
-        if (_teacher is null) {}
+        if (_teacher is null)
         {
             Navigator.NotFound();
         }

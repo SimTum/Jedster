@@ -1,6 +1,7 @@
 ﻿@using Jedster.UseCases.Teachers.Interfaces
 
 @inject IViewTeacherUseCase ViewTeacherUseCase
+@inject IDeleteTeacherUseCase DeleteTeacherUseCase
 
 
 <MudTable T="Teacher" Items="@_teachers" Hover="true" Striped="true" Filter="FilterUsers">
@@ -25,7 +26,10 @@
         <MudTd DataLabel="Name"> @context.Name</MudTd>
         <MudTd DataLabel="Email"> @context.Email</MudTd>
         <MudTd DataLabel="Hours"> @context.Hours</MudTd>
-        <MudTd DataLabel="Edit-Button"> <a href="/editProfessor/@context.TeacherId" class="btn btn-secondary">Edit</a></MudTd>
+        <MudTd DataLabel="Buttons">
+            <a class="btn btn-secondary" href="/editProfessor/@context.TeacherId">Edit</a>
+            <button class="btn btn-danger">Delete</button>
+        </MudTd>
     </RowTemplate>
     <PagerContent>
         <MudTablePager/>
@@ -34,8 +38,7 @@
 
 @code {
     private List<Teacher>? _teachers;
-    [Parameter]
-    public string _searchString {get; set;} = "";
+    [Parameter] public string _searchString { get; set; } = "";
 
     protected override async Task OnInitializedAsync()
     {
@@ -45,5 +48,10 @@
     private bool FilterUsers(Teacher teacher) =>
         string.IsNullOrWhiteSpace(_searchString) ||
         teacher.Name.ToLower().Contains(_searchString.ToLower());
+
+    private async Task DeleteTeacher(int teacherId)
+    {
+        await DeleteTeacherUseCase.ExecuteAsync(teacherId);
+    }
 
 }

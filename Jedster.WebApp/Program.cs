@@ -18,6 +18,7 @@ builder.Services.AddSingleton<ITeacherRepository, TeacherRepository>();
 builder.Services.AddTransient<IViewTeacherUseCase, ViewTeacherUseCase>();
 builder.Services.AddTransient<IRegisterTeacherUsecase, RegisterTeacherUsecase>();
 builder.Services.AddTransient<IEditTeacherUseCase, EditTeacherUseCase>();
+builder.Services.AddTransient<IDeleteTeacherUseCase, DeleteTeacherUseCase>();
 builder.Services.AddMudServices();
 
 var app = builder.Build();

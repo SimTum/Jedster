@@ -8,4 +8,5 @@ public interface ITeacherRepository
     Task RegisterTeacherAsync(Teacher teacher);
     Task EditTeacherAsync(Teacher teacher);
     Task<Teacher?> GetTeacherByIdAsync(int id);
+    Task DeleteTeacherByIdAsync(int id);
 }
