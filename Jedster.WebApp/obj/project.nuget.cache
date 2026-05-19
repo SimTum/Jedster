@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "878+7qxNTtw=",
+  "dgSpecHash": "E6E3mTG0zh8=",
   "success": true,
-  "projectFilePath": "/Users/simon.tumanov-ext/fatec/jedster/jedster.webapp/Jedster.WebApp.csproj",
+  "projectFilePath": "/Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp/Jedster.WebApp.csproj",
   "expectedPackageFiles": [
     "/Users/simon.tumanov-ext/.nuget/packages/microsoft.aspnetcore.app.internal.assets/10.0.5/microsoft.aspnetcore.app.internal.assets.10.0.5.nupkg.sha512",
     "/Users/simon.tumanov-ext/.nuget/packages/mudblazor/9.2.0/mudblazor.9.2.0.nupkg.sha512"

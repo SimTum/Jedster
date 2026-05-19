@@ -1,7 +1,7 @@
 {
   "format": 1,
   "restore": {
-    "/Users/simon.tumanov-ext/fatec/jedster/jedster.webapp/Jedster.WebApp.csproj": {}
+    "/Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp/Jedster.WebApp.csproj": {}
   },
   "projects": {
     "/Users/simon.tumanov-ext/fatec/jedster/Jedster.CoreBuisness/Jedster.CoreBuisness.csproj": {
@@ -1014,14 +1014,14 @@
         }
       }
     },
-    "/Users/simon.tumanov-ext/fatec/jedster/jedster.webapp/Jedster.WebApp.csproj": {
+    "/Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp/Jedster.WebApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/simon.tumanov-ext/fatec/jedster/jedster.webapp/Jedster.WebApp.csproj",
+        "projectUniqueName": "/Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp/Jedster.WebApp.csproj",
         "projectName": "Jedster.WebApp",
-        "projectPath": "/Users/simon.tumanov-ext/fatec/jedster/jedster.webapp/Jedster.WebApp.csproj",
+        "projectPath": "/Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp/Jedster.WebApp.csproj",
         "packagesPath": "/Users/simon.tumanov-ext/.nuget/packages/",
-        "outputPath": "/Users/simon.tumanov-ext/fatec/jedster/jedster.webapp/obj/",
+        "outputPath": "/Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/simon.tumanov-ext/.nuget/NuGet/NuGet.Config"
