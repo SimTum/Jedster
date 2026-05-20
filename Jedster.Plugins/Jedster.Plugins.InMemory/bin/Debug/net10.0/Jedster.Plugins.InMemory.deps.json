@@ -14,9 +14,9 @@
           "Jedster.Plugins.InMemory.dll": {}
         }
       },
-      "Jedster.CoreBuisness/1.0.0": {
+      "Jedster.CoreBusiness/1.0.0": {
         "runtime": {
-          "Jedster.CoreBuisness.dll": {
+          "Jedster.CoreBusiness.dll": {
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
           }
@@ -24,7 +24,7 @@
       },
       "Jedster.UseCases/1.0.0": {
         "dependencies": {
-          "Jedster.CoreBuisness": "1.0.0"
+          "Jedster.CoreBusiness": "1.0.0"
         },
         "runtime": {
           "Jedster.UseCases.dll": {
@@ -41,7 +41,7 @@
       "serviceable": false,
       "sha512": ""
     },
-    "Jedster.CoreBuisness/1.0.0": {
+    "Jedster.CoreBusiness/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

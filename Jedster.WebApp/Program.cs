@@ -1,3 +1,4 @@
+using Jedster.Plugins.EntityFrameworkCorePSQL;
 using Jedster.Plugins.InMemory;
 using Jedster.UseCases.PluginInterfaces;
 using Jedster.UseCases.Professores;
@@ -5,6 +6,7 @@ using Jedster.UseCases.Professores.Interfaces;
 using Jedster.UseCases.Teachers;
 using Jedster.UseCases.Teachers.Interfaces;
 using Jedster.WebApp.Components;
+using Microsoft.EntityFrameworkCore;
 using MudBlazor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +14,13 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+builder.Services.AddRazorPages();
+
+//EFCore
+builder.Services.AddDbContextFactory<JedsterContext>(options =>
+{
+    options.UseNpgsql(builder.Configuration.GetConnectionString("JedsterDB"));
+});
 
 builder.Services.AddSingleton<ITeacherRepository, TeacherRepository>();
 

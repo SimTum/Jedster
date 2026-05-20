@@ -1,0 +1,12 @@
+/home/Noodle/Fatec/Jedster/Jedster.CoreBusiness/bin/Debug/net10.0/Jedster.CoreBusiness.deps.json
+/home/Noodle/Fatec/Jedster/Jedster.CoreBusiness/bin/Debug/net10.0/Jedster.CoreBusiness.dll
+/home/Noodle/Fatec/Jedster/Jedster.CoreBusiness/bin/Debug/net10.0/Jedster.CoreBusiness.pdb
+/home/Noodle/Fatec/Jedster/Jedster.CoreBusiness/obj/Debug/net10.0/Jedster.CoreBusiness.GeneratedMSBuildEditorConfig.editorconfig
+/home/Noodle/Fatec/Jedster/Jedster.CoreBusiness/obj/Debug/net10.0/Jedster.CoreBusiness.AssemblyInfoInputs.cache
+/home/Noodle/Fatec/Jedster/Jedster.CoreBusiness/obj/Debug/net10.0/Jedster.CoreBusiness.AssemblyInfo.cs
+/home/Noodle/Fatec/Jedster/Jedster.CoreBusiness/obj/Debug/net10.0/Jedster.CoreBusiness.csproj.CoreCompileInputs.cache
+/home/Noodle/Fatec/Jedster/Jedster.CoreBusiness/obj/Debug/net10.0/Jedster.CoreBusiness.sourcelink.json
+/home/Noodle/Fatec/Jedster/Jedster.CoreBusiness/obj/Debug/net10.0/Jedster.CoreBusiness.dll
+/home/Noodle/Fatec/Jedster/Jedster.CoreBusiness/obj/Debug/net10.0/refint/Jedster.CoreBusiness.dll
+/home/Noodle/Fatec/Jedster/Jedster.CoreBusiness/obj/Debug/net10.0/Jedster.CoreBusiness.pdb
+/home/Noodle/Fatec/Jedster/Jedster.CoreBusiness/obj/Debug/net10.0/ref/Jedster.CoreBusiness.dll

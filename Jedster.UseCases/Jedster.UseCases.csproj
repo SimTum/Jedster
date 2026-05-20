@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../Jedster.CoreBuisness/Jedster.CoreBuisness.csproj" />
+    <ProjectReference Include="..\Jedster.CoreBusiness\Jedster.CoreBusiness.csproj" />
   </ItemGroup>
 
   <ItemGroup>

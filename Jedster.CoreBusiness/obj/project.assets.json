@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/Noodle/Fatec/Jedster/Jedster.CoreBuisness/Jedster.CoreBuisness.csproj",
-      "projectName": "Jedster.CoreBuisness",
-      "projectPath": "/home/Noodle/Fatec/Jedster/Jedster.CoreBuisness/Jedster.CoreBuisness.csproj",
+      "projectUniqueName": "/home/Noodle/Fatec/Jedster/Jedster.CoreBusiness/Jedster.CoreBusiness.csproj",
+      "projectName": "Jedster.CoreBusiness",
+      "projectPath": "/home/Noodle/Fatec/Jedster/Jedster.CoreBusiness/Jedster.CoreBusiness.csproj",
       "packagesPath": "/home/Noodle/.nuget/packages/",
-      "outputPath": "/home/Noodle/Fatec/Jedster/Jedster.CoreBuisness/obj/",
+      "outputPath": "/home/Noodle/Fatec/Jedster/Jedster.CoreBusiness/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/Noodle/.nuget/NuGet/NuGet.Config"

@@ -8,13 +8,23 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../Jedster.CoreBuisness/Jedster.CoreBuisness.csproj" />
+    <ProjectReference Include="..\Jedster.CoreBusiness\Jedster.CoreBusiness.csproj" />
     <ProjectReference Include="../Jedster.Plugins/Jedster.Plugins.InMemory/Jedster.Plugins.InMemory.csproj" />
     <ProjectReference Include="../Jedster.UseCases/Jedster.UseCases.csproj" />
+    <ProjectReference Include="..\Jedster.Plugins\Jedster.Plugins.EntityFrameworkCorePSQL\Jedster.Plugins.EntityFrameworkCorePSQL.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="MudBlazor" Version="9.2.0" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.1" />
   </ItemGroup>
 
 </Project>
