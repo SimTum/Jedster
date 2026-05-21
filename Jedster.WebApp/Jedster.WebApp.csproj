@@ -9,9 +9,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Jedster.CoreBusiness\Jedster.CoreBusiness.csproj" />
-    <ProjectReference Include="../Jedster.Plugins/Jedster.Plugins.InMemory/Jedster.Plugins.InMemory.csproj" />
     <ProjectReference Include="../Jedster.UseCases/Jedster.UseCases.csproj" />
     <ProjectReference Include="..\Jedster.Plugins\Jedster.Plugins.EntityFrameworkCorePSQL\Jedster.Plugins.EntityFrameworkCorePSQL.csproj" />
+    <ProjectReference Include="..\Jedster.Plugins\Jedster.Plugins.InMemory\Jedster.Plugins.InMemory.csproj" />
   </ItemGroup>
 
   <ItemGroup>

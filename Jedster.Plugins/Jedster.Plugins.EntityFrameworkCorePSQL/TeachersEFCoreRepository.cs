@@ -12,26 +12,35 @@ public class TeachersEfCoreRepository(IDbContextFactory<JedsterContext> contextF
     
     public async Task<IEnumerable<Teacher>> GetTeachersByNameAsync(string name)
     {
-        await using var db = _factory.CreateDbContext();
-        return await db.Teachers?.Where(x => x.Name.ToLower().Contains(name.ToLower())).ToListAsync();
+        await using var db =  await _factory.CreateDbContextAsync();
+        return await db.Teachers?.ToListAsync();
     }
 
     public async Task RegisterTeacherAsync(Teacher teacher)
     {
         await using var db = _factory.CreateDbContext();
-        db.Teachers?.Add(teacher);
+        if (db.Teachers != null) db.Teachers.Add(teacher);
         await db.SaveChangesAsync();
     }
 
-    public Task EditTeacherAsync(Teacher teacher)
+    public async Task EditTeacherAsync(Teacher teacher)
     {
-        throw new NotImplementedException();
+        await using var db = await _factory.CreateDbContextAsync();
+        var _teacher = await db.Teachers.FindAsync(teacher.TeacherId);
+        if (_teacher != null)
+        {
+            _teacher.Name = teacher.Name;
+            _teacher.Email = teacher.Email;
+            
+            await db.SaveChangesAsync(); 
+        }
     }
 
     public async Task<Teacher?> GetTeacherByIdAsync(int id)
     {
-        await using var db = _factory.CreateDbContext();
-        return await db.Teachers?.FindAsync(id)!??  null;
+        await using var db = await _factory.CreateDbContextAsync();
+        return await db.Teachers.FindAsync(id)??  null;
+        
     }
 
     public async Task DeleteTeacherByIdAsync(int id)

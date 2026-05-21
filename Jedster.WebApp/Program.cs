@@ -1,7 +1,5 @@
 using Jedster.Plugins.EntityFrameworkCorePSQL;
-using Jedster.Plugins.InMemory;
 using Jedster.UseCases.PluginInterfaces;
-using Jedster.UseCases.Professores;
 using Jedster.UseCases.Professores.Interfaces;
 using Jedster.UseCases.Teachers;
 using Jedster.UseCases.Teachers.Interfaces;
@@ -22,7 +20,7 @@ builder.Services.AddDbContextFactory<JedsterContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("JedsterDB"));
 });
 
-builder.Services.AddSingleton<ITeacherRepository, TeacherRepository>();
+builder.Services.AddSingleton<ITeacherRepository, TeachersEfCoreRepository>();
 
 builder.Services.AddTransient<IViewTeacherUseCase, ViewTeacherUseCase>();
 builder.Services.AddTransient<IRegisterTeacherUsecase, RegisterTeacherUsecase>();

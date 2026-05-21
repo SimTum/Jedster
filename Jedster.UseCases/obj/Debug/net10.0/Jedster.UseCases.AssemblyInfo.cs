@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Jedster.UseCases")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+35d10f87ffeed827e5d27b92f8f3aa3aaf287a3c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ce8dd987947447a87992dd4e54926faea42bdd5b")]
 [assembly: System.Reflection.AssemblyProductAttribute("Jedster.UseCases")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Jedster.UseCases")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

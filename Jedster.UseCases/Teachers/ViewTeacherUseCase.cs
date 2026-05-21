@@ -16,7 +16,7 @@ public class ViewTeacherUseCase(ITeacherRepository teacherRepository) : IViewTea
         return await teacherRepository.GetTeachersByNameAsync(name);
     }
 
-    public async Task<Teacher> ExecuteAsync(int id)
+    public async Task<Teacher?> ExecuteAsync(int id)
     {
         return await teacherRepository.GetTeacherByIdAsync(id);
     }

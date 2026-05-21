@@ -1,7 +1,9 @@
 ﻿@using Jedster.UseCases.Teachers.Interfaces
+@using Microsoft.EntityFrameworkCore.Metadata.Internal
 
 @inject IViewTeacherUseCase ViewTeacherUseCase
 @inject IDeleteTeacherUseCase DeleteTeacherUseCase
+@inject NavigationManager Navigation
 
 
 <MudTable T="Teacher" Items="@_teachers" Hover="true" Striped="true" Filter="FilterUsers">
@@ -28,7 +30,7 @@
         <MudTd DataLabel="Hours"> @context.Hours</MudTd>
         <MudTd DataLabel="Buttons">
             <a class="btn btn-secondary" href="/editProfessor/@context.TeacherId">Edit</a>
-            <button class="btn btn-danger">Delete</button>
+            <button class="btn btn-danger" @onclick="() => DeleteTeacher(context.TeacherId)">Delete</button>
         </MudTd>
     </RowTemplate>
     <PagerContent>
@@ -52,6 +54,7 @@
     private async Task DeleteTeacher(int teacherId)
     {
         await DeleteTeacherUseCase.ExecuteAsync(teacherId);
+        Navigation.Refresh(forceReload:true);
     }
 
 }
