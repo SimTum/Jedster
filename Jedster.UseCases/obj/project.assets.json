@@ -2,28 +2,28 @@
   "version": 3,
   "targets": {
     "net10.0": {
-      "Jedster.CoreBuisness/1.0.0": {
+      "Jedster.CoreBusiness/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
         "compile": {
-          "bin/placeholder/Jedster.CoreBuisness.dll": {}
+          "bin/placeholder/Jedster.CoreBusiness.dll": {}
         },
         "runtime": {
-          "bin/placeholder/Jedster.CoreBuisness.dll": {}
+          "bin/placeholder/Jedster.CoreBusiness.dll": {}
         }
       }
     }
   },
   "libraries": {
-    "Jedster.CoreBuisness/1.0.0": {
+    "Jedster.CoreBusiness/1.0.0": {
       "type": "project",
-      "path": "../Jedster.CoreBuisness/Jedster.CoreBuisness.csproj",
-      "msbuildProject": "../Jedster.CoreBuisness/Jedster.CoreBuisness.csproj"
+      "path": "../Jedster.CoreBusiness/Jedster.CoreBusiness.csproj",
+      "msbuildProject": "../Jedster.CoreBusiness/Jedster.CoreBusiness.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net10.0": [
-      "Jedster.CoreBuisness >= 1.0.0"
+      "Jedster.CoreBusiness >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -52,8 +52,8 @@
         "net10.0": {
           "targetAlias": "net10.0",
           "projectReferences": {
-            "/Users/simon.tumanov-ext/fatec/jedster/Jedster.CoreBuisness/Jedster.CoreBuisness.csproj": {
-              "projectPath": "/Users/simon.tumanov-ext/fatec/jedster/Jedster.CoreBuisness/Jedster.CoreBuisness.csproj"
+            "/Users/simon.tumanov-ext/fatec/jedster/Jedster.CoreBusiness/Jedster.CoreBusiness.csproj": {
+              "projectPath": "/Users/simon.tumanov-ext/fatec/jedster/Jedster.CoreBusiness/Jedster.CoreBusiness.csproj"
             }
           }
         }

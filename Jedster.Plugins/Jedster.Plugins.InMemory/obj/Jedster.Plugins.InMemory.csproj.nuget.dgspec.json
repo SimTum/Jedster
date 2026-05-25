@@ -4,14 +4,14 @@
     "/Users/simon.tumanov-ext/fatec/jedster/Jedster.Plugins/Jedster.Plugins.InMemory/Jedster.Plugins.InMemory.csproj": {}
   },
   "projects": {
-    "/Users/simon.tumanov-ext/fatec/jedster/Jedster.CoreBuisness/Jedster.CoreBuisness.csproj": {
+    "/Users/simon.tumanov-ext/fatec/jedster/Jedster.CoreBusiness/Jedster.CoreBusiness.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/simon.tumanov-ext/fatec/jedster/Jedster.CoreBuisness/Jedster.CoreBuisness.csproj",
-        "projectName": "Jedster.CoreBuisness",
-        "projectPath": "/Users/simon.tumanov-ext/fatec/jedster/Jedster.CoreBuisness/Jedster.CoreBuisness.csproj",
+        "projectUniqueName": "/Users/simon.tumanov-ext/fatec/jedster/Jedster.CoreBusiness/Jedster.CoreBusiness.csproj",
+        "projectName": "Jedster.CoreBusiness",
+        "projectPath": "/Users/simon.tumanov-ext/fatec/jedster/Jedster.CoreBusiness/Jedster.CoreBusiness.csproj",
         "packagesPath": "/Users/simon.tumanov-ext/.nuget/packages/",
-        "outputPath": "/Users/simon.tumanov-ext/fatec/jedster/Jedster.CoreBuisness/obj/",
+        "outputPath": "/Users/simon.tumanov-ext/fatec/jedster/Jedster.CoreBusiness/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/simon.tumanov-ext/.nuget/NuGet/NuGet.Config"
@@ -699,8 +699,8 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "/Users/simon.tumanov-ext/fatec/jedster/Jedster.CoreBuisness/Jedster.CoreBuisness.csproj": {
-                "projectPath": "/Users/simon.tumanov-ext/fatec/jedster/Jedster.CoreBuisness/Jedster.CoreBuisness.csproj"
+              "/Users/simon.tumanov-ext/fatec/jedster/Jedster.CoreBusiness/Jedster.CoreBusiness.csproj": {
+                "projectPath": "/Users/simon.tumanov-ext/fatec/jedster/Jedster.CoreBusiness/Jedster.CoreBusiness.csproj"
               }
             }
           }

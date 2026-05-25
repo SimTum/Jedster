@@ -2,21 +2,21 @@
   "version": 3,
   "targets": {
     "net10.0": {
-      "Jedster.CoreBuisness/1.0.0": {
+      "Jedster.CoreBusiness/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
         "compile": {
-          "bin/placeholder/Jedster.CoreBuisness.dll": {}
+          "bin/placeholder/Jedster.CoreBusiness.dll": {}
         },
         "runtime": {
-          "bin/placeholder/Jedster.CoreBuisness.dll": {}
+          "bin/placeholder/Jedster.CoreBusiness.dll": {}
         }
       },
       "Jedster.UseCases/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
-          "Jedster.CoreBuisness": "1.0.0"
+          "Jedster.CoreBusiness": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Jedster.UseCases.dll": {}
@@ -28,10 +28,10 @@
     }
   },
   "libraries": {
-    "Jedster.CoreBuisness/1.0.0": {
+    "Jedster.CoreBusiness/1.0.0": {
       "type": "project",
-      "path": "../../Jedster.CoreBuisness/Jedster.CoreBuisness.csproj",
-      "msbuildProject": "../../Jedster.CoreBuisness/Jedster.CoreBuisness.csproj"
+      "path": "../../Jedster.CoreBusiness/Jedster.CoreBusiness.csproj",
+      "msbuildProject": "../../Jedster.CoreBusiness/Jedster.CoreBusiness.csproj"
     },
     "Jedster.UseCases/1.0.0": {
       "type": "project",

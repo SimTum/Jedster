@@ -1,0 +1,69 @@
+@page "/editProfessor/{TeacherId:int}"
+@using Jedster.UseCases.Teachers.Interfaces
+
+@inject IViewTeacherUseCase ViewTeacherUsecase
+@inject IEditTeacherUseCase EditTeacherUsecase
+@inject NavigationManager Navigator
+
+<h3>TeacherEdit</h3>
+<br/>
+
+@if (_teacher is not null)
+{
+    <EditForm Model="_teacher" FormName="RegistryForm" OnValidSubmit="Update">
+        <DataAnnotationsValidator></DataAnnotationsValidator>
+
+        <InputNumber @bind-Value="_teacher.TeacherId" hidden></InputNumber>
+        <div class="form-group">
+            <label for="name">Nome</label>
+            <InputText id="name" @bind-Value="_teacher.Name" class="form-control">
+            </InputText>
+            <ValidationMessage For="() => _teacher.Name"></ValidationMessage>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <InputText id="email" @bind-Value="_teacher.Email" class="form-control">
+            </InputText>
+            <ValidationMessage For="() => _teacher.Email"></ValidationMessage>
+        </div>
+
+        <div class="form-group">
+            <label for="hours">Horas por semana</label>
+            <InputNumber id="hours" @bind-Value="_teacher.Hours" class="form-control">
+            </InputNumber>
+        </div>
+        <br/>
+        <button type="submit" class="btn btn-primary">Update</button>
+        &nbsp;
+        <a href="/teachers" class="btn btn-danger">Cancel</a>
+    </EditForm>
+}
+else
+{
+    <h1>Error, teacher not found</h1>
+}
+
+
+
+@code {
+    [Parameter] public int TeacherId { get; set; }
+    [SupplyParameterFromForm] private Teacher? _teacher { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        _teacher ??= await ViewTeacherUsecase.ExecuteAsync(TeacherId);
+        if (_teacher is null)
+        {
+            Navigator.NotFound();
+        }
+    }
+
+    private async Task Update()
+    {
+        await EditTeacherUsecase.ExecuteAsync(_teacher);
+        Navigator.NavigateTo("/teachers");
+    }
+
+
+}
