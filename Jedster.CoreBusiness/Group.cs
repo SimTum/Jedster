@@ -5,18 +5,17 @@ namespace Jedster.CoreBusiness;
 
 public class Group
 {
-    public int Id { get; set; }
-    [Required]
-    public required string Name { get; set; }
+    public int GroupId { get; set; }
+    [Required] public string Name { get; set; }
     public int NumberStudents { get; set; }
-    [Required]
-    public required string WeekDay { get; set; }
-    [Required]
-    public TimeOnly StartTime { get; set; }
-    [Required]
-    public TimeOnly EndTime { get; set; }
-    [Required]
-    public int IdTeacher { get; set; }
-    private double PayRate { get; set; } = 20.00;
 
+    [Required]
+    [StringLength(3, ErrorMessage = "Digite dia da semana no padrão de 3 caracteres")]
+    public string WeekDay { get; set; }
+
+    [Required] public TimeOnly StartTime { get; set; }
+    [Required] public TimeOnly EndTime { get; set; }
+    [Required] public int TeacherId { get; set; }
+    public Teacher? Teacher { get; set; }
+    public IEnumerable<Student>? Students { get; set; } = new List<Student>();
 }

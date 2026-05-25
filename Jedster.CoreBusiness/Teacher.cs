@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Runtime.CompilerServices;
 
 namespace Jedster.CoreBusiness
 {
@@ -9,13 +10,17 @@ namespace Jedster.CoreBusiness
         [Required]
         [StringLength(150, ErrorMessage = "Campo obrigatório")]
         public string Name { get; set; } = string.Empty;
+
         [Required]
         [EmailAddress(ErrorMessage = "Email Invalido")]
         public string Email { get; set; } = string.Empty;
 
-        public double Hours { get; set; } = 0;
-
-
-
+        [Required] public string RG { get; set; } = string.Empty;
+        [Required] public DateOnly BirthDate { get; set; }
+        [Required] public string CPF { get; set; } = string.Empty;
+        [Range(0, double.MaxValue)] public double Hours { get; set; } = 0;
+        [Range(0, double.MaxValue)] public double HoursWeighed { get; set; } = 0;
+        public IEnumerable<Group>? Groups { get; set; } = new List<Group>();
+    
     }
 }
