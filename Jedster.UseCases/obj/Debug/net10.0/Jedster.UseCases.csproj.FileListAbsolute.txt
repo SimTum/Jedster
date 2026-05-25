@@ -1,8 +1,6 @@
 /Users/simon.tumanov-ext/fatec/jedster/Jedster.UseCases/bin/Debug/net10.0/Jedster.UseCases.deps.json
 /Users/simon.tumanov-ext/fatec/jedster/Jedster.UseCases/bin/Debug/net10.0/Jedster.UseCases.dll
 /Users/simon.tumanov-ext/fatec/jedster/Jedster.UseCases/bin/Debug/net10.0/Jedster.UseCases.pdb
-/Users/simon.tumanov-ext/fatec/jedster/Jedster.UseCases/bin/Debug/net10.0/Jedster.CoreBuisness.dll
-/Users/simon.tumanov-ext/fatec/jedster/Jedster.UseCases/bin/Debug/net10.0/Jedster.CoreBuisness.pdb
 /Users/simon.tumanov-ext/fatec/jedster/Jedster.UseCases/obj/Debug/net10.0/Jedster.UseCases.csproj.AssemblyReference.cache
 /Users/simon.tumanov-ext/fatec/jedster/Jedster.UseCases/obj/Debug/net10.0/Jedster.UseCases.GeneratedMSBuildEditorConfig.editorconfig
 /Users/simon.tumanov-ext/fatec/jedster/Jedster.UseCases/obj/Debug/net10.0/Jedster.UseCases.AssemblyInfoInputs.cache
@@ -30,3 +28,5 @@
 /home/Noodle/Fatec/Jedster/Jedster.UseCases/obj/Debug/net10.0/refint/Jedster.UseCases.dll
 /home/Noodle/Fatec/Jedster/Jedster.UseCases/obj/Debug/net10.0/Jedster.UseCases.pdb
 /home/Noodle/Fatec/Jedster/Jedster.UseCases/obj/Debug/net10.0/ref/Jedster.UseCases.dll
+/Users/simon.tumanov-ext/fatec/jedster/Jedster.UseCases/bin/Debug/net10.0/Jedster.CoreBusiness.dll
+/Users/simon.tumanov-ext/fatec/jedster/Jedster.UseCases/bin/Debug/net10.0/Jedster.CoreBusiness.pdb

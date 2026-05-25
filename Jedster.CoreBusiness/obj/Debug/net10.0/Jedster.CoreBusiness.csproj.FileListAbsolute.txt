@@ -10,3 +10,15 @@
 /home/Noodle/Fatec/Jedster/Jedster.CoreBusiness/obj/Debug/net10.0/refint/Jedster.CoreBusiness.dll
 /home/Noodle/Fatec/Jedster/Jedster.CoreBusiness/obj/Debug/net10.0/Jedster.CoreBusiness.pdb
 /home/Noodle/Fatec/Jedster/Jedster.CoreBusiness/obj/Debug/net10.0/ref/Jedster.CoreBusiness.dll
+/Users/simon.tumanov-ext/fatec/jedster/Jedster.CoreBusiness/bin/Debug/net10.0/Jedster.CoreBusiness.deps.json
+/Users/simon.tumanov-ext/fatec/jedster/Jedster.CoreBusiness/bin/Debug/net10.0/Jedster.CoreBusiness.dll
+/Users/simon.tumanov-ext/fatec/jedster/Jedster.CoreBusiness/bin/Debug/net10.0/Jedster.CoreBusiness.pdb
+/Users/simon.tumanov-ext/fatec/jedster/Jedster.CoreBusiness/obj/Debug/net10.0/Jedster.CoreBusiness.GeneratedMSBuildEditorConfig.editorconfig
+/Users/simon.tumanov-ext/fatec/jedster/Jedster.CoreBusiness/obj/Debug/net10.0/Jedster.CoreBusiness.AssemblyInfoInputs.cache
+/Users/simon.tumanov-ext/fatec/jedster/Jedster.CoreBusiness/obj/Debug/net10.0/Jedster.CoreBusiness.AssemblyInfo.cs
+/Users/simon.tumanov-ext/fatec/jedster/Jedster.CoreBusiness/obj/Debug/net10.0/Jedster.CoreBusiness.csproj.CoreCompileInputs.cache
+/Users/simon.tumanov-ext/fatec/jedster/Jedster.CoreBusiness/obj/Debug/net10.0/Jedster.CoreBusiness.sourcelink.json
+/Users/simon.tumanov-ext/fatec/jedster/Jedster.CoreBusiness/obj/Debug/net10.0/Jedster.CoreBusiness.dll
+/Users/simon.tumanov-ext/fatec/jedster/Jedster.CoreBusiness/obj/Debug/net10.0/refint/Jedster.CoreBusiness.dll
+/Users/simon.tumanov-ext/fatec/jedster/Jedster.CoreBusiness/obj/Debug/net10.0/Jedster.CoreBusiness.pdb
+/Users/simon.tumanov-ext/fatec/jedster/Jedster.CoreBusiness/obj/Debug/net10.0/ref/Jedster.CoreBusiness.dll

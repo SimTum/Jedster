@@ -5,7 +5,7 @@ namespace Jedster.CoreBusiness;
 
 public class Student
 {
-    public object? StudentId { get; set; }
+    public int StudentId { get; set; }
     [Required]
     public required string RG { get; set; }
     [Required]

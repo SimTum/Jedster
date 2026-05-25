@@ -1,10 +1,8 @@
 /Users/simon.tumanov-ext/fatec/jedster/Jedster.Plugins/Jedster.Plugins.InMemory/bin/Debug/net10.0/Jedster.Plugins.InMemory.deps.json
 /Users/simon.tumanov-ext/fatec/jedster/Jedster.Plugins/Jedster.Plugins.InMemory/bin/Debug/net10.0/Jedster.Plugins.InMemory.dll
 /Users/simon.tumanov-ext/fatec/jedster/Jedster.Plugins/Jedster.Plugins.InMemory/bin/Debug/net10.0/Jedster.Plugins.InMemory.pdb
-/Users/simon.tumanov-ext/fatec/jedster/Jedster.Plugins/Jedster.Plugins.InMemory/bin/Debug/net10.0/Jedster.CoreBuisness.dll
 /Users/simon.tumanov-ext/fatec/jedster/Jedster.Plugins/Jedster.Plugins.InMemory/bin/Debug/net10.0/Jedster.UseCases.dll
 /Users/simon.tumanov-ext/fatec/jedster/Jedster.Plugins/Jedster.Plugins.InMemory/bin/Debug/net10.0/Jedster.UseCases.pdb
-/Users/simon.tumanov-ext/fatec/jedster/Jedster.Plugins/Jedster.Plugins.InMemory/bin/Debug/net10.0/Jedster.CoreBuisness.pdb
 /Users/simon.tumanov-ext/fatec/jedster/Jedster.Plugins/Jedster.Plugins.InMemory/obj/Debug/net10.0/Jedster.Plugins.InMemory.csproj.AssemblyReference.cache
 /Users/simon.tumanov-ext/fatec/jedster/Jedster.Plugins/Jedster.Plugins.InMemory/obj/Debug/net10.0/Jedster.Plugins.InMemory.GeneratedMSBuildEditorConfig.editorconfig
 /Users/simon.tumanov-ext/fatec/jedster/Jedster.Plugins/Jedster.Plugins.InMemory/obj/Debug/net10.0/Jedster.Plugins.InMemory.AssemblyInfoInputs.cache
@@ -34,3 +32,5 @@
 /home/Noodle/Fatec/Jedster/Jedster.Plugins/Jedster.Plugins.InMemory/obj/Debug/net10.0/refint/Jedster.Plugins.InMemory.dll
 /home/Noodle/Fatec/Jedster/Jedster.Plugins/Jedster.Plugins.InMemory/obj/Debug/net10.0/Jedster.Plugins.InMemory.pdb
 /home/Noodle/Fatec/Jedster/Jedster.Plugins/Jedster.Plugins.InMemory/obj/Debug/net10.0/ref/Jedster.Plugins.InMemory.dll
+/Users/simon.tumanov-ext/fatec/jedster/Jedster.Plugins/Jedster.Plugins.InMemory/bin/Debug/net10.0/Jedster.CoreBusiness.dll
+/Users/simon.tumanov-ext/fatec/jedster/Jedster.Plugins/Jedster.Plugins.InMemory/bin/Debug/net10.0/Jedster.CoreBusiness.pdb

@@ -15,9 +15,9 @@ public class JedsterContext : DbContext
     public DbSet<Material>? Textbooks { get; set; }
 
     //Connections
-    public DbSet<TeacherGroups>? TeacherGroups { get; set; }
-    public DbSet<GroupStudents>? StudentsGroups { get; set; }
-    public DbSet<StudentMaterials>? StudentMaterials { get; set; }
+    // public DbSet<TeacherGroups>? TeacherGroups { get; set; }
+    // public DbSet<GroupStudents>? StudentsGroups { get; set; }
+    // public DbSet<StudentMaterials>? StudentMaterials { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
