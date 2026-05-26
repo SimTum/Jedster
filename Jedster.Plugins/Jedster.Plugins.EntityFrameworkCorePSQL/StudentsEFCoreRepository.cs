@@ -4,11 +4,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Jedster.Plugins.EntityFrameworkCorePSQL;
 
-public class StudentsEfCoreRepository(IDbContextFactory<JedsterContext> contextFactorySource) : IStudentRepository
+public class StudentsEfCoreRepository(IDbContextFactory<JedsterContext> _factory) : IStudentRepository
 {
-    public Task<IEnumerable<Student>> GetStudentsByNameAsync(string name)
+    public async Task<IEnumerable<Student>> GetStudentsByNameAsync(string name)
     {
-        throw new NotImplementedException();
+        await using var db = await _factory.CreateDbContextAsync();
+        return await db.Students?.ToListAsync()!;
     }
 
     public Task<Student> GetStudentByIdAsync(int studentId)

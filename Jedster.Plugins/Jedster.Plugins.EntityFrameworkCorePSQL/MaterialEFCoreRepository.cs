@@ -1,13 +1,15 @@
 using Jedster.CoreBusiness;
 using Jedster.UseCases.PluginInterfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Jedster.Plugins.EntityFrameworkCorePSQL;
 
-public class MaterialEFCoreRepository : IMaterialRepository
+public class MaterialEfCoreRepository(IDbContextFactory<JedsterContext> _factory) : IMaterialRepository
 {
-    public Task<IEnumerable<Material>> GetMaterialsByNameAsync(string materialName)
+    public async Task<IEnumerable<Material>> GetMaterialsByNameAsync(string materialName)
     {
-        throw new NotImplementedException();
+        await using var db = await _factory.CreateDbContextAsync();
+        return await db.Textbooks?.ToListAsync()!;
     }
 
     public Task<Material> GetMateiralByIdAsync(int materialId)

@@ -6,9 +6,10 @@ namespace Jedster.Plugins.EntityFrameworkCorePSQL;
 
 public class GroupsEfCoreRepository(IDbContextFactory<JedsterContext> contextFactorySource) : IGroupRepository
 {
-    public Task<IEnumerable<Group>> GetGroupsByNameAsync(string nome)
+    public async Task<IEnumerable<Group>> GetGroupsByNameAsync(string nome)
     {
-        throw new NotImplementedException();
+        await using var db = await contextFactorySource.CreateDbContextAsync();
+        return await db.Groups?.ToListAsync()!;
     }
 
     public Task RegisterGroup(Group group)

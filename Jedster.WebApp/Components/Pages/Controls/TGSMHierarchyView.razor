@@ -30,7 +30,7 @@
         </MudTreeView>
     </MudStack>
 </MudPaper>
-
+<p>Didn't work :c</p>
 @code {
     private List<Teacher> _teachers = [];
 
@@ -38,10 +38,16 @@
 
     private string _searchPhrase;
     
-    protected override async Task OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
         base.OnInitialized();
         _teachers = (await ViewTeacherUseCase.ExecuteAsync()).ToList();
+    }
+
+
+    private void OnTextChanged()
+    {
+        throw new NotImplementedException();
     }
 
 }

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Jedster.WebApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+efcb5cf8226fef28a0841de31968f86714514255")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+86c5c1c35309918dfebced7feaaefe6b3b947d29")]
 [assembly: System.Reflection.AssemblyProductAttribute("Jedster.WebApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Jedster.WebApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

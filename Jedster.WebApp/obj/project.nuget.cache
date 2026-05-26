@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "kUnAM/bUfEM=",
+  "dgSpecHash": "MRaiflmORZ4=",
   "success": true,
-  "projectFilePath": "/Users/simon.tumanov-ext/fatec/jedster/jedster.webapp/Jedster.WebApp.csproj",
+  "projectFilePath": "/Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp/Jedster.WebApp.csproj",
   "expectedPackageFiles": [
     "/Users/simon.tumanov-ext/.nuget/packages/humanizer.core/2.14.1/humanizer.core.2.14.1.nupkg.sha512",
     "/Users/simon.tumanov-ext/.nuget/packages/microsoft.aspnetcore.app.internal.assets/10.0.5/microsoft.aspnetcore.app.internal.assets.10.0.5.nupkg.sha512",

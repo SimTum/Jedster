@@ -10,7 +10,7 @@ public class TeachersEfCoreRepository(IDbContextFactory<JedsterContext> contextF
     public async Task<IEnumerable<Teacher>> GetTeachersByNameAsync(string name)
     {
         await using var db =  await contextFactorySource.CreateDbContextAsync();
-        return await db.Teachers?.ToListAsync();
+        return await db.Teachers?.ToListAsync()!;
     }
 
     public async Task RegisterTeacherAsync(Teacher teacher)
