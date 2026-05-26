@@ -10,10 +10,4 @@
     <ProjectReference Include="..\Jedster.CoreBusiness\Jedster.CoreBusiness.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Materials\Interfaces\" />
-    <Folder Include="PluginInterfaces/" />
-    <Folder Include="Students\Interfaces\" />
-  </ItemGroup>
-
 </Project>
