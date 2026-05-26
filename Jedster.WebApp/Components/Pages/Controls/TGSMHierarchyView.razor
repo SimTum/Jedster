@@ -1,0 +1,47 @@
+@using Jedster.UseCases.Teachers
+@using Jedster.UseCases.Teachers.Interfaces
+
+@inject IViewTeacherUseCase ViewTeacherUseCase
+
+// Teacher - Group - Student - Material
+<h3>TGSMHierarchyView</h3>
+<MudPaper Width="1200px" Elevation="0">
+    <MudStack AlignItems="AlignItems.Center">
+        <MudTextField T="string" Label="Search" Adornment="Adornment.Start"
+                      AdornmentIcon="@Icons.Material.Filled.Search" TextChanged="OnTextChanged" Immediate="true"
+                      Clearable="true"/>
+        <MudTreeView T="string">
+            @foreach (var teacher in _teachers)
+            {
+                <MudTreeViewItem Value="@teacher.Name" Text="@teacher.Name" Icon="@Icons.Material.Filled.Person">
+                    @if (teacher.Groups is not null)
+                        @foreach (var group in teacher.Groups)
+                    {
+                        <MudTreeViewItem Value="@group.Name" Text="@group.Name" Icon="@Icons.Material.Filled.GroupWork">
+                            @if (group.Students is not null)
+                                @foreach (var student in group.Students)
+                            {
+                                <MudTreeViewItem Value="@student.Name" Text="@student.Name" Icon="@Icons.Material.Filled.Person2" />
+                            }
+                        </MudTreeViewItem>
+                    }
+                </MudTreeViewItem>
+            }
+        </MudTreeView>
+    </MudStack>
+</MudPaper>
+
+@code {
+    private List<Teacher> _teachers = [];
+
+    private MudTreeView<string> _treeView;
+
+    private string _searchPhrase;
+    
+    protected override async Task OnInitialized()
+    {
+        base.OnInitialized();
+        _teachers = (await ViewTeacherUseCase.ExecuteAsync()).ToList();
+    }
+
+}

@@ -1,5 +1,5 @@
 using System;
-using System.Text.RegularExpressions;
+using Jedster.CoreBusiness;
 
 namespace Jedster.UseCases.PluginInterfaces;
 
@@ -8,4 +8,7 @@ public interface IGroupRepository
     Task<IEnumerable<Group>> GetGroupsByNameAsync(string nome);
 
     Task RegisterGroup(Group group);
+    Task<Group?> GetGroupByIdAsync(int groupId);
+    Task EditGroupAsync(Group group);
+    Task DeleteGroupByIdAsync(int groupId);
 }

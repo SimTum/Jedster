@@ -378,5 +378,3 @@
 /Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp/bin/Debug/net10.0/Jedster.Plugins.EntityFrameworkCorePSQL.dll
 /Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp/bin/Debug/net10.0/Jedster.CoreBusiness.pdb
 /Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp/bin/Debug/net10.0/Jedster.Plugins.EntityFrameworkCorePSQL.pdb
-/Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp/obj/Debug/net10.0/Jedster.WebApp.RazorAssemblyInfo.cache
-/Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp/obj/Debug/net10.0/Jedster.WebApp.RazorAssemblyInfo.cs

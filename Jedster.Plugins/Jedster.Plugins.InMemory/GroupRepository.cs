@@ -43,12 +43,27 @@ public class GroupRepository : IGroupRepository
         throw new NotImplementedException();
     }
 
+    public Task<Group?> GetGroupByIdAsync(int groupId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task EditGroupAsync(Group group)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task DeleteGroupByIdAsync(int groupId)
+    {
+        throw new NotImplementedException();
+    }
+
     public Task RegisterGroup(System.Text.RegularExpressions.Group group)
     {
         throw new NotImplementedException();
     }
 
-    Task<IEnumerable<System.Text.RegularExpressions.Group>> IGroupRepository.GetGroupsByNameAsync(string nome)
+    Task<IEnumerable<Group>> IGroupRepository.GetGroupsByNameAsync(string nome)
     {
         throw new NotImplementedException();
     }

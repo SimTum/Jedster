@@ -6,7 +6,7 @@ namespace Jedster.CoreBusiness;
 public class Group
 {
     public int GroupId { get; set; }
-    [Required] public string Name { get; set; }
+    [Required][StringLength(30, MinimumLength = 3, ErrorMessage = "Nome da turma deve ser um nome único, e deve conter entre 3 e 30 caracters")] public string Name { get; set; }
     public int NumberStudents { get; set; }
 
     [Required]
