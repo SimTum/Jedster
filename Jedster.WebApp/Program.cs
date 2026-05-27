@@ -25,6 +25,9 @@ builder.Services.AddDbContextFactory<JedsterContext>(options =>
 });
 
 builder.Services.AddTransient<ITeacherRepository, TeachersEfCoreRepository>();
+builder.Services.AddTransient<IGroupRepository, GroupsEfCoreRepository>();
+builder.Services.AddTransient<IStudentRepository, StudentsEfCoreRepository>();
+builder.Services.AddTransient<IMaterialRepository, MaterialEfCoreRepository>();
 
 builder.Services.AddTransient<IViewTeacherUseCase, ViewTeacherUseCase>();
 builder.Services.AddTransient<IRegisterTeacherUsecase, RegisterTeacherUsecase>();
@@ -32,7 +35,6 @@ builder.Services.AddTransient<IEditTeacherUseCase, EditTeacherUseCase>();
 builder.Services.AddTransient<IDeleteTeacherUseCase, DeleteTeacherUseCase>();
 builder.Services.AddMudServices();
 
-builder.Services.AddTransient<IGroupRepository, GroupsEfCoreRepository>();
 
 builder.Services.AddTransient<IViewGroupUseCase, ViewGroupUseCase>();
 builder.Services.AddTransient<IRegisterGroupUseCase, RegisterGroupUseCase>();
@@ -40,7 +42,6 @@ builder.Services.AddTransient<IEditGroupUseCase, EditGroupUseCase>();
 builder.Services.AddTransient<IDeleteGroupUseCase, DeleteGroupUseCase>();
 builder.Services.AddMudServices();
 
-builder.Services.AddTransient<IStudentRepository, StudentsEfCoreRepository>();
 
 builder.Services.AddTransient<IViewStudentsUseCase, ViewStudentsUseCase>();
 builder.Services.AddTransient<IRegisterStudentsUseCase, RegisterStudentsUseCase>();
@@ -48,7 +49,6 @@ builder.Services.AddTransient<IEditStudentsUseCase, EditStudentsUseCase>();
 builder.Services.AddTransient<IDeleteStudentsUseCase, DeleteStudentsUseCase>();
 builder.Services.AddMudServices();
 
-builder.Services.AddTransient<IMaterialRepository, MaterialEfCoreRepository>();
 
 builder.Services.AddTransient<IViewMaterialUseCase, ViewMaterialUseCase>();
 builder.Services.AddTransient<IRegisterMaterialUseCase, RegisterMaterialUseCase>();

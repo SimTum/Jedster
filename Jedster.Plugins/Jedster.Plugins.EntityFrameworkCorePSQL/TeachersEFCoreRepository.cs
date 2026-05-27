@@ -1,7 +1,6 @@
 using Jedster.CoreBusiness;
 using Jedster.UseCases.PluginInterfaces;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
 
 namespace Jedster.Plugins.EntityFrameworkCorePSQL;
 

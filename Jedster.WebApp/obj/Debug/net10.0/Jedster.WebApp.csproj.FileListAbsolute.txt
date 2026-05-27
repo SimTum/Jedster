@@ -119,8 +119,6 @@
 /home/Noodle/Fatec/Jedster/Jedster.WebApp/obj/Debug/net10.0/Jedster.WebApp.AssemblyInfo.cs
 /home/Noodle/Fatec/Jedster/Jedster.WebApp/obj/Debug/net10.0/Jedster.WebApp.csproj.CoreCompileInputs.cache
 /home/Noodle/Fatec/Jedster/Jedster.WebApp/obj/Debug/net10.0/Jedster.WebApp.MvcApplicationPartsAssemblyInfo.cache
-/home/Noodle/Fatec/Jedster/Jedster.WebApp/obj/Debug/net10.0/Jedster.WebApp.RazorAssemblyInfo.cache
-/home/Noodle/Fatec/Jedster/Jedster.WebApp/obj/Debug/net10.0/Jedster.WebApp.RazorAssemblyInfo.cs
 /home/Noodle/Fatec/Jedster/Jedster.WebApp/obj/Debug/net10.0/Jedster.WebApp.sourcelink.json
 /home/Noodle/Fatec/Jedster/Jedster.WebApp/obj/Debug/net10.0/rjimswa.dswa.cache.json
 /home/Noodle/Fatec/Jedster/Jedster.WebApp/obj/Debug/net10.0/rjsmrazor.dswa.cache.json

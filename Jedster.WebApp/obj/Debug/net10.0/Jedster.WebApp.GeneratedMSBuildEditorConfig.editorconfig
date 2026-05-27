@@ -22,81 +22,81 @@ build_property.TargetFrameworkIdentifier = .NETCoreApp
 build_property.TargetFrameworkVersion = v10.0
 build_property.RootNamespace = Jedster.WebApp
 build_property.RootNamespace = Jedster.WebApp
-build_property.ProjectDir = /Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp/
+build_property.ProjectDir = /home/Noodle/Fatec/Jedster/Jedster.WebApp/
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 9.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = /Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp
+build_property.MSBuildProjectDirectory = /home/Noodle/Fatec/Jedster/Jedster.WebApp
 build_property._RazorSourceGeneratorDebug = 
 build_property.EffectiveAnalysisLevelStyle = 10.0
 build_property.EnableCodeStyleSeverity = 
 
-[/Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp/Components/App.razor]
+[/home/Noodle/Fatec/Jedster/Jedster.WebApp/Components/App.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9BcHAucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp/Components/Pages/Controls/TeachersListComponent.razor]
+[/home/Noodle/Fatec/Jedster/Jedster.WebApp/Components/Pages/Controls/TeachersListComponent.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9Db250cm9scy9UZWFjaGVyc0xpc3RDb21wb25lbnQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp/Components/Pages/Controls/TGSMHierarchyView.razor]
+[/home/Noodle/Fatec/Jedster/Jedster.WebApp/Components/Pages/Controls/TGSMHierarchyView.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9Db250cm9scy9UR1NNSGllcmFyY2h5Vmlldy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp/Components/Pages/Counter.razor]
+[/home/Noodle/Fatec/Jedster/Jedster.WebApp/Components/Pages/Counter.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9Db3VudGVyLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp/Components/Pages/Error.razor]
+[/home/Noodle/Fatec/Jedster/Jedster.WebApp/Components/Pages/Error.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9FcnJvci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp/Components/Pages/Home.razor]
+[/home/Noodle/Fatec/Jedster/Jedster.WebApp/Components/Pages/Home.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9Ib21lLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp/Components/Pages/MudBlazorTest.razor]
+[/home/Noodle/Fatec/Jedster/Jedster.WebApp/Components/Pages/MudBlazorTest.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9NdWRCbGF6b3JUZXN0LnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp/Components/Pages/NotFound.razor]
+[/home/Noodle/Fatec/Jedster/Jedster.WebApp/Components/Pages/NotFound.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9Ob3RGb3VuZC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp/Components/Pages/Teachers/TeacherAdd.razor]
+[/home/Noodle/Fatec/Jedster/Jedster.WebApp/Components/Pages/Teachers/TeacherAdd.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9UZWFjaGVycy9UZWFjaGVyQWRkLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp/Components/Pages/Teachers/TeacherEdit.razor]
+[/home/Noodle/Fatec/Jedster/Jedster.WebApp/Components/Pages/Teachers/TeacherEdit.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9UZWFjaGVycy9UZWFjaGVyRWRpdC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp/Components/Pages/Teachers/TeacherList.razor]
+[/home/Noodle/Fatec/Jedster/Jedster.WebApp/Components/Pages/Teachers/TeacherList.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9UZWFjaGVycy9UZWFjaGVyTGlzdC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp/Components/Pages/Weather.razor]
+[/home/Noodle/Fatec/Jedster/Jedster.WebApp/Components/Pages/Weather.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9XZWF0aGVyLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp/Components/Routes.razor]
+[/home/Noodle/Fatec/Jedster/Jedster.WebApp/Components/Routes.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9Sb3V0ZXMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp/Components/_Imports.razor]
+[/home/Noodle/Fatec/Jedster/Jedster.WebApp/Components/_Imports.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9fSW1wb3J0cy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp/Components/Layout/MainLayout.razor]
+[/home/Noodle/Fatec/Jedster/Jedster.WebApp/Components/Layout/MainLayout.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9MYXlvdXQvTWFpbkxheW91dC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = b-opx9exqe3v
 
-[/Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp/Components/Layout/NavMenu.razor]
+[/home/Noodle/Fatec/Jedster/Jedster.WebApp/Components/Layout/NavMenu.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9MYXlvdXQvTmF2TWVudS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = b-djqyjwb73d
 
-[/Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp/Components/Layout/ReconnectModal.razor]
+[/home/Noodle/Fatec/Jedster/Jedster.WebApp/Components/Layout/ReconnectModal.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9MYXlvdXQvUmVjb25uZWN0TW9kYWwucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = b-wdfq4c6rx9
