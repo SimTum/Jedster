@@ -16,6 +16,6 @@ public class Group
     [Required] public TimeOnly StartTime { get; set; }
     [Required] public TimeOnly EndTime { get; set; }
     [Required] public int TeacherId { get; set; }
-    public Teacher? Teacher { get; set; }
+    [Required] public Teacher? Teacher { get; set; }
     public IEnumerable<Student>? Students { get; set; } = new List<Student>();
 }

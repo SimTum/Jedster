@@ -1,0 +1,71 @@
+@using Jedster.CoreBusiness
+@using Jedster.UseCases.Groups
+@using Jedster.UseCases.PluginInterfaces
+
+@inject IViewGroupUseCase ViewGroupUseCase
+
+<MudDataGrid @ref="_dataGrid" Items="@_groups" Filterable="true" 
+             FilterMode="@_filterMode" FilterCaseSensitivity="@_caseSensitivity" 
+             RowsPerPage="5">
+    <Columns>
+        <PropertyColumn Property="x => x.Name" Title="Nome da turma" Filterable="true" Sortable="true" SortDirection="SortDirection.Ascending"/>
+        <PropertyColumn Property="x => x.NumberStudents" Title="Quantidade de alunos" Filterable="false"/>
+        <PropertyColumn Property="x => x.WeekDay"  Title="Dia de semana" Filterable="true" />
+        <PropertyColumn Property="x => x.StartTime" Title="Tempo de inicio" Filterable="false" />
+        <PropertyColumn Property="x => x.EndTime" Title="Tempo de fim" Filterable="false" />
+        <PropertyColumn Property="x => x.Teacher.Name" Title="Nome do professor" Filterable="true" />
+        <TemplateColumn Title="Actions" CellClass="d-flex justify-content-center">
+            <CellTemplate>
+                @if (!_isCellEditMode && !_editTriggerRowClick)
+                {
+                    <MudButton Color="Color.Primary" Class="mr-2" @onclick="() => EditRow(context)">
+                        Editar os dados
+                    </MudButton>
+                } 
+                <MudButton Color="Color.Error" Class="mr-2">
+                    Apagar os dados
+                </MudButton>
+            </CellTemplate>
+            <EditTemplate>
+                
+            </EditTemplate>
+        </TemplateColumn>
+    </Columns>
+    <PagerContent>
+        <MudDataGridPager T="Group" PageSizeOptions="new[] { 5 }" />
+    </PagerContent>
+</MudDataGrid>
+
+
+@code {
+    private bool _isCellEditMode = false;
+    private bool _editTriggerRowClick = false;
+    private  List<Group> _groups = [];
+    private DataGridFilterMode _filterMode = DataGridFilterMode.Simple;
+    private DataGridFilterCaseSensitivity _caseSensitivity = DataGridFilterCaseSensitivity.Default;
+    private MudDataGrid<Group> _dataGrid = default!;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _groups = (await ViewGroupUseCase.ExecuteAsync()).ToList();
+    }
+
+    private async Task ResetGridAndFilters()
+    {
+        // reset external options
+        _filterMode = DataGridFilterMode.Simple;
+        _caseSensitivity = DataGridFilterCaseSensitivity.Default;
+        // reset all active filters and sorting
+        await _dataGrid.ClearFiltersAsync();        
+        foreach (var field in _dataGrid.SortDefinitions.Keys.ToList())
+        {
+            await _dataGrid.RemoveSortAsync(field);
+        }
+    }
+
+    private Task EditRow(CellContext<Group> context)
+    {
+        throw new NotImplementedException();
+    }
+
+}

@@ -12,9 +12,11 @@ public class StudentsEfCoreRepository(IDbContextFactory<JedsterContext> _factory
         return await db.Students?.ToListAsync()!;
     }
 
-    public Task<Student> GetStudentByIdAsync(int studentId)
+    public async Task<Student> GetStudentByIdAsync(int studentId)
     {
-        throw new NotImplementedException();
+        await using var db = await _factory.CreateDbContextAsync();
+        return await db.Students.FindAsync(studentId)??  null;
+        
     }
 
     public Task EditStudentAsyc(Student student)
@@ -22,13 +24,18 @@ public class StudentsEfCoreRepository(IDbContextFactory<JedsterContext> _factory
         throw new NotImplementedException();
     }
 
-    public Task RegisterStudentAsync(Student student)
+    public async Task RegisterStudentAsync(Student student)
     {
-        throw new NotImplementedException();
+        await using var db = await _factory.CreateDbContextAsync();
+        if (db.Students != null) db.Students.Add(student);
+        await db.SaveChangesAsync();
+        ;
     }
 
-    public Task DeleteStudenteById(int studentId)
+    public async Task DeleteStudenteById(int studentId)
     {
-        throw new NotImplementedException();
+        await using var db = await _factory.CreateDbContextAsync();
+        db.Students?.Remove(await db.Students.FindAsync(studentId) ?? throw new InvalidOperationException());
+        await db.SaveChangesAsync();
     }
 }

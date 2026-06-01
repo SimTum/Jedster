@@ -12,14 +12,17 @@ public class MaterialEfCoreRepository(IDbContextFactory<JedsterContext> _factory
         return await db.Textbooks?.ToListAsync()!;
     }
 
-    public Task<Material> GetMateiralByIdAsync(int materialId)
+    public async Task<Material> GetMateiralByIdAsync(int materialId)
     {
-        throw new NotImplementedException();
+        await using var db = await _factory.CreateDbContextAsync();
+        return await db.Textbooks.FindAsync(materialId)??  null;
     }
 
-    public Task RegisterMaterialAsync(Material material)
+    public async Task RegisterMaterialAsync(Material material)
     {
-        throw new NotImplementedException();
+        await using var db = await _factory.CreateDbContextAsync();
+        if (db.Textbooks != null) db.Textbooks.Add(material);
+        await db.SaveChangesAsync();
     }
 
     public Task EditMaterialAsync(Material material)
@@ -27,8 +30,10 @@ public class MaterialEfCoreRepository(IDbContextFactory<JedsterContext> _factory
         throw new NotImplementedException();
     }
 
-    public Task DeleteMaterialByIdAsync(int materialId)
+    public async Task DeleteMaterialByIdAsync(int materialId)
     {
-        throw new NotImplementedException();
+        await using var db = await _factory.CreateDbContextAsync();
+        db.Textbooks?.Remove(await db.Textbooks.FindAsync(materialId));
+        await db.SaveChangesAsync();
     }
 }

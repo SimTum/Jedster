@@ -4,22 +4,25 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Jedster.Plugins.EntityFrameworkCorePSQL;
 
-public class GroupsEfCoreRepository(IDbContextFactory<JedsterContext> contextFactorySource) : IGroupRepository
+public class GroupsEfCoreRepository(IDbContextFactory<JedsterContext> _factory) : IGroupRepository
 {
     public async Task<IEnumerable<Group>> GetGroupsByNameAsync(string nome)
     {
-        await using var db = await contextFactorySource.CreateDbContextAsync();
-        return await db.Groups?.ToListAsync()!;
+        await using var db = await _factory.CreateDbContextAsync();
+        return await db.Groups?.Include(g => g.Teacher).ToListAsync()!;
     }
 
-    public Task RegisterGroup(Group group)
+    public async Task RegisterGroup(Group group)
     {
-        throw new NotImplementedException();
+        await using var db = await _factory.CreateDbContextAsync();
+        if (db.Groups != null) db.Groups.Add(group);
+        await db.SaveChangesAsync();
     }
 
-    public Task<Group?> GetGroupByIdAsync(int groupId)
+    public async Task<Group?> GetGroupByIdAsync(int groupId)
     {
-        throw new NotImplementedException();
+        await using var db = await _factory.CreateDbContextAsync();
+        return await db.Groups.FindAsync(groupId)??  null;
     }
 
     public Task EditGroupAsync(Group group)
@@ -27,8 +30,11 @@ public class GroupsEfCoreRepository(IDbContextFactory<JedsterContext> contextFac
         throw new NotImplementedException();
     }
 
-    public Task DeleteGroupByIdAsync(int groupId)
+    public async Task DeleteGroupByIdAsync(int groupId)
     {
-        throw new NotImplementedException();
+        await using var db = await _factory.CreateDbContextAsync();
+        db.Groups?.Remove(await db.Groups.FindAsync(groupId) ?? throw new InvalidOperationException());
+        await db.SaveChangesAsync();
+        ;
     }
 }
