@@ -13,12 +13,29 @@
     <EditForm Model="_teacher" FormName="RegistryForm" OnValidSubmit="Update">
         <DataAnnotationsValidator></DataAnnotationsValidator>
 
-        <InputNumber @bind-Value="_teacher.TeacherId" hidden></InputNumber>
         <div class="form-group">
             <label for="name">Nome</label>
             <InputText id="name" @bind-Value="_teacher.Name" class="form-control">
             </InputText>
             <ValidationMessage For="() => _teacher.Name"></ValidationMessage>
+        </div>
+        <div class="form-group">
+            <label for="BirthDate">Data de nascimento</label>
+            <InputDate id="BirthDate" @bind-Value="_teacher.BirthDate" class="form-control">
+            </InputDate>
+            <ValidationMessage For="() => _teacher.BirthDate"></ValidationMessage>
+        </div>
+        <div class="form-group">
+            <label for="CPF">CPF</label>
+            <InputText id="CPF" @bind-Value="_teacher.CPF" class="form-control">
+            </InputText>
+            <ValidationMessage For="() => _teacher.CPF"></ValidationMessage>
+        </div>
+        <div class="form-group">
+            <label for="RG">RG</label>
+            <InputText id="RG" @bind-Value="_teacher.RG" class="form-control">
+            </InputText>
+            <ValidationMessage For="() => _teacher.RG"></ValidationMessage>
         </div>
 
         <div class="form-group">
@@ -34,7 +51,7 @@
             </InputNumber>
         </div>
         <br/>
-        <button type="submit" class="btn btn-primary">Update</button>
+        <button type="submit" class="btn btn-primary">Salvar</button>
         &nbsp;
         <a href="/teachers" class="btn btn-danger">Cancel</a>
     </EditForm>

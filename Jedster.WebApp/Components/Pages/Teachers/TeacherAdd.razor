@@ -6,14 +6,32 @@
 
 <h3>Preencha os dados do professor</h3>
 
-<EditForm Model="teacher" FormName="RegistryForm" OnValidSubmit="Save" >
-<DataAnnotationsValidator></DataAnnotationsValidator>
+<EditForm Model="teacher" FormName="RegistryForm" OnValidSubmit="Save">
+    <DataAnnotationsValidator></DataAnnotationsValidator>
 
     <div class="form-group">
         <label for="name">Nome</label>
         <InputText id="name" @bind-Value="teacher.Name" class="form-control">
         </InputText>
         <ValidationMessage For="() => teacher.Name"></ValidationMessage>
+    </div>
+    <div class="form-group">
+        <label for="BirthDate">Data de nascimento</label>
+        <InputDate id="BirthDate" @bind-Value="teacher.BirthDate" class="form-control">
+        </InputDate>
+        <ValidationMessage For="() => teacher.BirthDate"></ValidationMessage>
+    </div>
+    <div class="form-group">
+        <label for="CPF">CPF</label>
+        <InputText id="CPF" @bind-Value="teacher.CPF" class="form-control">
+        </InputText>
+        <ValidationMessage For="() => teacher.CPF"></ValidationMessage>
+    </div>
+    <div class="form-group">
+        <label for="RG">RG</label>
+        <InputText id="RG" @bind-Value="teacher.RG" class="form-control">
+        </InputText>
+        <ValidationMessage For="() => teacher.RG"></ValidationMessage>
     </div>
 
     <div class="form-group">
@@ -40,8 +58,7 @@
 
 
 @code {
-    [SupplyParameterFromForm]
-    private Teacher teacher { get; set; } = new Teacher();
+    [SupplyParameterFromForm] private Teacher teacher { get; set; } = new Teacher();
 
     private async Task Save()
     {

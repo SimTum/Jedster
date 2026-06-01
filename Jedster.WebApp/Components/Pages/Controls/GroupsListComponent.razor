@@ -3,36 +3,49 @@
 @using Jedster.UseCases.PluginInterfaces
 
 @inject IViewGroupUseCase ViewGroupUseCase
+@inject IEditGroupUseCase EditGroupUseCase
+@inject IRegisterGroupUseCase RegisterGroupUseCase
+@inject IDeleteGroupUseCase DeleteGroupUseCase
 
-<MudDataGrid @ref="_dataGrid" Items="@_groups" Filterable="true" 
-             FilterMode="@_filterMode" FilterCaseSensitivity="@_caseSensitivity" 
+<MudDataGrid @ref="_dataGrid" Items="@_groups" Filterable="true"
+             FilterMode="@_filterMode" FilterCaseSensitivity="@_caseSensitivity"
              RowsPerPage="5">
+    
+    <ToolBarContent>
+        <MudText Typo="Typo.h6"> Turmas </MudText>
+        <MudSpacer/>
+        <MudButtonGroup Color="Color.Success" Variant="Variant.Filled">
+            <MudButton OnClick="NewGroupAsync">
+                Adicionar turma
+            </MudButton>
+        </MudButtonGroup>
+    </ToolBarContent>
     <Columns>
         <PropertyColumn Property="x => x.Name" Title="Nome da turma" Filterable="true" Sortable="true" SortDirection="SortDirection.Ascending"/>
         <PropertyColumn Property="x => x.NumberStudents" Title="Quantidade de alunos" Filterable="false"/>
-        <PropertyColumn Property="x => x.WeekDay"  Title="Dia de semana" Filterable="true" />
-        <PropertyColumn Property="x => x.StartTime" Title="Tempo de inicio" Filterable="false" />
-        <PropertyColumn Property="x => x.EndTime" Title="Tempo de fim" Filterable="false" />
-        <PropertyColumn Property="x => x.Teacher.Name" Title="Nome do professor" Filterable="true" />
+        <PropertyColumn Property="x => x.WeekDay" Title="Dia de semana" Filterable="true"/>
+        <PropertyColumn Property="x => x.StartTime" Title="Tempo de inicio" Filterable="false"/>
+        <PropertyColumn Property="x => x.EndTime" Title="Tempo de fim" Filterable="false"/>
+        <PropertyColumn Property="x => x.Teacher.Name" Title="Nome do professor" Filterable="true"/>
         <TemplateColumn Title="Actions" CellClass="d-flex justify-content-center">
             <CellTemplate>
                 @if (!_isCellEditMode && !_editTriggerRowClick)
                 {
-                    <MudButton Color="Color.Primary" Class="mr-2" @onclick="() => EditRow(context)">
+                    <MudButton Color="Color.Primary" Variant="Variant.Filled">
                         Editar os dados
                     </MudButton>
-                } 
+                }
                 <MudButton Color="Color.Error" Class="mr-2">
                     Apagar os dados
                 </MudButton>
             </CellTemplate>
             <EditTemplate>
-                
+
             </EditTemplate>
         </TemplateColumn>
     </Columns>
     <PagerContent>
-        <MudDataGridPager T="Group" PageSizeOptions="new[] { 5 }" />
+        <MudDataGridPager T="Group" PageSizeOptions="new[] { 5 }"/>
     </PagerContent>
 </MudDataGrid>
 
@@ -66,6 +79,12 @@
     private Task EditRow(CellContext<Group> context)
     {
         throw new NotImplementedException();
+    }
+
+    private async Task NewGroupAsync()
+    {
+        var _group = new Group();
+        await _dataGrid.SetEditingItemAsync(_group);
     }
 
 }
