@@ -5,8 +5,8 @@ namespace Jedster.UseCases.Groups;
 
 public class EditGroupUseCase(IGroupRepository groupRepository) : IEditGroupUseCase
 {
- public async Task ExecuteAsync(Group group)
- {
-  await groupRepository.EditGroupAsync(group);
- }  
+    public async Task ExecuteAsync(Group group)
+    {
+        await groupRepository.EditGroupAsync(group);
+    }
 }

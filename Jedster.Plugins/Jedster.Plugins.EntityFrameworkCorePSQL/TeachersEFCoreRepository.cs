@@ -27,6 +27,10 @@ public class TeachersEfCoreRepository(IDbContextFactory<JedsterContext> _factory
         {
             _teacher.Name = teacher.Name;
             _teacher.Email = teacher.Email;
+            _teacher.BirthDate = teacher.BirthDate;
+            _teacher.CPF = teacher.CPF;
+            _teacher.RG = teacher.RG;
+
             
             await db.SaveChangesAsync(); 
         }

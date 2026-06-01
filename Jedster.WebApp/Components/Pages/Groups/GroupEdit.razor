@@ -1,0 +1,82 @@
+@page "/edit-turma/{GroupId:int}"
+
+@using Jedster.UseCases.Groups
+@using Jedster.UseCases.Teachers.Interfaces
+
+
+@inject IViewGroupUseCase ViewGroupUseCase;
+@inject IViewTeacherUseCase ViewTeacherUseCase;
+@inject IEditGroupUseCase EditGroupUseCase;
+@inject NavigationManager Navigator;
+
+<MudText>Edita dados da Turma</MudText>
+<MudPaper>
+    <MudCard>
+        @if (_group is not null)
+        {
+            <MudStack AlignItems="AlignItems.Start" Spacing="3">
+                <EditForm Model="_group" FormName="GroupEditForm">
+                    <MudGrid>
+                        <MudItem md="12" sm="7">
+
+                            <MudCard Style="margin: 10px">
+                                <MudCardContent>
+
+                                    <MudTextField Label="Nome da turma" HelperText="e.g. SEG--10:00"
+                                                  @bind-Value="_group.Name" @for="() => _group.Name "/>
+                                    <MudTimePicker Label="Horario de inicio" Editable="true"
+                                                   @bind-Value="_group.StartTime" @for="() => _group.StartTime "/>
+                                    <MudTimePicker Label="Horario de inicio" Editable="true"
+                                                   @bind-Value="_group.EndTime" @for="() => _group.EndTime "/>
+                                    <MudSelect bind-Value="_group.Teacher"
+                                               Label="Professor"
+                                               T="Teacher">
+                                        @if (_teachers is not null)
+                                        {
+                                            @foreach (Teacher teacher in _teachers)
+                                            {
+                                                <MudSelectItem Value="teacher">@teacher.Name</MudSelectItem>
+                                            }
+                                        }
+
+                                    </MudSelect>
+
+                                </MudCardContent>
+                            </MudCard>
+                        </MudItem>
+
+                    </MudGrid>
+
+                </EditForm>
+
+            </MudStack>
+        }
+    </MudCard>
+</MudPaper>
+
+@code {
+    [Parameter] public int GroupId { get; set; }
+    [SupplyParameterFromForm] private Group? _group { get; set; } = new Group();
+    private List<Teacher>? _teachers { get; set; } = [];
+
+    protected override async Task OnInitializedAsync()
+    {
+        _teachers = (await ViewTeacherUseCase.ExecuteAsync()).ToList();
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        _group ??= await ViewGroupUseCase.ExecuteAsync(GroupId);
+        if (_group == null)
+        {
+            Navigator.NotFound();
+        }
+    }
+
+    private async Task Update()
+    {
+        await EditGroupUseCase.ExecuteAsync(_group);
+        Navigator.NavigateTo("/turmas");
+    }
+
+}

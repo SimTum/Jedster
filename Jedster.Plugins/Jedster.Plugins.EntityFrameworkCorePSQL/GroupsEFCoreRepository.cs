@@ -22,12 +22,24 @@ public class GroupsEfCoreRepository(IDbContextFactory<JedsterContext> _factory) 
     public async Task<Group?> GetGroupByIdAsync(int groupId)
     {
         await using var db = await _factory.CreateDbContextAsync();
-        return await db.Groups.FindAsync(groupId)??  null;
+        return await db.Groups.FindAsync(groupId) ?? null;
     }
 
-    public Task EditGroupAsync(Group group)
+    public async Task EditGroupAsync(Group group)
     {
-        throw new NotImplementedException();
+        await using var db = await _factory.CreateDbContextAsync();
+        var _group = await db.Groups.FindAsync(group.GroupId);
+        if (_group != null)
+        {
+            _group.Name = group.Name;
+            _group.StartTime = group.StartTime;
+            _group.EndTime = group.EndTime;
+            _group.Teacher = group.Teacher;
+            _group.WeekDay = group.WeekDay;
+
+            db.SaveChanges();
+
+        }
     }
 
     public async Task DeleteGroupByIdAsync(int groupId)

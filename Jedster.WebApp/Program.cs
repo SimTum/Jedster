@@ -1,3 +1,4 @@
+using System.Net.Security;
 using Jedster.Plugins.EntityFrameworkCorePSQL;
 using Jedster.UseCases.Groups;
 using Jedster.UseCases.Materials;
