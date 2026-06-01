@@ -31,11 +31,13 @@ public class GroupsEfCoreRepository(IDbContextFactory<JedsterContext> _factory) 
         var _group = await db.Groups.FindAsync(group.GroupId);
         if (_group != null)
         {
-            _group.Name = group.Name;
-            _group.StartTime = group.StartTime;
-            _group.EndTime = group.EndTime;
-            _group.Teacher = group.Teacher;
-            _group.WeekDay = group.WeekDay;
+            
+            _group = group;
+            // _group.Name = group.Name;
+            // _group.StartTime = group.StartTime;
+            // _group.EndTime = group.EndTime;
+            // _group.Teacher = group.Teacher;
+            // _group.WeekDay = group.WeekDay;
 
             db.SaveChanges();
 

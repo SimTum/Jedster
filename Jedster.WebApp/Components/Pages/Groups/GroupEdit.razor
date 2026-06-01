@@ -15,7 +15,7 @@
         @if (_group is not null)
         {
             <MudStack AlignItems="AlignItems.Start" Spacing="3">
-                <EditForm Model="_group" FormName="GroupEditForm">
+                <EditForm Model="_group" FormName="GroupEditForm" OnValidSubmit="Update">
                     <MudGrid>
                         <MudItem md="12" sm="7">
 
@@ -42,13 +42,15 @@
                                     </MudSelect>
 
                                 </MudCardContent>
+                        <MudButton Color="Color.Success" Variant="Variant.Filled" ButtonType="ButtonType.Submit">Salvar</MudButton>
                             </MudCard>
                         </MudItem>
+                        
 
                     </MudGrid>
-
+                
                 </EditForm>
-
+                
             </MudStack>
         }
     </MudCard>
@@ -56,7 +58,7 @@
 
 @code {
     [Parameter] public int GroupId { get; set; }
-    [SupplyParameterFromForm] private Group? _group { get; set; } = new Group();
+    [SupplyParameterFromForm] private Group? _group { get; set; }
     private List<Teacher>? _teachers { get; set; } = [];
 
     protected override async Task OnInitializedAsync()
@@ -67,7 +69,9 @@
     protected override async Task OnParametersSetAsync()
     {
         _group ??= await ViewGroupUseCase.ExecuteAsync(GroupId);
-        if (_group == null)
+        Console.WriteLine(_group);
+        Console.WriteLine("_group");
+        if (_group is null)
         {
             Navigator.NotFound();
         }
