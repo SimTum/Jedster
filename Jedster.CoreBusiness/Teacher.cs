@@ -17,9 +17,9 @@ namespace Jedster.CoreBusiness
 
         [Required] public string RG { get; set; } = string.Empty;
 
-        [Required]
-        [DataType(DataType.Date)]
-        [Range(typeof(DateTime), "01/01/1900", "01/01/2008",  ErrorMessage = "Data Invalida")]   
+        // [Required]
+        // [DataType(DataType.Date)]
+        // [Range(typeof(DateTime), "01/01/1900", "01/01/2008",  ErrorMessage = "Data Invalida")]   
         public DateOnly BirthDate { get; set; }
 
         public string CPF { get; set; } = string.Empty;

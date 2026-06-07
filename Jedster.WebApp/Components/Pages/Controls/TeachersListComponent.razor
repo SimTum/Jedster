@@ -48,14 +48,14 @@
     private List<Teacher>? _teachers;
     [Parameter] public string _searchString { get; set; } = "";
 
+    private bool FilterUsers(Teacher teacher) =>
+        string.IsNullOrWhiteSpace(_searchString) ||
+        teacher.Name.ToLower().Contains(_searchString.ToLower());
+
     protected override async Task OnInitializedAsync()
     {
         _teachers = (await ViewTeacherUseCase.ExecuteAsync()).ToList();
     }
-
-    private bool FilterUsers(Teacher teacher) =>
-        string.IsNullOrWhiteSpace(_searchString) ||
-        teacher.Name.ToLower().Contains(_searchString.ToLower());
 
     private async Task DeleteTeacher(int teacherId)
     {

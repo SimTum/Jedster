@@ -1,8 +1,8 @@
 @page "/editProfessor/{TeacherId:int}"
 @using Jedster.UseCases.Teachers.Interfaces
 
-@inject IViewTeacherUseCase ViewTeacherUsecase
-@inject IEditTeacherUseCase EditTeacherUsecase
+@inject IViewTeacherUseCase ViewTeacherUseCase
+@inject IEditTeacherUseCase EditTeacherUseCase
 @inject NavigationManager Navigator
 
 <h3>TeacherEdit</h3>
@@ -69,7 +69,7 @@ else
 
     protected override async Task OnParametersSetAsync()
     {
-        _teacher ??= await ViewTeacherUsecase.ExecuteAsync(TeacherId);
+        _teacher ??= await ViewTeacherUseCase.ExecuteAsync(TeacherId);
         if (_teacher is null)
         {
             Navigator.NotFound();
@@ -78,7 +78,7 @@ else
 
     private async Task Update()
     {
-        await EditTeacherUsecase.ExecuteAsync(_teacher);
+        await EditTeacherUseCase.ExecuteAsync(_teacher);
         Navigator.NavigateTo("/teachers");
     }
 

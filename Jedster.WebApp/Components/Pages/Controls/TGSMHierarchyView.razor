@@ -8,10 +8,10 @@
 <br/>
 <MudPaper Width="1200px" Elevation="0">
     <MudStack AlignItems="AlignItems.Center">
-        <MudTextField T="string" Label="Search" Adornment="Adornment.Start"
-                      AdornmentIcon="@Icons.Material.Filled.Search" TextChanged="OnTextChanged" Immediate="true"
-                      Clearable="true"/>
-        <MudTreeView T="string">
+        @* <MudTextField T="string" Label="Search" Adornment="Adornment.Start" *@
+        @*               AdornmentIcon="@Icons.Material.Filled.Search" TextChanged="OnTextChanged" Immediate="true" *@
+        @*               Clearable="true"/> *@
+        <MudTreeView T="string"  @ref="_treeView" FilterFunc="MatchesName">
             @foreach (var teacher in _teachers)
             {
                 <MudTreeViewItem Value="@teacher.Name" Text="@teacher.Name" Icon="@Icons.Material.Filled.Person">
@@ -49,9 +49,20 @@
     }
 
 
-    private void OnTextChanged()
+    private async void OnTextChanged(string query)
     {
-        throw new NotImplementedException();
+        _searchPhrase = query;
+        await _treeView.FilterAsync();
+    }
+    
+    private Task<bool> MatchesName(ITreeItemData<string> item)
+    {
+        if (string.IsNullOrEmpty(item.Text))
+        {
+            return Task.FromResult(false);
+        }
+
+        return Task.FromResult(item.Text.Contains(_searchPhrase, StringComparison.OrdinalIgnoreCase));
     }
 
 }

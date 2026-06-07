@@ -1,6 +1,94 @@
 @page "/turmas/add"
+
+@using Jedster.UseCases.Groups
+@using Jedster.UseCases.Teachers.Interfaces
+
+
+@inject IViewGroupUseCase ViewGroupUseCase;
+@inject IViewTeacherUseCase ViewTeacherUseCase;
+@inject IRegisterGroupUseCase RegisterGroupUseCase;
+@inject NavigationManager Navigator;
+
 <h3>Group Add</h3>
+<br />
+<div>
+
+        <EditForm Model="_group" FormName="RegistrGroupForm" OnValidSubmit="Register">
+            <DataAnnotationsValidator></DataAnnotationsValidator>
+
+            <div class="input-group mb-3">
+                <span class=input-group-text>Nome da turma</span>
+                <InputText id="name" @bind-Value="_group.Name" class="form-control"></InputText>
+                <ValidationMessage For="() => _group.Name"></ValidationMessage>
+            </div>
+            <div class="input-group mb-3">
+                <label class="input-group-text" for="day-select">Dia da semana</label>
+                <InputSelect @bind-Value="_group.WeekDay" class="form-select" id="day-select">
+                    <option value=""></option>
+                    <option value="SEG">SEG</option>
+                    <option value="TER">TER</option>
+                    <option value="QUA">QUA</option>
+                    <option value="QUI">QUI</option>
+                    <option value="SEX">SEX</option>
+                    <option value="SAB">SAB</option>
+                </InputSelect>
+                <ValidationMessage For="() => _group.WeekDay"></ValidationMessage>
+            </div>
+
+        
+            <div class="input-group mb-3">
+                <span class="input-group-text">Horario de inicio</span>
+                <InputDate Type="InputDateType.Time" id="horario-b" @bind-Value="_group.StartTime" class="form-control">
+                </InputDate>
+                <span class="input-group-text">Horario de fim</span>
+                <InputDate Type="InputDateType.Time" id="horario-e" @bind-Value="_group.EndTime" class="form-control">
+                </InputDate>
+                <ValidationMessage For="() => _group.EndTime"></ValidationMessage>
+            </div>
+            <div class="input-group mb-3">
+                <label class="input-group-text" for="teacher-select">Professor</label>
+                <InputSelect @bind-Value="_group.TeacherId" class="form-select" id="teacher-select">
+                    @if (_teachers != null)
+                    {
+                        @foreach (var teacher in _teachers)
+                        {
+                            <option value="@teacher.TeacherId"> @teacher.Name</option>
+                        }
+                    }
+                    else {
+                        <option value="">Nenhum professor cadastrado no sistema</option>
+                    }
+                </InputSelect>
+                <ValidationMessage For="() => _group.TeacherId  "></ValidationMessage>
+            </div>
+
+            <br />
+            <button type="submit" class="btn btn-primary">Salvar</button>
+
+            <a href="/groups" class="btn btn-outline-danger">Cancel</a>
+            <br />
+            <br />
+        </EditForm>
+
+</div>
+
 
 @code {
-    
+    [SupplyParameterFromForm] private Group _group { get; set; } = new Group();
+    private List<Teacher>? _teachers { get; set; } = [];
+
+    protected override async Task OnInitializedAsync()
+    {
+        _teachers = (await ViewTeacherUseCase.ExecuteAsync()).ToList();
+    }
+
+
+
+    private async Task Register()
+    {
+
+        await RegisterGroupUseCase.ExecuteAsync(_group);
+        Navigator.NavigateTo("/turmas");
+    }
+
 }

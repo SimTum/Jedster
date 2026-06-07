@@ -32,12 +32,12 @@ public class GroupsEfCoreRepository(IDbContextFactory<JedsterContext> _factory) 
         if (_group != null)
         {
             
-            _group = group;
-            // _group.Name = group.Name;
-            // _group.StartTime = group.StartTime;
-            // _group.EndTime = group.EndTime;
-            // _group.Teacher = group.Teacher;
-            // _group.WeekDay = group.WeekDay;
+            // _group = group;
+            _group.Name = group.Name;
+            _group.StartTime = group.StartTime;
+            _group.EndTime = group.EndTime;
+            _group.Teacher = group.Teacher;
+            _group.WeekDay = group.WeekDay;
 
             db.SaveChanges();
 
