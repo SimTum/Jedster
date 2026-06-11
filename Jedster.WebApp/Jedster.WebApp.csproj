@@ -29,6 +29,7 @@
 
   <ItemGroup>
     <Folder Include="Components\Pages\Students\" />
+    <Folder Include="Components\Utility-scripts\" />
   </ItemGroup>
 
 </Project>

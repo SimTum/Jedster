@@ -9,40 +9,40 @@
 <EditForm Model="teacher" FormName="RegistryForm" OnValidSubmit="Save">
     <DataAnnotationsValidator></DataAnnotationsValidator>
 
-    <div class="form-group">
-        <label for="name">Nome</label>
+    <div class="input-group mb-3">
+        <label class="input-group-text" for="name">Nome</label>
         <InputText id="name" @bind-Value="teacher.Name" class="form-control">
         </InputText>
         <ValidationMessage For="() => teacher.Name"></ValidationMessage>
     </div>
-    <div class="form-group">
-        <label for="BirthDate">Data de nascimento</label>
+    <div class="input-group mb-3">
+        <label class="input-group-text" for="BirthDate">Data de nascimento</label>
         <InputDate id="BirthDate" @bind-Value="teacher.BirthDate" class="form-control">
         </InputDate>
         <ValidationMessage For="() => teacher.BirthDate"></ValidationMessage>
     </div>
-    <div class="form-group">
-        <label for="CPF">CPF</label>
+    <div class="input-group mb-3">
+        <label class="input-group-text" for="CPF">CPF</label>
         <InputText id="CPF" @bind-Value="teacher.CPF" class="form-control">
         </InputText>
         <ValidationMessage For="() => teacher.CPF"></ValidationMessage>
     </div>
-    <div class="form-group">
-        <label for="RG">RG</label>
+    <div class="input-group mb-3">
+        <label class="input-group-text" for="RG">RG</label>
         <InputText id="RG" @bind-Value="teacher.RG" class="form-control">
         </InputText>
         <ValidationMessage For="() => teacher.RG"></ValidationMessage>
     </div>
 
-    <div class="form-group">
-        <label for="email">Email</label>
+    <div class="input-group mb-3">
+        <label class="input-group-text" for="email">Email</label>
         <InputText id="email" @bind-Value="teacher.Email" class="form-control">
         </InputText>
         <ValidationMessage For="() => teacher.Email"></ValidationMessage>
     </div>
 
-    <div class="form-group">
-        <label for="hours">Horas por semana</label>
+    <div class="input-group mb-3">
+        <label class="input-group-text" for="hours">Horas por semana</label>
         <InputNumber id="hours" @bind-Value="teacher.Hours" class="form-control">
         </InputNumber>
     </div>

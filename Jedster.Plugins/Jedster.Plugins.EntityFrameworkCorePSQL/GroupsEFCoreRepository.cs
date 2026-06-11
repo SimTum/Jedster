@@ -15,7 +15,11 @@ public class GroupsEfCoreRepository(IDbContextFactory<JedsterContext> _factory) 
     public async Task RegisterGroup(Group group)
     {
         await using var db = await _factory.CreateDbContextAsync();
-        if (db.Groups != null) db.Groups.Add(group);
+        if (db.Groups != null)
+        {
+            db.Groups.Add(group);
+            // group.UpdateTeacherHours();
+        }
         await db.SaveChangesAsync();
     }
 
