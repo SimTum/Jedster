@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using Jedster.CoreBuisness;
 
 namespace Jedster.CoreBusiness;
 
@@ -30,5 +31,5 @@ public class Group
         Teacher.Hours += (EndTime - StartTime).TotalHours;
         // Teacher.HoursWeighed += (EndTime - StartTime).TotalHours * PayRate / 25.00;
     }
-    
+ 
 }

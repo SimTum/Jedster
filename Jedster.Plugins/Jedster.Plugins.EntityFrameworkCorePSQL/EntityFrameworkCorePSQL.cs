@@ -1,4 +1,5 @@
-﻿using Jedster.CoreBusiness;
+﻿using Jedster.CoreBuisness;
+using Jedster.CoreBusiness;
 using Microsoft.EntityFrameworkCore;
 
 namespace Jedster.Plugins.EntityFrameworkCorePSQL;

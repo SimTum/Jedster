@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Runtime.CompilerServices;
+using Jedster.CoreBusiness;
 
-namespace Jedster.CoreBusiness
+namespace Jedster.CoreBuisness
 {
     public class Teacher
     {

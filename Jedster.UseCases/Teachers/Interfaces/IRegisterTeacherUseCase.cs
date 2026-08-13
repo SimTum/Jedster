@@ -1,4 +1,5 @@
 using System;
+using Jedster.CoreBuisness;
 using Jedster.CoreBusiness;
 
 namespace Jedster.UseCases.Professores.Interfaces;

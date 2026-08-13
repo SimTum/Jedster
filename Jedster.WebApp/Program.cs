@@ -34,22 +34,17 @@ builder.Services.AddTransient<IViewTeacherUseCase, ViewTeacherUseCase>();
 builder.Services.AddTransient<IRegisterTeacherUsecase, RegisterTeacherUsecase>();
 builder.Services.AddTransient<IEditTeacherUseCase, EditTeacherUseCase>();
 builder.Services.AddTransient<IDeleteTeacherUseCase, DeleteTeacherUseCase>();
-builder.Services.AddMudServices();
-
 
 builder.Services.AddTransient<IViewGroupUseCase, ViewGroupUseCase>();
 builder.Services.AddTransient<IRegisterGroupUseCase, RegisterGroupUseCase>();
 builder.Services.AddTransient<IEditGroupUseCase, EditGroupUseCase>();
 builder.Services.AddTransient<IDeleteGroupUseCase, DeleteGroupUseCase>();
-builder.Services.AddMudServices();
 
 
 builder.Services.AddTransient<IViewStudentsUseCase, ViewStudentsUseCase>();
 builder.Services.AddTransient<IRegisterStudentsUseCase, RegisterStudentsUseCase>();
 builder.Services.AddTransient<IEditStudentsUseCase, EditStudentsUseCase>();
 builder.Services.AddTransient<IDeleteStudentsUseCase, DeleteStudentsUseCase>();
-builder.Services.AddMudServices();
-
 
 builder.Services.AddTransient<IViewMaterialUseCase, ViewMaterialUseCase>();
 builder.Services.AddTransient<IRegisterMaterialUseCase, RegisterMaterialUseCase>();

@@ -1,4 +1,4 @@
-using Jedster.CoreBusiness;
+using Jedster.CoreBuisness;
 
 namespace Jedster.UseCases.Teachers.Interfaces;
 

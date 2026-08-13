@@ -1,8 +1,5 @@
-using Jedster.CoreBusiness;
 using Jedster.UseCases.PluginInterfaces;
-using System;
-using System.Reflection.Metadata;
-using Jedster.UseCases.Professores;
+using Jedster.CoreBuisness;
 using Jedster.UseCases.Teachers.Interfaces;
 
 namespace Jedster.UseCases.Teachers;

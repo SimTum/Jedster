@@ -1,3 +1,4 @@
+using Jedster.CoreBuisness;
 using Jedster.CoreBusiness;
 
 namespace Jedster.UseCases.Teachers.Interfaces;
