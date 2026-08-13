@@ -1,5 +1,6 @@
 using System.Net.Security;
 using Jedster.Plugins.EntityFrameworkCorePSQL;
+using Jedster.Plugins.InMemory;
 using Jedster.UseCases.Groups;
 using Jedster.UseCases.Materials;
 using Jedster.UseCases.PluginInterfaces;
@@ -25,10 +26,14 @@ builder.Services.AddDbContextFactory<JedsterContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("JedsterDB"));
 });
 
-builder.Services.AddTransient<ITeacherRepository, TeachersEfCoreRepository>();
-builder.Services.AddTransient<IGroupRepository, GroupsEfCoreRepository>();
-builder.Services.AddTransient<IStudentRepository, StudentsEfCoreRepository>();
-builder.Services.AddTransient<IMaterialRepository, MaterialEfCoreRepository>();
+// builder.Services.AddTransient<ITeacherRepository, TeachersEfCoreRepository>();
+// builder.Services.AddTransient<IGroupRepository, GroupsEfCoreRepository>();
+// builder.Services.AddTransient<IStudentRepository, StudentsEfCoreRepository>();
+// builder.Services.AddTransient<IMaterialRepository, MaterialEfCoreRepositor
+builder.Services.AddSingleton<ITeacherRepository, TeacherRepository>();
+builder.Services.AddSingleton<IGroupRepository, GroupRepository>();
+builder.Services.AddSingleton<IStudentRepository, StudentRepository>();
+builder.Services.AddSingleton<IMaterialRepository, MaterialRepoistory>();
 
 builder.Services.AddTransient<IViewTeacherUseCase, ViewTeacherUseCase>();
 builder.Services.AddTransient<IRegisterTeacherUsecase, RegisterTeacherUsecase>();

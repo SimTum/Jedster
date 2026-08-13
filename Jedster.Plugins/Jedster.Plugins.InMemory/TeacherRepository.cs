@@ -15,16 +15,29 @@ public class TeacherRepository : ITeacherRepository
         {
             new Teacher
             {
-                TeacherId = 1, Name = "Simon Tumanov", Email = "Simon@mail.com", Hours = 0
+                TeacherId = 1, Name = "Simon Tumanov", Email = "Simon@mail.com", RG = "Simon's_Doc", 
+                BirthDate = (new DateOnly(2000,08,11)), CPF = "718.542.131-48", 
+                Hours = 20, HoursWeighed = 26
             },
             new Teacher
             {
-                TeacherId = 2, Name = "Laura Albuquerque", Email = "Laura@mail.com", Hours = 0
+                TeacherId = 2, Name = "Laura Albuquerque", Email = "Laura@mail.com", RG = "Laura's_Doc", 
+                BirthDate = (new DateOnly(1999,03,01)), CPF = "111.111.111-11", 
+                Hours = 30, HoursWeighed = 30
             },
             new Teacher
             {
-                TeacherId = 3, Name = "Cody Capatch", Email = "Cody@mail.com", Hours = 0
+                TeacherId = 3, Name = "Cody Capatch", Email = "Cody@mail.com", RG = "Simon's_Doc", 
+                BirthDate = (new DateOnly(1825,05,29)), CPF = "222.222.222-22", 
+                Hours = 12, HoursWeighed = 15
+            },
+            new Teacher
+            {
+                TeacherId = 3, Name = "Jhonny", Email = "Jhonny@mail.com", RG = "Jhonny's_Doc", 
+                BirthDate = (new DateOnly(2003,04,12)), CPF = "333.333.333-33", 
+                Hours = 18, HoursWeighed = 21
             }
+            
         };
     }
 
@@ -35,8 +48,7 @@ public class TeacherRepository : ITeacherRepository
         return _teachers.Where(x => x.Name.Contains(name, StringComparison.OrdinalIgnoreCase));
     }
 
-    public async Task<Teacher?>
-        GetTeacherByIdAsync(int id)
+    public async Task<Teacher?> GetTeacherByIdAsync(int id)
     {
         if (_teachers.Any(x => x.TeacherId == id))
         {

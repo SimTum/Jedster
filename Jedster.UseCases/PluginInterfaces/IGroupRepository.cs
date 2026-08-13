@@ -5,7 +5,7 @@ namespace Jedster.UseCases.PluginInterfaces;
 
 public interface IGroupRepository
 {
-    Task<IEnumerable<Group>> GetGroupsByNameAsync(string nome);
+    Task<IEnumerable<Group>> GetGroupsByNameAsync(string name);
 
     Task RegisterGroup(Group group);
     Task<Group?> GetGroupByIdAsync(int groupId);
