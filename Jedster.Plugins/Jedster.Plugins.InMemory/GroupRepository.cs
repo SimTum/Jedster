@@ -21,7 +21,8 @@ public class GroupRepository : IGroupRepository
             },
             new Group
             {
-                GroupId = 2, NumberStudents = 4, Name = "Kids2", WeekDay = "SEG", StartTime = new TimeOnly(19, 30),
+                GroupId = 2, NumberStudents = 2
+, Name = "Kids2", WeekDay = "SEG", StartTime = new TimeOnly(19, 30),
                 EndTime = new TimeOnly(21, 30), TeacherId = 1
             },
             new Group
@@ -83,8 +84,8 @@ public class GroupRepository : IGroupRepository
             return Task.CompletedTask;
         }
 
-        var maxId = _groups.Max(x => x.TeacherId);
-        group.TeacherId = maxId + 1;
+        var maxId = _groups.Max(x => x.GroupId);
+        group.GroupId = maxId + 1;
 
         _groups.Add(group);
         return Task.CompletedTask;

@@ -12,7 +12,7 @@ public class StudentsEfCoreRepository(IDbContextFactory<JedsterContext> _factory
         return await db.Students?.ToListAsync()!;
     }
 
-    public async Task<Student> GetStudentByIdAsync(int studentId)
+    public async Task<Student?> GetStudentByIdAsync(int studentId)
     {
         await using var db = await _factory.CreateDbContextAsync();
         return await db.Students.FindAsync(studentId)??  null;
