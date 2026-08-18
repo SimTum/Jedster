@@ -33,7 +33,7 @@ builder.Services.AddDbContextFactory<JedsterContext>(options =>
 builder.Services.AddSingleton<ITeacherRepository, TeacherRepository>();
 builder.Services.AddSingleton<IGroupRepository, GroupRepository>();
 builder.Services.AddSingleton<IStudentRepository, StudentRepository>();
-builder.Services.AddSingleton<IMaterialRepository, MaterialRepoistory>();
+builder.Services.AddSingleton<IMaterialRepository, MaterialRepository>();
 
 builder.Services.AddTransient<IViewTeacherUseCase, ViewTeacherUseCase>();
 builder.Services.AddTransient<IRegisterTeacherUsecase, RegisterTeacherUsecase>();

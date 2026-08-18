@@ -34,6 +34,21 @@ public class GroupRepository : IGroupRepository
                 GroupId = 4, NumberStudents = 3, Name = "Adults1", WeekDay = "SEG", StartTime = new TimeOnly(17, 30),
                 EndTime = new TimeOnly(19, 30), TeacherId = 1
             },
+            new Group
+            {
+                GroupId = 5, NumberStudents = 3, Name = "Kids3", WeekDay = "SEG", StartTime = new TimeOnly(17, 30),
+                EndTime = new TimeOnly(19, 30), TeacherId = 1
+            },
+            new Group
+            {
+                GroupId = 6, NumberStudents = 3, Name = "Adults2", WeekDay = "SEG", StartTime = new TimeOnly(17, 30),
+                EndTime = new TimeOnly(19, 30), TeacherId = 4
+            },
+            new Group
+            {
+                GroupId = 7, NumberStudents = 2, Name = "Teens2", WeekDay = "SEG", StartTime = new TimeOnly(17, 30),
+                EndTime = new TimeOnly(19, 30), TeacherId = 3
+            }
         };
     }
 
@@ -51,7 +66,7 @@ public class GroupRepository : IGroupRepository
 
     public async Task<Group?> GetGroupByIdAsync(int groupId)
     {
-        if (_groups.Any(x => x.TeacherId == groupId))
+        if (_groups.Any(x => x.GroupId == groupId))
         {
             return await Task.FromResult(_groups.FirstOrDefault(x => x.GroupId == groupId));
         }
@@ -63,27 +78,47 @@ public class GroupRepository : IGroupRepository
 
     public Task RegisterGroup(Group group)
     {
-        throw new NotImplementedException();
+        if (_groups.Any(x => x.Name.Equals(group.Name, StringComparison.OrdinalIgnoreCase)))
+        {
+            return Task.CompletedTask;
+        }
+
+        var maxId = _groups.Max(x => x.TeacherId);
+        group.TeacherId = maxId + 1;
+
+        _groups.Add(group);
+        return Task.CompletedTask;
     }
 
 
     public Task EditGroupAsync(Group group)
     {
-        throw new NotImplementedException();
+        if (_groups.Any(x =>
+                x.Name.Equals(group.Name, StringComparison.OrdinalIgnoreCase) && x.GroupId != group.GroupId))
+            return Task.CompletedTask;
+
+        var groupToUpdate = _groups.FirstOrDefault(x => x.GroupId == group.GroupId);
+        if (groupToUpdate is not null)
+        {
+            groupToUpdate.Name = group.Name;
+            groupToUpdate.StartTime = group.StartTime;
+            groupToUpdate.EndTime = group.EndTime;
+            groupToUpdate.TeacherId = group.TeacherId;
+            groupToUpdate.Teacher = group.Teacher;
+            groupToUpdate.WeekDay = group.WeekDay;
+        }
+
+        return Task.CompletedTask;
     }
 
     public Task DeleteGroupByIdAsync(int groupId)
     {
-        throw new NotImplementedException();
-    }
+        var groupToDelete = _groups.FirstOrDefault(x => x.GroupId == groupId);
+        if (groupToDelete is not null)
+        {
+            _groups.Remove(groupToDelete);
+        }
 
-    public Task RegisterGroup(System.Text.RegularExpressions.Group group)
-    {
-        throw new NotImplementedException();
-    }
-
-    Task<IEnumerable<Group>> IGroupRepository.GetGroupsByNameAsync(string nome)
-    {
-        throw new NotImplementedException();
+        return Task.CompletedTask;
     }
 }

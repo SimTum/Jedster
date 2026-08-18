@@ -34,7 +34,8 @@ public class TeacherRepository : ITeacherRepository
             new Teacher
             {
                 TeacherId = 3, Name = "Jhonny", Email = "Jhonny@mail.com", RG = "Jhonny's_Doc", 
-                BirthDate = (new DateOnly(2003,04,12)), CPF = "333.333.333-33", 
+                BirthDate = (new DateOnly(
+                    2003,04,12)), CPF = "333.333.333-33", 
                 Hours = 18, HoursWeighed = 21
             }
             
