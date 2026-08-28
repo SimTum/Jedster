@@ -11,23 +11,28 @@ public class  Attendance
     public Student? Student { get; set; }
 
     public int LessonId { get; set; }
+    public AttendanceStatus? Status { get; set; }
+    public EngagmentStatus? EngagementStatus { get; set; }
     public Lesson? Lesson { get; set; }
 
     public DateTime Date { get; set; }
 
-    public string StudentName { get; set; } = string.Empty;
-
-    public bool IsPresent { get; set; } = false;
-
-    public bool IsAbsent { get; set; } = false;
-
-    public bool HasCancelled { get; set; } = false;
-
-    public int Engagement { get; set; } = 5;
-
-    public string Observations { get; set; } = string.Empty;
-
-    public string Stage { get; set; } = string.Empty;
-    public Textbook? TextBook { get; set; }
-}    
+    public Student StudentInfo { get; set; }
     
+}
+
+public enum AttendanceStatus
+{
+    Pending = 0,
+    Present = 1,
+    Abscent = 2,
+    Canceled = 3
+}
+
+public enum EngagmentStatus
+{
+    NotEngaged = 0,
+    SlightlyEngaged = 1,
+    Engaged = 2,
+    VeryEngaged = 3,
+}

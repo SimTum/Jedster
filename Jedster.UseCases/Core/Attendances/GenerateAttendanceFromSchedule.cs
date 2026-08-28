@@ -3,7 +3,7 @@ using Jedster.UseCases.PluginInterfaces;
 
 namespace Jedster.UseCases.Attendances;
 
-public class GenerateAttendanceFromSchedule(IAttendanceRepository attendanceRepository)
+public class GenerateAttendanceFromSchedule(IAttendanceRepository attendanceRepository) : IGenerateAttendanceFromSchedule
 {
     public async Task<IEnumerable<Attendance>> ExecuteAsync(DateTime startTime, DateTime endTime)
     {

@@ -19,6 +19,8 @@ public class Lesson
         {
             Students = new List<Student>();
         }           
+        Duration = new TimeSpan(StartTime.Hour, StartTime.Minute, StartTime.Second) 
+                   - new TimeSpan(EndTime.Hour, EndTime.Minute, EndTime.Second);
     }
 
     public required int GroupId { get; set; }
@@ -27,6 +29,16 @@ public class Lesson
     public Teacher? Teacher { get; set; }
     public DateTime StartTime { get; set; }
     public DateTime EndTime { get; set; }
-    private bool IsPaidFor { get; set; } = false;
+    public TimeSpan Duration { get; set; }
+    public LessonStatus Status { get; set; }
+    public bool IsPaid { get; set; }
     public IEnumerable<Student>? Students { get; set; }
+}
+
+public enum LessonStatus
+{
+    Scheduled = 0,
+    InProgress = 1,
+    Completed = 2,
+    Canceled = 3,
 }
