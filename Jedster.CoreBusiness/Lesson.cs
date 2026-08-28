@@ -23,6 +23,7 @@ public class Lesson
                    - new TimeSpan(EndTime.Hour, EndTime.Minute, EndTime.Second);
     }
 
+    public int LessonId { get; set; }
     public required int GroupId { get; set; }
     public Group? Group { get; set; }
     public int TeacherId { get; set; }

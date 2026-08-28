@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Jedster.CoreBusiness")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f3b864d99260d422a291cb49bf0eb4b6711f636a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+973c803dce23d4d540a71574f6b7276b93c24f9a")]
 [assembly: System.Reflection.AssemblyProductAttribute("Jedster.CoreBusiness")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Jedster.CoreBusiness")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

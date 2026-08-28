@@ -22,13 +22,13 @@ build_property.TargetFrameworkIdentifier = .NETCoreApp
 build_property.TargetFrameworkVersion = v10.0
 build_property.RootNamespace = Jedster.WebApp
 build_property.RootNamespace = Jedster.WebApp
-build_property.ProjectDir = /Users/simon.tumanov-ext/fatec/jedster/jedster.webapp/
+build_property.ProjectDir = /Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp/
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 9.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = /Users/simon.tumanov-ext/fatec/jedster/jedster.webapp
+build_property.MSBuildProjectDirectory = /Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp
 build_property._RazorSourceGeneratorDebug = 
 build_property.EffectiveAnalysisLevelStyle = 10.0
 build_property.EnableCodeStyleSeverity = 
@@ -37,8 +37,16 @@ build_property.EnableCodeStyleSeverity =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9BcHAucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
+[/Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp/Components/Pages/Controls/AttendanceComponent.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9Db250cm9scy9BdHRlbmRhbmNlQ29tcG9uZW50LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp/Components/Pages/Controls/GroupsListComponent.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9Db250cm9scy9Hcm91cHNMaXN0Q29tcG9uZW50LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp/Components/Pages/Controls/LessonListComponent.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9Db250cm9scy9MZXNzb25MaXN0Q29tcG9uZW50LnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp/Components/Pages/Controls/Popup.razor]
