@@ -5,22 +5,22 @@ namespace Jedster.Plugins.InMemory;
 
 public class MaterialRepository : IMaterialRepository
 {
-    public Task<IEnumerable<Material>> GetMaterialsByNameAsync(string materialName)
+    public Task<IEnumerable<Textbook>> GetMaterialsByNameAsync(string materialName)
     {
         throw new NotImplementedException();
     }
 
-    public Task<Material> GetMateiralByIdAsync(int materialId)
+    public Task<Textbook> GetMateiralByIdAsync(int materialId)
     {
         throw new NotImplementedException();
     }
 
-    public Task RegisterMaterialAsync(Material material)
+    public Task RegisterMaterialAsync(Textbook material)
     {
         throw new NotImplementedException();
     }
 
-    public Task EditMaterialAsync(Material material)
+    public Task EditMaterialAsync(Textbook material)
     {
         throw new NotImplementedException();
     }

@@ -4,5 +4,5 @@ namespace Jedster.UseCases.Materials;
 
 public interface IEditMaterialUseCase
 {
-    Task ExecuteAsync(Material material);
+    Task ExecuteAsync(Textbook material);
 }

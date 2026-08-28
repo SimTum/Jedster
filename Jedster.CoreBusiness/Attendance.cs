@@ -28,6 +28,6 @@ public class  Attendance
     public string Observations { get; set; } = string.Empty;
 
     public string Stage { get; set; } = string.Empty;
-    public Material? TextBook { get; set; }
+    public Textbook? TextBook { get; set; }
 }    
     

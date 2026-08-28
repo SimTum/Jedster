@@ -10,4 +10,8 @@
     <ProjectReference Include="..\Jedster.CoreBusiness\Jedster.CoreBusiness.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Core\" />
+  </ItemGroup>
+
 </Project>

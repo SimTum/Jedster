@@ -28,5 +28,6 @@ public class Student
     
     [Required]
     public required int TextbookId { get; set; }
-    public IEnumerable<Material>? Materials { get ; set; } = new  List<Material>();
+    public IEnumerable<Textbook>? Textbooks { get ; set; } = new  List<Textbook>();
+
 }

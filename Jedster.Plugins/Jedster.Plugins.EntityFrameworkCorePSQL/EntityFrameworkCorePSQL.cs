@@ -13,7 +13,7 @@ public class JedsterContext : DbContext
     public DbSet<Teacher>? Teachers { get; set; }
     public DbSet<Group>? Groups { get; set; }
     public DbSet<Student>? Students { get; set; }
-    public DbSet<Material>? Textbooks { get; set; }
+    public DbSet<Textbook>? Textbooks { get; set; }
 
     //Connections
     // public DbSet<TeacherGroups>? TeacherGroups { get; set; }
@@ -62,11 +62,11 @@ public class JedsterContext : DbContext
             .WithOne(student => student.Student)
             .HasForeignKey(student => student.TextbookId);
         
-        modelBuilder.Entity<Material>()
+        modelBuilder.Entity<Textbook>()
             .HasOne(textbook => textbook.Student)
-            .WithMany(student => student.Materials)
+            .WithMany(student => student.Textbooks)
             .HasForeignKey(textbook => textbook.StudentId);
-        modelBuilder.Entity<Material>()
+        modelBuilder.Entity<Textbook>()
             .HasKey(textbook => new { textbook.TextbookId });
     }
     

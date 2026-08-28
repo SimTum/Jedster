@@ -8,4 +8,5 @@ public interface IAttendanceRepository
     Task<IEnumerable<Attendance>> GetAttendances();
     Task GenerateAtendance(Attendance attendance);
     Task<Attendance> UpdateAttendance(Attendance attendance);
+    Task<IEnumerable<Attendance>> GenerateAtendanceFromSchedule(DateTime startTime, DateTime endTime);
 }

@@ -5,7 +5,7 @@ namespace Jedster.UseCases.Materials;
 
 public class RegisterMaterialUseCase(IMaterialRepository materialRepository) : IRegisterMaterialUseCase
 {
-    public async Task ExecuteAsync(Material material)
+    public async Task ExecuteAsync(Textbook material)
     {
         await materialRepository.RegisterMaterialAsync(material);
     }

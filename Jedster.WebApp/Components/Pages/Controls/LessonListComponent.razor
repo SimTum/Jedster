@@ -1,0 +1,63 @@
+@using Jedster.CoreBuisness
+@using Microsoft.EntityFrameworkCore.Metadata.Internal
+
+
+
+<MudTable T="Lesson" Items="@_lessons" Hover="true" Striped="true" Filter="FilterUsers">
+    <ToolBarContent>
+        <MudText Typo="Typo.h6">Search table</MudText>
+        <MudSpacer/>
+        <MudTextField @bind-Value="_searchString"
+                      Placeholder="Search"
+                      Adornment="Adornment.Start"
+                      AdornmentIcon="@Icons.Material.Filled.Search"
+                      IconSize="Size.Medium"/>
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh>id</MudTh>
+        <MudTh>Nome</MudTh>
+        <MudTh>Data de Nascimento</MudTh>
+        <MudTh>CPF</MudTh>
+        <MudTh>RG</MudTh>
+        <MudTh>Email</MudTh>
+        <MudTh>Horas de trabalho</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+
+        <MudTd DataLabel="id"> @context.TeacherId</MudTd>
+        <MudTd DataLabel="Name"> @context.Name</MudTd>
+        <MudTd DataLabel="Birth Date"> @context.BirthDate</MudTd>
+        <MudTd DataLabel="CPF"> @context.CPF</MudTd>
+        <MudTd DataLabel="RG"> @context.RG </MudTd>
+        <MudTd DataLabel="Email"> @context.Email</MudTd>
+        <MudTd DataLabel="Hours"> @context.Hours</MudTd>
+        <MudTd DataLabel="Buttons">
+            <a class="btn btn-secondary" href="/editProfessor/@context.TeacherId">Edit</a>
+            <button class="btn btn-danger" @onclick="() => DeleteTeacher(context.TeacherId)">Delete</button>
+        </MudTd>
+    </RowTemplate>
+    <PagerContent>
+        <MudTablePager/>
+    </PagerContent>
+</MudTable>
+
+@code {
+    private List<Teacher>? _lessons;
+    [Parameter] public string _searchString { get; set; } = "";
+
+    private bool FilterUsers(Teacher teacher) =>
+        string.IsNullOrWhiteSpace(_searchString) ||
+        teacher.Name.ToLower().Contains(_searchString.ToLower());
+
+    protected override async Task OnInitializedAsync()
+    {
+        _teachers = (await ViewTeacherUseCase.ExecuteAsync()).ToList();
+    }
+
+    private async Task DeleteTeacher(int teacherId)
+    {
+        await DeleteTeacherUseCase.ExecuteAsync(teacherId);
+        Navigation.Refresh(forceReload:true);
+    }
+
+}

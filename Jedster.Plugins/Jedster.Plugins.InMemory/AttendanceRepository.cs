@@ -19,4 +19,9 @@ public class AttendanceRepository : IAttendanceRepository
     {
         throw new NotImplementedException();
     }
+
+    public Task<IEnumerable<Attendance>> GenerateAtendanceFromSchedule(DateTime startTime, DateTime endTime)
+    {
+        throw new NotImplementedException();
+    }
 }

@@ -4,9 +4,9 @@ namespace Jedster.UseCases.PluginInterfaces;
 
 public interface IMaterialRepository
 {
-    Task<IEnumerable<Material>> GetMaterialsByNameAsync(string materialName);
-    Task<Material> GetMateiralByIdAsync(int materialId);
-    Task RegisterMaterialAsync(Material material);
-    Task EditMaterialAsync(Material material);
+    Task<IEnumerable<Textbook>> GetMaterialsByNameAsync(string materialName);
+    Task<Textbook> GetMateiralByIdAsync(int materialId);
+    Task RegisterMaterialAsync(Textbook material);
+    Task EditMaterialAsync(Textbook material);
     Task DeleteMaterialByIdAsync(int materialId);
 }

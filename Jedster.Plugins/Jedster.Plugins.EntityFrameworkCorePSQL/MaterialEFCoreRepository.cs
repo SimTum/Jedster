@@ -6,26 +6,26 @@ namespace Jedster.Plugins.EntityFrameworkCorePSQL;
 
 public class MaterialEfCoreRepository(IDbContextFactory<JedsterContext> _factory) : IMaterialRepository
 {
-    public async Task<IEnumerable<Material>> GetMaterialsByNameAsync(string materialName)
+    public async Task<IEnumerable<Textbook>> GetMaterialsByNameAsync(string materialName)
     {
         await using var db = await _factory.CreateDbContextAsync();
         return await db.Textbooks?.ToListAsync()!;
     }
 
-    public async Task<Material> GetMateiralByIdAsync(int materialId)
+    public async Task<Textbook> GetMateiralByIdAsync(int materialId)
     {
         await using var db = await _factory.CreateDbContextAsync();
         return await db.Textbooks.FindAsync(materialId)??  null;
     }
 
-    public async Task RegisterMaterialAsync(Material material)
+    public async Task RegisterMaterialAsync(Textbook material)
     {
         await using var db = await _factory.CreateDbContextAsync();
         if (db.Textbooks != null) db.Textbooks.Add(material);
         await db.SaveChangesAsync();
     }
 
-    public Task EditMaterialAsync(Material material)
+    public Task EditMaterialAsync(Textbook material)
     {
         throw new NotImplementedException();
     }
