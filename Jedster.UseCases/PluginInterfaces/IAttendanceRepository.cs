@@ -9,4 +9,6 @@ public interface IAttendanceRepository
     Task GenerateAtendance(Attendance attendance);
     Task<Attendance> UpdateAttendance(Attendance attendance);
     Task<IEnumerable<Attendance>> GenerateAtendanceFromSchedule(DateTime startTime, DateTime endTime);
+    Task<Attendance> AddAttendanceAsync(Attendance attendance);
+    Task<bool> AttendanceExistsAsync(int lessonId, int studentId);
 }
