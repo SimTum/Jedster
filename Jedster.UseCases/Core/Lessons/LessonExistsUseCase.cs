@@ -8,4 +8,6 @@ public class LessonExistsUseCase(ILessonsRepository lessonsRepository) : ILesson
     {
         return await lessonsRepository.LessonExistsAsync(groupId, date);
     }
+
+    
 }

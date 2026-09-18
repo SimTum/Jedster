@@ -1,7 +1,227 @@
-<h3>AttendanceComponent</h3>
+@using Jedster.CoreBusiness
+@using Jedster.CoreBuisness
+@using Jedster.UseCases.Attendances
+@using Jedster.UseCases.PluginInterfaces
 
+@inject IViewAttendanceUseCase ViewAttendanceUseCase
+@inject IUpdateAttendanceUseCase UpdateAttendanceUseCase
+@inject ISnackbar Snackbar
 
+<MudCard Elevation="2" Class="my-3">
+    <MudCardHeader>
+        <CardHeaderContent>
+            <MudText Typo="Typo.h6">
+                <MudIcon Icon="@Icons.Material.Filled.FactCheck" Class="mr-2" />
+                @(Title ?? (LessonId.HasValue ? $"Presenças da Aula #{LessonId}" : "Lista de Presenças"))
+            </MudText>
+        </CardHeaderContent>
+        <CardHeaderActions>
+            <MudIconButton Icon="@Icons.Material.Filled.Refresh" Color="Color.Default" OnClick="LoadAttendancesAsync" Title="Atualizar" />
+        </CardHeaderActions>
+    </MudCardHeader>
+    <MudCardContent>
+        <MudTable Items="@FilteredAttendances" Hover="true" Striped="true" Dense="true" Loading="@_isLoading" LoadingProgressColor="Color.Primary">
+            <ToolBarContent>
+                <MudText Typo="Typo.subtitle1">
+                    Total: @(FilteredAttendances.Count()) presenças
+                </MudText>
+                <MudSpacer />
+                <MudTextField @bind-Value="_searchString"
+                              Placeholder="Buscar por aluno, turma..."
+                              Adornment="Adornment.Start"
+                              AdornmentIcon="@Icons.Material.Filled.Search"
+                              IconSize="Size.Medium"
+                              Clearable="true"
+                              Immediate="true"
+                              Class="mt-0" />
+            </ToolBarContent>
+            <HeaderContent>
+                <MudTh>#</MudTh>
+                <MudTh>Aluno</MudTh>
+                @if (!LessonId.HasValue)
+                {
+                    <MudTh>Aula / Turma</MudTh>
+                }
+                <MudTh>Data</MudTh>
+                <MudTh>Status Presença</MudTh>
+                <MudTh>Engajamento</MudTh>
+                <MudTh Style="text-align: center;">Ações</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="#">@(context.EntryId > 0 ? context.EntryId : $"{context.LessonId}-{context.StudentId}")</MudTd>
+                <MudTd DataLabel="Aluno">
+                    <MudText Typo="Typo.body2" Style="font-weight: 500;">
+                        @(context.Student?.Name ?? context.StudentInfo?.Name ?? $"Aluno #{context.StudentId}")
+                    </MudText>
+                </MudTd>
+                @if (!LessonId.HasValue)
+                {
+                    <MudTd DataLabel="Aula / Turma">
+                        @(context.Lesson?.Group?.Name ?? $"Aula #{context.LessonId}")
+                    </MudTd>
+                }
+                <MudTd DataLabel="Data">@context.Date.ToString("dd/MM/yyyy HH:mm")</MudTd>
+                <MudTd DataLabel="Status">
+                    <MudSelect T="AttendanceStatus?"
+                               Value="@context.Status"
+                               ValueChanged="@(async val => await OnStatusChanged(context, val))"
+                               Dense="true"
+                               Margin="Margin.Dense"
+                               Variant="Variant.Outlined">
+                        <MudSelectItem T="AttendanceStatus?" Value="@AttendanceStatus.Pending">
+                            <MudChip T="string" Color="Color.Warning" Size="Size.Small">Pendente</MudChip>
+                        </MudSelectItem>
+                        <MudSelectItem T="AttendanceStatus?" Value="@AttendanceStatus.Present">
+                            <MudChip T="string" Color="Color.Success" Size="Size.Small">Presente</MudChip>
+                        </MudSelectItem>
+                        <MudSelectItem T="AttendanceStatus?" Value="@AttendanceStatus.Abscent">
+                            <MudChip T="string" Color="Color.Error" Size="Size.Small">Ausente</MudChip>
+                        </MudSelectItem>
+                        <MudSelectItem T="AttendanceStatus?" Value="@AttendanceStatus.Canceled">
+                            <MudChip T="string" Color="Color.Dark" Size="Size.Small">Cancelado</MudChip>
+                        </MudSelectItem>
+                    </MudSelect>
+                </MudTd>
+                <MudTd DataLabel="Engajamento">
+                    <MudSelect T="EngagmentStatus?"
+                               Value="@context.EngagementStatus"
+                               ValueChanged="@(async val => await OnEngagementChanged(context, val))"
+                               Dense="true"
+                               Margin="Margin.Dense"
+                               Variant="Variant.Outlined">
+                        <MudSelectItem T="EngagmentStatus?" Value="@EngagmentStatus.NotEngaged">Não Engajado</MudSelectItem>
+                        <MudSelectItem T="EngagmentStatus?" Value="@EngagmentStatus.SlightlyEngaged">Pouco Engajado</MudSelectItem>
+                        <MudSelectItem T="EngagmentStatus?" Value="@EngagmentStatus.Engaged">Engajado</MudSelectItem>
+                        <MudSelectItem T="EngagmentStatus?" Value="@EngagmentStatus.VeryEngaged">Muito Engajado</MudSelectItem>
+                    </MudSelect>
+                </MudTd>
+                <MudTd DataLabel="Ações" Style="text-align: center;">
+                    <MudButtonGroup Size="Size.Small" Variant="Variant.Outlined">
+                        <MudIconButton Icon="@Icons.Material.Filled.Check"
+                                       Color="Color.Success"
+                                       Title="Marcar Presente"
+                                       OnClick="@(() => QuickMark(context, AttendanceStatus.Present))" />
+                        <MudIconButton Icon="@Icons.Material.Filled.Close"
+                                       Color="Color.Error"
+                                       Title="Marcar Ausente"
+                                       OnClick="@(() => QuickMark(context, AttendanceStatus.Abscent))" />
+                    </MudButtonGroup>
+                </MudTd>
+            </RowTemplate>
+            <NoRecordsContent>
+                <MudText Typo="Typo.body2" Class="pa-4 text-center">Nenhum registro de presença encontrado.</MudText>
+            </NoRecordsContent>
+            <PagerContent>
+                <MudTablePager PageSizeOptions="new[] { 5, 10, 25, 50 }" />
+            </PagerContent>
+        </MudTable>
+    </MudCardContent>
+</MudCard>
 
 @code {
-    
+    [Parameter] public int? LessonId { get; set; }
+    [Parameter] public Lesson? Lesson { get; set; }
+    [Parameter] public string? Title { get; set; }
+    [Parameter] public EventCallback OnAttendanceUpdated { get; set; }
+
+    private List<Attendance> _attendances = [];
+    private string _searchString = "";
+    private bool _isLoading = false;
+
+    private IEnumerable<Attendance> FilteredAttendances
+    {
+        get
+        {
+            var list = _attendances.AsEnumerable();
+
+            if (LessonId.HasValue)
+            {
+                list = list.Where(a => a.LessonId == LessonId.Value);
+            }
+
+            if (!string.IsNullOrWhiteSpace(_searchString))
+            {
+                var query = _searchString.Trim().ToLower();
+                list = list.Where(a =>
+                    (a.Student?.Name?.ToLower().Contains(query) ?? false) ||
+                    (a.StudentInfo?.Name?.ToLower().Contains(query) ?? false) ||
+                    (a.Lesson?.Group?.Name?.ToLower().Contains(query) ?? false) ||
+                    a.LessonId.ToString().Contains(query) ||
+                    a.StudentId.ToString().Contains(query) ||
+                    a.Status.ToString()?.ToLower().Contains(query) == true);
+            }
+
+            return list;
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadAttendancesAsync();
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (Lesson is not null && Lesson.LessonId > 0 && !LessonId.HasValue)
+        {
+            LessonId = Lesson.LessonId;
+        }
+    }
+
+    public async Task LoadAttendancesAsync()
+    {
+        _isLoading = true;
+        try
+        {
+            var result = await ViewAttendanceUseCase.GetAttendances();
+            _attendances = result?.ToList() ?? [];
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"Erro ao carregar presenças: {ex.Message}", Severity.Error);
+        }
+        finally
+        {
+            _isLoading = false;
+        }
+    }
+
+    private async Task OnStatusChanged(Attendance attendance, AttendanceStatus? newStatus)
+    {
+        attendance.Status = newStatus;
+        await SaveAttendance(attendance);
+    }
+
+    private async Task OnEngagementChanged(Attendance attendance, EngagmentStatus? newEngagement)
+    {
+        attendance.EngagementStatus = newEngagement;
+        await SaveAttendance(attendance);
+    }
+
+    private async Task QuickMark(Attendance attendance, AttendanceStatus status)
+    {
+        attendance.Status = status;
+        if (status == AttendanceStatus.Present && attendance.EngagementStatus == EngagmentStatus.NotEngaged)
+        {
+            attendance.EngagementStatus = EngagmentStatus.Engaged;
+        }
+        await SaveAttendance(attendance);
+    }
+
+    private async Task SaveAttendance(Attendance attendance)
+    {
+        try
+        {
+            await UpdateAttendanceUseCase.ExecuteAsync(attendance);
+            Snackbar.Add("Presença atualizada com sucesso!", Severity.Success);
+            if (OnAttendanceUpdated.HasDelegate)
+            {
+                await OnAttendanceUpdated.InvokeAsync();
+            }
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"Erro ao salvar presença: {ex.Message}", Severity.Error);
+        }
+    }
 }

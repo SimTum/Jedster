@@ -28,7 +28,7 @@ public class GenerateLessonsAndAttendace(
                         continue;
 
                     var lesson = new Lesson
-                    {
+                    {   
                         GroupId = group.GroupId,
                         Group = group,
                         TeacherId = group.TeacherId,
@@ -76,8 +76,19 @@ public class GenerateLessonsAndAttendace(
 
         private static bool MatchesWeekDay(string groupWeekDay, DateTime date)
         {
-            return groupWeekDay.Equals(
-                date.DayOfWeek.ToString()[..3],
-                StringComparison.OrdinalIgnoreCase);
+            var ptWeekDay = date.DayOfWeek switch
+            {
+                DayOfWeek.Monday => "SEG",
+                DayOfWeek.Tuesday => "TER",
+                DayOfWeek.Wednesday => "QUA",
+                DayOfWeek.Thursday => "QUI",
+                DayOfWeek.Friday => "SEX",
+                DayOfWeek.Saturday => "SAB",
+                DayOfWeek.Sunday => "DOM",
+                _ => string.Empty
+            };
+
+            return groupWeekDay.Equals(ptWeekDay, StringComparison.OrdinalIgnoreCase) ||
+                   groupWeekDay.Equals(date.DayOfWeek.ToString()[..3], StringComparison.OrdinalIgnoreCase);
         }
     }

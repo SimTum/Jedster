@@ -1,44 +1,277 @@
+@using Jedster.CoreBusiness
 @using Jedster.CoreBuisness
-@using Microsoft.EntityFrameworkCore.Metadata.Internal
+@using Jedster.UseCases.Lessons
+@using Jedster.UseCases.PluginInterfaces
 
+@inject IViewLessonsUseCase ViewLessonsUseCase
+@inject IGenerateLessonsUseCase GenerateLessonsUseCase
+@inject IUpdateLessonUseCase UpdateLessonUseCase
+@inject ISnackbar Snackbar
 
-
-<MudTable T="Lesson" Items="@_lessons" Hover="true" Striped="true" >
-    <ToolBarContent>
-        <MudText Typo="Typo.h6">Search table</MudText>
-        <MudSpacer/>
-        <MudTextField @bind-Value="_searchString"
-                      Placeholder="Search"
-                      Adornment="Adornment.Start"
-                      AdornmentIcon="@Icons.Material.Filled.Search"
-                      IconSize="Size.Medium"/>
-    </ToolBarContent>
-    <HeaderContent>
-        <MudTh>id</MudTh>
-        <MudTh>Nome</MudTh>
-        <MudTh>Data de Nascimento</MudTh>
-        <MudTh>CPF</MudTh>
-        <MudTh>RG</MudTh>
-        <MudTh>Email</MudTh>
-        <MudTh>Horas de trabalho</MudTh>
-    </HeaderContent>
-    <RowTemplate>
-
-        <MudTd DataLabel="Buttons">
-        </MudTd>
-    </RowTemplate>
-    <PagerContent>
-        <MudTablePager/>
-    </PagerContent>
-</MudTable>
+<MudCard Elevation="2" Class="my-3">
+    <MudCardHeader>
+        <CardHeaderContent>
+            <MudText Typo="Typo.h5">
+                <MudIcon Icon="@Icons.Material.Filled.Class" Class="mr-2" />
+                Aulas Agendadas
+            </MudText>
+        </CardHeaderContent>
+        <CardHeaderActions>
+            <div class="d-flex align-items-center gap-2">
+                <MudNumericField @bind-Value="_daysToGenerate"
+                                 Label="Dias a gerar"
+                                 Min="1"
+                                 Max="365"
+                                 Variant="Variant.Outlined"
+                                 Margin="Margin.Dense"
+                                 Style="width: 140px;" />
+                <MudButton Variant="Variant.Filled"
+                           Color="Color.Success"
+                           StartIcon="@Icons.Material.Filled.AutoAwesome"
+                           OnClick="GenerateLessonsAsync"
+                           Disabled="@_isGenerating">
+                    @if (_isGenerating)
+                    {
+                        <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true" />
+                        <MudText Class="ms-2">Gerando...</MudText>
+                    }
+                    else
+                    {
+                        <MudText>Gerar Aulas</MudText>
+                    }
+                </MudButton>
+                <MudIconButton Icon="@Icons.Material.Filled.Refresh"
+                               Color="Color.Default"
+                               OnClick="LoadLessonsAsync"
+                               Title="Atualizar" />
+            </div>
+        </CardHeaderActions>
+    </MudCardHeader>
+    <MudCardContent>
+        <MudTable Items="@FilteredLessons"
+                  Hover="true"
+                  Striped="true"
+                  Loading="@_isLoading"
+                  LoadingProgressColor="Color.Primary"
+                  Dense="true">
+            <ToolBarContent>
+                <MudText Typo="Typo.subtitle1">
+                    Total: @(FilteredLessons.Count()) aulas
+                </MudText>
+                <MudSpacer />
+                <MudTextField @bind-Value="_searchString"
+                              Placeholder="Buscar por turma, professor, data..."
+                              Adornment="Adornment.Start"
+                              AdornmentIcon="@Icons.Material.Filled.Search"
+                              IconSize="Size.Medium"
+                              Clearable="true"
+                              Immediate="true"
+                              Class="mt-0" />
+            </ToolBarContent>
+            <HeaderContent>
+                <MudTh Style="width: 40px;"></MudTh>
+                <MudTh>ID</MudTh>
+                <MudTh>Turma</MudTh>
+                <MudTh>Professor</MudTh>
+                <MudTh>Data e Início</MudTh>
+                <MudTh>Fim</MudTh>
+                <MudTh>Duração</MudTh>
+                <MudTh>Status</MudTh>
+                <MudTh>Pagamento</MudTh>
+                <MudTh Style="text-align: center;">Presenças</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd>
+                    <MudIconButton Icon="@(_expandedLessonId == context.LessonId ? Icons.Material.Filled.ExpandLess : Icons.Material.Filled.ExpandMore)"
+                                   Size="Size.Small"
+                                   OnClick="@(() => ToggleExpandLesson(context.LessonId))"
+                                   Title="Ver presenças" />
+                </MudTd>
+                <MudTd DataLabel="ID">@context.LessonId</MudTd>
+                <MudTd DataLabel="Turma">
+                    <MudText Typo="Typo.body2" Style="font-weight: 600;">
+                        @(context.Group?.Name ?? $"Turma #{context.GroupId}")
+                    </MudText>
+                </MudTd>
+                <MudTd DataLabel="Professor">
+                    @(context.Teacher?.Name ?? context.Group?.Teacher?.Name ?? $"Prof #{context.TeacherId}")
+                </MudTd>
+                <MudTd DataLabel="Início">@context.StartTime.ToString("dd/MM/yyyy HH:mm")</MudTd>
+                <MudTd DataLabel="Fim">@context.EndTime.ToString("HH:mm")</MudTd>
+                <MudTd DataLabel="Duração">@($"{context.Duration.TotalMinutes:0} min")</MudTd>
+                <MudTd DataLabel="Status">
+                    <MudSelect T="LessonStatus"
+                               Value="@context.Status"
+                               ValueChanged="@(async val => await OnStatusChanged(context, val))"
+                               Dense="true"
+                               Margin="Margin.Dense"
+                               Variant="Variant.Outlined">
+                        <MudSelectItem Value="@LessonStatus.Scheduled">
+                            <MudChip T="string" Color="Color.Info" Size="Size.Small">Agendada</MudChip>
+                        </MudSelectItem>
+                        <MudSelectItem Value="@LessonStatus.InProgress">
+                            <MudChip T="string" Color="Color.Warning" Size="Size.Small">Em Andamento</MudChip>
+                        </MudSelectItem>
+                        <MudSelectItem Value="@LessonStatus.Completed">
+                            <MudChip T="string" Color="Color.Success" Size="Size.Small">Concluída</MudChip>
+                        </MudSelectItem>
+                        <MudSelectItem Value="@LessonStatus.Canceled">
+                            <MudChip T="string" Color="Color.Error" Size="Size.Small">Cancelada</MudChip>
+                        </MudSelectItem>
+                    </MudSelect>
+                </MudTd>
+                <MudTd DataLabel="Pagamento">
+                    <MudCheckBox T="bool"
+                                 Value="@context.IsPaid"
+                                 ValueChanged="@(async val => await OnPaymentChanged(context, val))"
+                                 Color="Color.Success"
+                                 Dense="true"
+                                 Label="@(context.IsPaid ? "Pago" : "Pendente")" />
+                </MudTd>
+                <MudTd DataLabel="Presenças" Style="text-align: center;">
+                    <MudButton Variant="Variant.Outlined"
+                               Color="Color.Primary"
+                               Size="Size.Small"
+                               StartIcon="@Icons.Material.Filled.People"
+                               OnClick="@(() => ToggleExpandLesson(context.LessonId))">
+                        Presenças (@(context.Students?.Count() ?? 0))
+                    </MudButton>
+                </MudTd>
+            </RowTemplate>
+            <ChildRowContent>
+                @if (_expandedLessonId == context.LessonId)
+                {
+                    <MudTr>
+                        <td colspan="10" class="pa-3" style="background-color: var(--mud-palette-background-grey);">
+                            <AttendanceComponent LessonId="@context.LessonId"
+                                                 Lesson="@context"
+                                                 Title="@($"Presenças da Turma {context.Group?.Name} ({context.StartTime:dd/MM/yyyy HH:mm})")" />
+                        </td>
+                    </MudTr>
+                }
+            </ChildRowContent>
+            <NoRecordsContent>
+                <MudText Typo="Typo.body2" Class="pa-4 text-center">
+                    Nenhuma aula encontrada. Clique em "Gerar Aulas" para gerar o cronograma.
+                </MudText>
+            </NoRecordsContent>
+            <PagerContent>
+                <MudTablePager PageSizeOptions="new[] { 50, 10, 25, 26 }" />
+            </PagerContent>
+        </MudTable>
+    </MudCardContent>
+</MudCard>
 
 @code {
-    private List<Lesson>? _lessons;
     [Parameter] public string _searchString { get; set; } = "";
-    
-    protected override async Task OnInitializedAsync()
+
+    private List<Lesson> _lessons = [];
+    private bool _isLoading = false;
+    private bool _isGenerating = false;
+    private int _daysToGenerate = 30;
+    private int? _expandedLessonId;
+
+    private IEnumerable<Lesson> FilteredLessons
     {
-     
+        get
+        {
+            var list = _lessons.AsEnumerable();
+
+            if (!string.IsNullOrWhiteSpace(_searchString))
+            {
+                var query = _searchString.Trim().ToLower();
+                list = list.Where(l =>
+                    (l.Group?.Name?.ToLower().Contains(query) ?? false) ||
+                    (l.Teacher?.Name?.ToLower().Contains(query) ?? false) ||
+                    l.LessonId.ToString().Contains(query) ||
+                    l.GroupId.ToString().Contains(query) ||
+                    l.Status.ToString().ToLower().Contains(query) ||
+                    l.StartTime.ToString("dd/MM/yyyy").Contains(query));
+            }
+
+            return list.OrderByDescending(l => l.StartTime);
+        }
     }
 
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadLessonsAsync();
+    }
+
+    public async Task LoadLessonsAsync()
+    {
+        _isLoading = true;
+        try
+        {
+            var result = await ViewLessonsUseCase.ExecuteAsync();
+            _lessons = result?.ToList() ?? [];
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"Erro ao carregar aulas: {ex.Message}", Severity.Error);
+        }
+        finally
+        {
+            _isLoading = false;
+        }
+    }
+
+    public async Task GenerateLessonsAsync()
+    {
+        _isGenerating = true;
+        try
+        {
+            await GenerateLessonsUseCase.ExecuteAsync(DateTime.Today, _daysToGenerate);
+            Snackbar.Add($"Aulas para os próximos {_daysToGenerate} dias geradas com sucesso!", Severity.Success);
+            await LoadLessonsAsync();
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"Erro ao gerar aulas: {ex.Message}", Severity.Error);
+        }
+        finally
+        {
+            _isGenerating = false;
+        }
+    }
+
+    private void ToggleExpandLesson(int lessonId)
+    {
+        if (_expandedLessonId == lessonId)
+        {
+            _expandedLessonId = null;
+        }
+        else
+        {
+            _expandedLessonId = lessonId;
+        }
+    }
+
+    private async Task OnStatusChanged(Lesson lesson, LessonStatus status)
+    {
+        lesson.Status = status;
+        try
+        {
+            await UpdateLessonUseCase.ExecuteAsync(lesson);
+            Snackbar.Add("Status da aula atualizado!", Severity.Success);
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"Erro ao atualizar status: {ex.Message}", Severity.Error);
+        }
+    }
+
+    private async Task OnPaymentChanged(Lesson lesson, bool isPaid)
+    {
+        lesson.IsPaid = isPaid;
+        try
+        {
+            await UpdateLessonUseCase.ExecuteAsync(lesson);
+            Snackbar.Add("Status de pagamento atualizado!", Severity.Success);
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"Erro ao atualizar pagamento: {ex.Message}", Severity.Error);
+        }
+    }
 }

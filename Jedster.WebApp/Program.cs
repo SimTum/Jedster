@@ -1,7 +1,10 @@
 using System.Net.Security;
 using Jedster.Plugins.EntityFrameworkCorePSQL;
 using Jedster.Plugins.InMemory;
+using Jedster.UseCases.Attendances;
+using Jedster.UseCases.Core.Scheduling;
 using Jedster.UseCases.Groups;
+using Jedster.UseCases.Lessons;
 using Jedster.UseCases.Materials;
 using Jedster.UseCases.PluginInterfaces;
 using Jedster.UseCases.Professores.Interfaces;
@@ -34,6 +37,9 @@ builder.Services.AddSingleton<ITeacherRepository, TeacherRepository>();
 builder.Services.AddSingleton<IGroupRepository, GroupRepository>();
 builder.Services.AddSingleton<IStudentRepository, StudentRepository>();
 builder.Services.AddSingleton<IMaterialRepository, MaterialRepository>();
+builder.Services.AddSingleton<ILessonsRepository, LessonRepository>();
+builder.Services.AddSingleton<IAttendanceRepository, AttendanceRepository>();
+
 
 builder.Services.AddTransient<IViewTeacherUseCase, ViewTeacherUseCase>();
 builder.Services.AddTransient<IRegisterTeacherUsecase, RegisterTeacherUsecase>();
@@ -55,6 +61,18 @@ builder.Services.AddTransient<IViewMaterialUseCase, ViewMaterialUseCase>();
 builder.Services.AddTransient<IRegisterMaterialUseCase, RegisterMaterialUseCase>();
 builder.Services.AddTransient<IEditMaterialUseCase, EditMaterialUseCase>();
 builder.Services.AddTransient<IDeleteMaterialUseCase, DeleteMaterialUseCase>();
+
+builder.Services.AddTransient<IGenerateAttendaceUseCase, GenerateAttendaceUseCase>();
+builder.Services.AddTransient<IViewAttendanceUseCase, ViewAttendanceUseCase>();
+builder.Services.AddTransient<IUpdateAttendanceUseCase, UpdateAttendanceUseCase>();
+builder.Services.AddTransient<IGenerateAttendanceFromSchedule, GenerateAttendanceFromSchedule>();
+
+builder.Services.AddTransient<GenerateLessonsAndAttendace>();
+builder.Services.AddTransient<IGenerateLessonsUseCase, GenerateLessonsUseCase>();
+builder.Services.AddTransient<IViewLessonsUseCase, ViewLessonsUseCase>();
+builder.Services.AddTransient<IUpdateLessonUseCase, UpdateLessonUseCase>();
+builder.Services.AddTransient<ILessonExistsUseCase, LessonExistsUseCase>();
+
 builder.Services.AddMudServices();
 
 var app = builder.Build();

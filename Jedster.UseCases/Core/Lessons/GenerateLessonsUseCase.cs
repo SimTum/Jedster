@@ -1,12 +1,11 @@
-using Jedster.CoreBusiness;
-using Jedster.UseCases.PluginInterfaces;
+using Jedster.UseCases.Core.Scheduling;
 
 namespace Jedster.UseCases.Lessons;
 
-public class GenerateLessonsUseCase (ILessonsRepository lessonsRepository) : IGenerateLessonsUseCase
+public class GenerateLessonsUseCase(GenerateLessonsAndAttendace generateLessonsAndAttendace) : IGenerateLessonsUseCase
 {
-    public async Task<IEnumerable<Lesson>> ExecuteAsync()
+    public async Task ExecuteAsync(DateTime? from = null, int days = 30)
     {
-        return await lessonsRepository.GenerateLessonsAsync();
+        await generateLessonsAndAttendace.ExecuteAsync(from, days);
     }
 }

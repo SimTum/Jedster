@@ -37,6 +37,10 @@ build_property.EnableCodeStyleSeverity =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9BcHAucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
+[/Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp/Components/Pages/Attendances/AttendancesList.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9BdHRlbmRhbmNlcy9BdHRlbmRhbmNlc0xpc3QucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp/Components/Pages/Controls/AttendanceComponent.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9Db250cm9scy9BdHRlbmRhbmNlQ29tcG9uZW50LnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
@@ -87,6 +91,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp/Components/Pages/Home.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9Ib21lLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp/Components/Pages/Lessons/LessonsList.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9MZXNzb25zL0xlc3NvbnNMaXN0LnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp/Components/Pages/MudBlazorTest.razor]

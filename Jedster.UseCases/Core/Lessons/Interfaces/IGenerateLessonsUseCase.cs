@@ -4,5 +4,5 @@ namespace Jedster.UseCases.Lessons;
 
 public interface IGenerateLessonsUseCase
 {
-    Task<IEnumerable<Lesson>> ExecuteAsync();
+    Task ExecuteAsync(DateTime? from = null, int days = 30);
 }
