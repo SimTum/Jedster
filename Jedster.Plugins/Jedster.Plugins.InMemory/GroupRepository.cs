@@ -17,12 +17,43 @@ public class GroupRepository : IGroupRepository
             new Group
             {
                 GroupId = 1, NumberStudents = 3, Name = "Kids1", WeekDay = "SEG", StartTime = new TimeOnly(17, 30),
-                EndTime = new TimeOnly(19, 30), TeacherId = 1
+                EndTime = new TimeOnly(19, 30), TeacherId = 1, Students =
+                [
+                    new Student
+                    {
+                        StudentId = 1, RG = "Document", GroupId = 1, CPF = "11122233344", Name = "Name1",
+                        BirthDate = new DateOnly(2000, 01, 02),
+                        TextbookId = 1,
+                        Contract = new Contract()
+                        {
+                            ContractId = 1, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 1
+                        }
+                    },
+                    new Student
+                    {
+                        StudentId = 2, RG = "Document", GroupId = 1, CPF = "11122233344", Name = "Name2",
+                        BirthDate = new DateOnly(2000, 01, 02),
+                        TextbookId = 1,
+                        Contract = new Contract()
+                        {
+                            ContractId = 2, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 2
+                        }
+                    },
+                    new Student
+                    {
+                        StudentId = 3, RG = "Document", GroupId = 1, CPF = "11122233344", Name = "Name3",
+                        BirthDate = new DateOnly(2000, 01, 02),
+                        TextbookId = 1,
+                        Contract = new Contract()
+                        {
+                            ContractId = 3, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 3
+                        }
+                    }
+                ]
             },
             new Group
             {
-                GroupId = 2, NumberStudents = 2
-, Name = "Kids2", WeekDay = "SEG", StartTime = new TimeOnly(19, 30),
+                GroupId = 2, NumberStudents = 2, Name = "Kids2", WeekDay = "SEG", StartTime = new TimeOnly(19, 30),
                 EndTime = new TimeOnly(21, 30), TeacherId = 1
             },
             new Group
