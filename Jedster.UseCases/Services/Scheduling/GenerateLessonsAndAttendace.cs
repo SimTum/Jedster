@@ -39,7 +39,7 @@ public class GenerateLessonsAndAttendace(
                         Status = LessonStatus.Scheduled,
                         IsPaid = false,
                         Students = group.Students?
-                            .Where(s => s.Contract is { HoursRemaining: > 0 })
+                            .Where(s => s.Contract?.GetHoursRemaining() is > 0)
                             .ToList()
                     };
 

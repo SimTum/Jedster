@@ -22,7 +22,9 @@ public class Student
     [Required]
     public required int GroupId { get; set; }
     public Group? Group { get; set; }
-    
+
+    [Required] public IEnumerable<Contract>? Contracts { get; set; } 
+
     [Required]
     public Contract? Contract { get; set; }
     

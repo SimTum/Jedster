@@ -13,7 +13,7 @@ public class Lesson
         {
             if (Group.Students != null)
                 Students = Group.Students.Where(student =>
-                    student.Contract is { HoursRemaining: >= -6 });
+                    student.Contract.GetHoursRemaining() >= -6 );
         }
         else
         {

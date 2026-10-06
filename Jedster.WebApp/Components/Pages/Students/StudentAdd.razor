@@ -36,7 +36,7 @@
         <div class="input-group mb-3">
             <label class="input-group-text">Turnma</label>
             <InputSelect id="group" @bind-Value="_student.Group" TValue="Group
-" class="form-select">
+                         " class="form-select">
                 @foreach(var group in _groups)
                 {
                     <option value="@group">@group.Name</option>
@@ -44,8 +44,19 @@
             </InputSelect> 
             
         </div>
-        <div class="input-group mb-3"> a</div>
-        <div class="input-group mb-3"> b </div>
+        <br/>
+        <div class="input-group mb-3">
+            <label class="input-group-text">Contrato</label>
+            <InputSelect class="form-control" TValue="Contract" @bind-Value="_student.Contract">
+                @foreach (var contract in _student.Contracts)
+                {
+                    
+                }
+            </InputSelect>
+        </div>
+        <div class="input-group mb-3"> 
+            <lable class ="input-group-text" >Something</lable>
+            </div>
     </EditForm>
 </div>
 

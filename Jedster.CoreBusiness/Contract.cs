@@ -6,7 +6,12 @@ public class Contract
     public Student Student { get; set; }
     public int StudentId { get; set; }
 
-    public double HoursCompleted { get; set; } = 0;
-    public double HoursMissed { get; set; } = 0;
-    public double HoursRemaining { get; set; } = 40;
+    private double HoursCompleted { get; set; } = 0;
+    private double HoursMissed { get; set; } = 0;
+    private double HoursRemaining { get; set; } = 40;
+    
+    public double GetHoursCompleted() => HoursCompleted;
+    public double GetHoursMissed() => HoursMissed;
+    public double GetHoursRemaining() => HoursRemaining;
+    
 }
