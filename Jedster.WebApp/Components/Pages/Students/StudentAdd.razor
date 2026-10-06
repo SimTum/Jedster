@@ -1,0 +1,89 @@
+@page "/alunos/add"
+
+@using Jedster.UseCases.Groups
+@using Jedster.UseCases.Students
+
+@inject IViewGroupUseCase ViewGroupUseCase;
+@inject IViewStudentsUseCase ViewStudentUseCase;
+@inject IJSRuntime JS;
+@implements IAsyncDisposable;
+
+<h3>StudentAdd</h3>
+<br/>
+
+<div>
+
+    <EditForm Model="_student">
+        <DataAnnotationsValidator></DataAnnotationsValidator>
+        
+        <div class="input-group mb-3">
+            <span class="input-group-text">Nome de Aluno</span>
+            <InputText id="name" @bind-Value="_student.Name" class="form-control"></InputText>
+            <ValidationMessage For="() => _student.Name"></ValidationMessage>
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text">RG</span>
+            <InputText id="RG" @bind-Value="_student.RG" class="form-control"></InputText>
+            <ValidationMessage For="() => _student.RG"></ValidationMessage>
+            <span class="input-group-text">CPF</span>
+            <InputText id="CPF" @bind-Value="_student.CPF" class="form-control"></InputText>
+            <ValidationMessage For="() => _student.CPF"></ValidationMessage>
+        </div>
+        <div class="input-group mb-3">
+            <label class="input-group-text">Data de Nascimento</label>
+            <InputDate id="birthDate" class="form-control" TValue="System.DateOnly" @bind-Value="_student.BirthDate"></InputDate>
+        </div>
+        <div class="input-group mb-3">
+            <label class="input-group-text">Turnma</label>
+            <InputSelect id="group" @bind-Value="_student.Group" TValue="Group
+" class="form-select">
+                @foreach(var group in _groups)
+                {
+                    <option value="@group">@group.Name</option>
+                }
+            </InputSelect> 
+            
+        </div>
+        <div class="input-group mb-3"> a</div>
+        <div class="input-group mb-3"> b </div>
+    </EditForm>
+</div>
+
+@code {
+
+    [SupplyParameterFromForm]
+    private Student _student { get; set; } = new Student
+    {
+        RG = null,
+        CPF = null,
+        Name = null,
+        GroupId = 0,
+        TextbookId = 0
+    };
+
+    private List<Group> _groups { get; set; } = [];
+
+    
+    private IJSObjectReference module { get; set; }
+    
+
+    protected override async Task OnInitializedAsync()
+    {
+        
+        _groups = (await ViewGroupUseCase.ExecuteAsync()).ToList();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        
+        module = await JS.InvokeAsync<IJSObjectReference>("import", "./Components/Pages/Students/StudentAdd.razor.js");
+        
+        await module.InvokeVoidAsync("ApplyMask");
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        throw new NotImplementedException();
+    }
+
+}

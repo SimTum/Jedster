@@ -29,16 +29,19 @@ builder.Services.AddDbContextFactory<JedsterContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("JedsterDB"));
 });
 
-// builder.Services.AddTransient<ITeacherRepository, TeachersEfCoreRepository>();
-// builder.Services.AddTransient<IGroupRepository, GroupsEfCoreRepository>();
-// builder.Services.AddTransient<IStudentRepository, StudentsEfCoreRepository>();
-// builder.Services.AddTransient<IMaterialRepository, MaterialEfCoreRepositor
-builder.Services.AddSingleton<ITeacherRepository, TeacherRepository>();
-builder.Services.AddSingleton<IGroupRepository, GroupRepository>();
-builder.Services.AddSingleton<IStudentRepository, StudentRepository>();
-builder.Services.AddSingleton<IMaterialRepository, MaterialRepository>();
-builder.Services.AddSingleton<ILessonsRepository, LessonRepository>();
-builder.Services.AddSingleton<IAttendanceRepository, AttendanceRepository>();
+builder.Services.AddTransient<ITeacherRepository, TeachersEfCoreRepository>();
+builder.Services.AddTransient<IGroupRepository, GroupsEfCoreRepository>();
+builder.Services.AddTransient<IStudentRepository, StudentsEfCoreRepository>();
+builder.Services.AddTransient<IMaterialRepository, MaterialEfCoreRepository>();
+builder.Services.AddTransient<IAttendanceRepository, AttendanceEFCoreRepository>();
+builder.Services.AddTransient<ILessonsRepository, LessonsEFCoreRepository>();
+//
+// builder.Services.AddSingleton<ITeacherRepository, TeacherRepository>();
+// builder.Services.AddSingleton<IGroupRepository, GroupRepository>();
+// builder.Services.AddSingleton<IStudentRepository, StudentRepository>();
+// builder.Services.AddSingleton<IMaterialRepository, MaterialRepository>();
+// builder.Services.AddSingleton<ILessonsRepository, LessonRepository>();
+// builder.Services.AddSingleton<IAttendanceRepository, AttendanceRepository>();
 
 
 builder.Services.AddTransient<IViewTeacherUseCase, ViewTeacherUseCase>();
