@@ -1,10 +1,13 @@
 @page "/alunos/add"
 
+@using Jedster.CoreBuisness
+@using Jedster.UseCases.Core.Contracts
 @using Jedster.UseCases.Groups
 @using Jedster.UseCases.Students
 
 @inject IViewGroupUseCase ViewGroupUseCase;
 @inject IViewStudentsUseCase ViewStudentUseCase;
+@inject IViewContractUseCase ViewContractUseCase
 @inject IJSRuntime JS;
 @implements IAsyncDisposable;
 
@@ -15,7 +18,7 @@
 
     <EditForm Model="_student">
         <DataAnnotationsValidator></DataAnnotationsValidator>
-        
+
         <div class="input-group mb-3">
             <span class="input-group-text">Nome de Aluno</span>
             <InputText id="name" @bind-Value="_student.Name" class="form-control"></InputText>
@@ -31,33 +34,43 @@
         </div>
         <div class="input-group mb-3">
             <label class="input-group-text">Data de Nascimento</label>
-            <InputDate id="birthDate" class="form-control" TValue="System.DateOnly" @bind-Value="_student.BirthDate"></InputDate>
+            <InputDate id="birthDate" class="form-control" TValue="System.DateOnly"
+                       @bind-Value="_student.BirthDate"></InputDate>
         </div>
         <div class="input-group mb-3">
             <label class="input-group-text">Turnma</label>
             <InputSelect id="group" @bind-Value="_student.Group" TValue="Group
                          " class="form-select">
-                @foreach(var group in _groups)
+                @foreach (var group in _groups)
                 {
                     <option value="@group">@group.Name</option>
                 }
-            </InputSelect> 
-            
+            </InputSelect>
+
         </div>
         <br/>
         <div class="input-group mb-3">
-            <label class="input-group-text">Contrato</label>
-            <InputSelect class="form-control" TValue="Contract" @bind-Value="_student.Contract">
-                @foreach (var contract in _student.Contracts)
+            <lable class="input-group-text">Apostila</lable>
+            <InputSelect  TValue="TextBookType">
+                @foreach (var textbook in _textbookTypes)
                 {
-                    
+                    <option value="@textbook">@textbook.Title</option>
                 }
             </InputSelect>
         </div>
-        <div class="input-group mb-3"> 
-            <lable class ="input-group-text" >Something</lable>
-            </div>
+        <div class="input-group mb-3">
+            <label class="input-group-text">Horas no contrato</label>
+            <InputNumber id="HorasContrato" TValue="double"> 40
+            </InputNumber>
+
+        </div>
     </EditForm>
+
+    <br/>
+    <div>
+        <button class="btn btn-success">Salvar</button>
+        <a class="btn btn-danger">Cancelar</a>
+    </div>
 </div>
 
 @code {
@@ -73,22 +86,22 @@
     };
 
     private List<Group> _groups { get; set; } = [];
+    private List<Contract> _contracts { get; set; } = [];
+    private List<TextBookType> _textbookTypes { get; set; } = [];
 
-    
     private IJSObjectReference module { get; set; }
-    
+
 
     protected override async Task OnInitializedAsync()
     {
-        
         _groups = (await ViewGroupUseCase.ExecuteAsync()).ToList();
+        _contracts = (await ViewContractUseCase.ExecuteAsync()).ToList();
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        
         module = await JS.InvokeAsync<IJSObjectReference>("import", "./Components/Pages/Students/StudentAdd.razor.js");
-        
+
         await module.InvokeVoidAsync("ApplyMask");
     }
 

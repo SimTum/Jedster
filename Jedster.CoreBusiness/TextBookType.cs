@@ -1,6 +1,6 @@
 namespace Jedster.CoreBuisness;
 
-public class TextbookData
+public class TextBookType
 {
     public int Id { get; set; }
     public string Title { get; set; }

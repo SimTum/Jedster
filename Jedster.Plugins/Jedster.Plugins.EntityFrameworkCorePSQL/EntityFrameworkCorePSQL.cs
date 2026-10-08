@@ -17,7 +17,7 @@ public class JedsterContext : DbContext
     public DbSet<Lesson>? Lessons { get; set; }
     public DbSet<Attendance>? Attendances { get; set; }
     public DbSet<Contract>? Contracts { get; set; }
-    public DbSet<TextbookData>? TextbookData { get; set; }
+    public DbSet<TextBookType>? TextBookTypes { get; set; }
 
     //Connections
     // public DbSet<TeacherGroups>? TeacherGroups { get; set; }

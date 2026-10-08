@@ -20,7 +20,7 @@ public class StudentRepository : IStudentRepository
                 TextbookId = 1, 
                 Contract = new Contract()
                 {
-                    ContractId = 1, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 1
+                    // ContractId = 1, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 1
                 }
             },
             new Student
@@ -30,7 +30,7 @@ public class StudentRepository : IStudentRepository
                 TextbookId = 1, 
                 Contract = new Contract()
                 {
-                    ContractId = 2, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 2
+                    // ContractId = 2, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 2
                 }
             },
             new Student
@@ -40,7 +40,7 @@ public class StudentRepository : IStudentRepository
                 TextbookId = 1, 
                 Contract = new Contract()
                 {
-                    ContractId = 3, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 3
+                    // ContractId = 3, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 3
                 }
             },
             new Student
@@ -50,7 +50,7 @@ public class StudentRepository : IStudentRepository
                 TextbookId = 1,
                 Contract = new Contract()
                 {
-                    ContractId = 4, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 4
+                    // ContractId = 4, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 4
                 }
             },
             new Student
@@ -60,7 +60,7 @@ public class StudentRepository : IStudentRepository
                 TextbookId = 1,
                 Contract = new Contract()
                 {
-                    ContractId =5, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 5
+                    // ContractId =5, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 5
                 }
             },
             new Student
@@ -70,7 +70,7 @@ public class StudentRepository : IStudentRepository
                 TextbookId = 1,
                 Contract = new Contract()
                 {
-                    ContractId = 6, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 6
+                    // ContractId = 6, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 6
                 }
             },
             new Student
@@ -80,7 +80,7 @@ public class StudentRepository : IStudentRepository
                 TextbookId = 1,
                 Contract = new Contract()
                 {
-                    ContractId = 7, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 7
+                    // ContractId = 7, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 7
                 }
             },
             new Student
@@ -90,7 +90,7 @@ public class StudentRepository : IStudentRepository
                 TextbookId = 1,
                 Contract = new Contract()
                 {
-                    ContractId = 8, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 8
+                    // ContractId = 8, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 8
                 }
             },
             new Student
@@ -100,7 +100,7 @@ public class StudentRepository : IStudentRepository
                 TextbookId = 1,
                 Contract = new Contract()
                 {
-                    ContractId = 9, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 9
+                    // ContractId = 9, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 9
                 }
             },
             new Student
@@ -110,7 +110,7 @@ public class StudentRepository : IStudentRepository
                 TextbookId = 1,
                 Contract = new Contract()
                 {
-                    ContractId = 10, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 10
+                    // ContractId = 10, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 10
                 }
             },
             new Student
@@ -120,7 +120,7 @@ public class StudentRepository : IStudentRepository
                 TextbookId = 1,
                 Contract = new Contract()
                 {
-                    ContractId = 11, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 11
+                    // ContractId = 11, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 11
                 }
             },
             new Student
@@ -130,7 +130,7 @@ public class StudentRepository : IStudentRepository
                 TextbookId = 1,
                 Contract = new Contract()
                 {
-                    ContractId = 12, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 12
+                    // ContractId = 12, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 12
                 }
             },
             new Student
@@ -140,7 +140,7 @@ public class StudentRepository : IStudentRepository
                 TextbookId = 1,
                 Contract = new Contract()
                 {
-                    ContractId = 13, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 13
+                    // ContractId = 13, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 13
                 }
             },
             new Student
@@ -150,7 +150,7 @@ public class StudentRepository : IStudentRepository
                 TextbookId = 1,
                 Contract = new Contract()
                 {
-                    ContractId = 14, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 14
+                    // ContractId = 14, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 14
                 }
             },
             new Student
@@ -160,7 +160,7 @@ public class StudentRepository : IStudentRepository
                 TextbookId = 1,
                 Contract = new Contract()
                 {
-                    ContractId = 15, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 15
+                    // ContractId = 15, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 15
                 }
             },
             new Student
@@ -170,7 +170,7 @@ public class StudentRepository : IStudentRepository
                 TextbookId = 1,
                 Contract = new Contract()
                 {
-                    ContractId = 16, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 16
+                    // ContractId = 16, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 16
                 }
             },
             new Student
@@ -180,7 +180,7 @@ public class StudentRepository : IStudentRepository
                 TextbookId = 1,
                 Contract = new Contract()
                 {
-                    ContractId = 17, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 17
+                    // ContractId = 17, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 17
                 }
             },
             new Student
@@ -190,7 +190,7 @@ public class StudentRepository : IStudentRepository
                 TextbookId = 1,
                 Contract = new Contract()
                 {
-                    ContractId = 18, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 18
+                    // ContractId = 18, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 18
                 }
             },
             new Student
@@ -200,7 +200,7 @@ public class StudentRepository : IStudentRepository
                 TextbookId = 1,
                 Contract = new Contract()
                 {
-                    ContractId = 19, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 19
+                    // ContractId = 19, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 19
                 }
             },
             new Student
@@ -210,7 +210,7 @@ public class StudentRepository : IStudentRepository
                 TextbookId = 1,
                 Contract = new Contract()
                 {
-                    ContractId = 20, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 20
+                    // ContractId = 20, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 20
                 }
             },
             new Student
@@ -220,7 +220,7 @@ public class StudentRepository : IStudentRepository
                 TextbookId = 1,
                 Contract = new Contract()
                 {
-                    ContractId = 21, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 21
+                    // ContractId = 21, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 21
                 }
             }
         };

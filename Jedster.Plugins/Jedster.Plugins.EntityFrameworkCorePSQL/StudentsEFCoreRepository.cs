@@ -10,8 +10,7 @@ public class StudentsEfCoreRepository(IDbContextFactory<JedsterContext> _factory
     {
         await using var db = await _factory.CreateDbContextAsync();
         return await db.Students?.Include(s => s.Textbooks)
-            .Include(s => s.Contract)
-            .Include(s => s.Contracts).
+            .Include(s => s.Contract).
             ToListAsync()!;
     }
 

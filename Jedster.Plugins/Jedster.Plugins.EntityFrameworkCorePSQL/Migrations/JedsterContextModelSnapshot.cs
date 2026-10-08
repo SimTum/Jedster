@@ -98,7 +98,7 @@ namespace Jedster.Plugins.EntityFrameworkCorePSQL.Migrations
                     b.ToTable("Teachers");
                 });
 
-            modelBuilder.Entity("Jedster.CoreBuisness.TextbookData", b =>
+            modelBuilder.Entity("Jedster.CoreBuisness.TextBookType", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -126,7 +126,7 @@ namespace Jedster.Plugins.EntityFrameworkCorePSQL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TextbookData");
+                    b.ToTable("TextBookTypes");
                 });
 
             modelBuilder.Entity("Jedster.CoreBusiness.Contract", b =>
@@ -145,6 +145,9 @@ namespace Jedster.Plugins.EntityFrameworkCorePSQL.Migrations
 
                     b.Property<double>("HoursRemaining")
                         .HasColumnType("double precision");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("StudentId")
                         .HasColumnType("integer");
@@ -397,7 +400,7 @@ namespace Jedster.Plugins.EntityFrameworkCorePSQL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Jedster.CoreBuisness.TextbookData", "TextbookData")
+                    b.HasOne("Jedster.CoreBuisness.TextBookType", "TextbookData")
                         .WithMany()
                         .HasForeignKey("TextbookTypeId")
                         .OnDelete(DeleteBehavior.Cascade)

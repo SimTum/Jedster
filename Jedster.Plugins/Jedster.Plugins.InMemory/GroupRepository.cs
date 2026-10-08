@@ -26,7 +26,7 @@ public class GroupRepository : IGroupRepository
                         TextbookId = 1,
                         Contract = new Contract()
                         {
-                            ContractId = 1, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 1
+                            // ContractId = 1, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 1
                         }
                     },
                     new Student
@@ -36,7 +36,7 @@ public class GroupRepository : IGroupRepository
                         TextbookId = 1,
                         Contract = new Contract()
                         {
-                            ContractId = 2, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 2
+                            // ContractId = 2, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 2
                         }
                     },
                     new Student
@@ -46,7 +46,7 @@ public class GroupRepository : IGroupRepository
                         TextbookId = 1,
                         Contract = new Contract()
                         {
-                            ContractId = 3, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 3
+                            // ContractId = 3, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 3
                         }
                     }
                 ]
