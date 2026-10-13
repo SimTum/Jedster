@@ -8,7 +8,7 @@ public class ContractsEFCoreRepository(IDbContextFactory<JedsterContext> _factor
 {
     public async Task DeleteContractAsync(int contractId)
     {
-        await using var db = _factory.CreateDbContext();
+        await using var db = await _factory.CreateDbContextAsync();
         var contract = await db.Contracts.FindAsync(contractId);
         if (contract != null)
         {

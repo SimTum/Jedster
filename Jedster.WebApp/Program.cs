@@ -2,7 +2,10 @@ using System.Net.Security;
 using Jedster.Plugins.EntityFrameworkCorePSQL;
 using Jedster.Plugins.InMemory;
 using Jedster.UseCases.Attendances;
+using Jedster.UseCases.Core.Contracts;
+using Jedster.UseCases.Core.Contracts.Interfaces;
 using Jedster.UseCases.Core.Scheduling;
+using Jedster.UseCases.Core.TextbookTypes;
 using Jedster.UseCases.Groups;
 using Jedster.UseCases.Lessons;
 using Jedster.UseCases.Materials;
@@ -35,7 +38,9 @@ builder.Services.AddTransient<IStudentRepository, StudentsEfCoreRepository>();
 builder.Services.AddTransient<IMaterialRepository, MaterialEfCoreRepository>();
 builder.Services.AddTransient<IAttendanceRepository, AttendanceEFCoreRepository>();
 builder.Services.AddTransient<ILessonsRepository, LessonsEFCoreRepository>();
-//
+builder.Services.AddTransient<IContractRepository, ContractsEFCoreRepository>();
+builder.Services.AddTransient<ITextBookTypesRepository, TextBookTypesEFCoreRepository>();
+
 // builder.Services.AddSingleton<ITeacherRepository, TeacherRepository>();
 // builder.Services.AddSingleton<IGroupRepository, GroupRepository>();
 // builder.Services.AddSingleton<IStudentRepository, StudentRepository>();
@@ -43,6 +48,15 @@ builder.Services.AddTransient<ILessonsRepository, LessonsEFCoreRepository>();
 // builder.Services.AddSingleton<ILessonsRepository, LessonRepository>();
 // builder.Services.AddSingleton<IAttendanceRepository, AttendanceRepository>();
 
+builder.Services.AddTransient<IViewContractUseCase, ViewContractUseCase>();
+builder.Services.AddTransient<IAddContractUseCase, AddContractUseCase>();
+builder.Services.AddTransient<IEditContractUseCase, EditContractUseCase>();
+builder.Services.AddTransient<IDeleteContractUseCase, DeleteContractUseCase>();
+
+builder.Services.AddTransient<IViewTextbookTypesUseCase, ViewTextbookTypesUseCase>();
+builder.Services.AddTransient<IEditTextBookTypeUseCase, EditTextBookTypeUseCase>();
+builder.Services.AddTransient<IRegisterTextBookTypeUseCase, RegisterTextBookTypeUseCase>();
+builder.Services.AddTransient<IDeleteTextBookTypeUseCase, DeleteTextBookTypeUseCase>();
 
 builder.Services.AddTransient<IViewTeacherUseCase, ViewTeacherUseCase>();
 builder.Services.AddTransient<IRegisterTeacherUsecase, RegisterTeacherUsecase>();
