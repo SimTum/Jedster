@@ -6,28 +6,41 @@ namespace Jedster.Plugins.EntityFrameworkCorePSQL;
 
 public class TextBookTypesEFCoreRepository(IDbContextFactory<JedsterContext> _factory) : ITextBookTypesRepository
 {
-    public Task<IEnumerable<TextBookType>> GetTextBookTypes()
+    public async Task<IEnumerable<TextBookType>> GetTextBookTypes()
     {
-        throw new NotImplementedException();
+        await using var db = await _factory.CreateDbContextAsync();
+        return await db.TextBookTypes?.ToListAsync() ?? null;
     }
 
-    public Task<TextBookType> GetTextBookTypeById(int id)
+    public async Task<TextBookType> GetTextBookTypeById(int id)
     {
-        throw new NotImplementedException();
+        await using var db =  _factory.CreateDbContext();
+        return await db.TextBookTypes?.FirstOrDefaultAsync(t => t.Id == id) ?? null;
+        
     }
 
-    public Task RegisterTextBookType(TextBookType textBookType)
+    public async Task RegisterTextBookType(TextBookType textBookType)
     {
-        throw new NotImplementedException();
+        await using var db =  _factory.CreateDbContext();
+        db.TextBookTypes.Add(textBookType);
+        await db.SaveChangesAsync();
     }
 
-    public Task UpdateTextBookType(TextBookType textBookType)
+    public async Task UpdateTextBookType(TextBookType textBookType)
     {
-        throw new NotImplementedException();
+        await using var db =  _factory.CreateDbContext();
+        db.TextBookTypes.Update(textBookType);
+        await db.SaveChangesAsync();
     }
 
-    public Task DeleteTextBookType(int id)
+    public async Task DeleteTextBookType(int id)
     {
-        throw new NotImplementedException();
+        await using var db =  _factory.CreateDbContext();
+        var textBookType = await db.TextBookTypes?.FirstOrDefaultAsync(t => t.Id == id);
+        if (textBookType != null)
+        {
+            db.TextBookTypes.Remove(textBookType);
+            await db.SaveChangesAsync();
+        }
     }
 }
