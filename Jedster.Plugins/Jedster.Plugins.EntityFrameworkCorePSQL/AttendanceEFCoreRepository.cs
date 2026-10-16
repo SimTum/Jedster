@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Jedster.Plugins.EntityFrameworkCorePSQL;
 
-public class AttendanceEFCoreRepository(IDbContextFactory<JedsterContext> _factory) : IAttendanceRepository
+public class AttendanceEfCoreRepository(IDbContextFactory<JedsterContext> _factory) : IAttendanceRepository
 {
     public async Task<IEnumerable<Attendance>> GetAttendances()
     {

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Jedster.Plugins.EntityFrameworkCorePSQL;
 
-public class ContractsEFCoreRepository(IDbContextFactory<JedsterContext> _factory) : IContractRepository
+public class ContractsEfCoreRepository(IDbContextFactory<JedsterContext> _factory) : IContractRepository
 {
     public async Task DeleteContractAsync(int contractId)
     {
@@ -19,7 +19,7 @@ public class ContractsEFCoreRepository(IDbContextFactory<JedsterContext> _factor
 
     public async Task EditContractAsync(Contract contract)
     {
-        await using var db = _factory.CreateDbContext();
+        await using var db = await _factory.CreateDbContextAsync();
         var existingContract = await db.Contracts.FindAsync(contract.ContractId);
         if (existingContract != null)
         {
@@ -30,13 +30,13 @@ public class ContractsEFCoreRepository(IDbContextFactory<JedsterContext> _factor
 
     public async Task<Contract> GetContractByIdAsync(int contractId)
     {
-        await using var db = _factory.CreateDbContext();
+        await using var db = await _factory.CreateDbContextAsync();
         return await db.Contracts.FindAsync(contractId) ?? null;
     }
 
     public async Task<IEnumerable<Contract>> GetContractsAsync()
     {
-        await using var db = _factory.CreateDbContext();
+        await using var db = await _factory.CreateDbContextAsync();
         return await db.Contracts?.ToListAsync() ?? null;
     }
 

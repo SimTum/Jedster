@@ -7,5 +7,5 @@ public interface ILessonsRepository
     Task<Lesson> UpdateLessonAsync(Lesson lesson);
     Task<IEnumerable<Lesson>> GetLessonsAsync();
     Task<bool> LessonExistsAsync(int groupId, DateTime date);
-    Task<Lesson> AddLessonAsync(Lesson lesson);
+    Task AddLessonAsync(Lesson lesson);
 }

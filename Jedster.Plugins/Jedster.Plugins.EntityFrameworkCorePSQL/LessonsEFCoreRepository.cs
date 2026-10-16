@@ -1,27 +1,36 @@
 using Jedster.CoreBusiness;
 using Jedster.UseCases.PluginInterfaces;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace Jedster.Plugins.EntityFrameworkCorePSQL;
 
-public class LessonsEFCoreRepository : ILessonsRepository
+public class LessonsEfCoreRepository(IDbContextFactory<JedsterContext> _factory) : ILessonsRepository
 {
     public async Task<Lesson> UpdateLessonAsync(Lesson lesson)
     {
-        throw new NotImplementedException();
+        await using var db =  await _factory.CreateDbContextAsync();
+        db.Lessons.Update(lesson);
+        await db.SaveChangesAsync();
+        return lesson;
     }
 
     public async Task<IEnumerable<Lesson>> GetLessonsAsync()
     {
-        throw new NotImplementedException();
+        await using var db = await _factory.CreateDbContextAsync();
+        return await db.Lessons.ToListAsync();
     }
 
     public async Task<bool> LessonExistsAsync(int groupId, DateTime date)
     {
-        throw new NotImplementedException();
+        await using var db = await _factory.CreateDbContextAsync();
+        return await db.Lessons.AnyAsync(l => l.GroupId == groupId && l.StartTime == date);
     }
 
-    public async Task<Lesson> AddLessonAsync(Lesson lesson)
+    public async Task AddLessonAsync(Lesson lesson)
     {
-        throw new NotImplementedException();
+        await using var db = await _factory.CreateDbContextAsync();
+        db.Lessons.Add(lesson);
+        await db.SaveChangesAsync();
     }
 }

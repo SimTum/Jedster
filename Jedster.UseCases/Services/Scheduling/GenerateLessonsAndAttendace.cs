@@ -42,9 +42,7 @@ public class GenerateLessonsAndAttendace(
                             .Where(s => s.Contract?.GetHoursRemaining() is > 0)
                             .ToList()
                     };
-
-                    lesson = await lessonsRepository.AddLessonAsync(lesson);
-
+                    
                     foreach (var student in lesson.Students ?? [])
                     {
                         if (await attendanceRepository.AttendanceExistsAsync(lesson.LessonId, student.StudentId))

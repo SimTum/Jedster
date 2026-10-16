@@ -33,6 +33,7 @@ public class TeachersEfCoreRepository(IDbContextFactory<JedsterContext> _factory
                 _teacher.RG = teacher.RG;
 
             
+                
             await db.SaveChangesAsync(); 
         }
     }

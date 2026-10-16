@@ -36,9 +36,9 @@ builder.Services.AddTransient<ITeacherRepository, TeachersEfCoreRepository>();
 builder.Services.AddTransient<IGroupRepository, GroupsEfCoreRepository>();
 builder.Services.AddTransient<IStudentRepository, StudentsEfCoreRepository>();
 builder.Services.AddTransient<IMaterialRepository, MaterialEfCoreRepository>();
-builder.Services.AddTransient<IAttendanceRepository, AttendanceEFCoreRepository>();
-builder.Services.AddTransient<ILessonsRepository, LessonsEFCoreRepository>();
-builder.Services.AddTransient<IContractRepository, ContractsEFCoreRepository>();
+builder.Services.AddTransient<IAttendanceRepository, AttendanceEfCoreRepository>();
+builder.Services.AddTransient<ILessonsRepository, LessonsEfCoreRepository>();
+builder.Services.AddTransient<IContractRepository, ContractsEfCoreRepository>();
 builder.Services.AddTransient<ITextBookTypesRepository, TextBookTypesEFCoreRepository>();
 
 // builder.Services.AddSingleton<ITeacherRepository, TeacherRepository>();
