@@ -40,8 +40,13 @@ public class ContractsEfCoreRepository(IDbContextFactory<JedsterContext> _factor
         return await db.Contracts?.ToListAsync() ?? null;
     }
 
-    public async Task AddContractAsync(IContractRepository contractRepository)
+    public async Task AddContractAsync(Contract contract)
     {
-        throw new NotImplementedException();
+        await using var db = await _factory.CreateDbContextAsync();
+        if (db.Contracts != null)
+        {
+            db.Contracts.Add(contract);
+            await db.SaveChangesAsync();
+        }
     }
 }

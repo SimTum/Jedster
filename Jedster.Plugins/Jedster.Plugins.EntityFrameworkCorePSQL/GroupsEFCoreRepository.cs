@@ -40,10 +40,11 @@ public class GroupsEfCoreRepository(IDbContextFactory<JedsterContext> _factory) 
             _group.Name = group.Name;
             _group.StartTime = group.StartTime;
             _group.EndTime = group.EndTime;
-            _group.Teacher = group.Teacher;
+            _group.TeacherId = group.TeacherId;
             _group.WeekDay = group.WeekDay;
+            _group.NumberStudents = group.NumberStudents;
 
-            db.SaveChanges();
+            await db.SaveChangesAsync();
 
         }
     }

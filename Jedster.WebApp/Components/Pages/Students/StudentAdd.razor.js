@@ -1,7 +1,9 @@
 export function ApplyMask()
 {
     const RGField = document.getElementById("test");
-    RGField.innerHTML = "Hello World"
+    if (RGField) {
+        RGField.innerHTML = "Hello World";
+    }
 }
 
 

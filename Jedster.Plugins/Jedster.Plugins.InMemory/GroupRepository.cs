@@ -138,6 +138,8 @@ public class GroupRepository : IGroupRepository
             groupToUpdate.TeacherId = group.TeacherId;
             groupToUpdate.Teacher = group.Teacher;
             groupToUpdate.WeekDay = group.WeekDay;
+            groupToUpdate.NumberStudents = group.NumberStudents;
+            groupToUpdate.Students = group.Students;
         }
 
         return Task.CompletedTask;

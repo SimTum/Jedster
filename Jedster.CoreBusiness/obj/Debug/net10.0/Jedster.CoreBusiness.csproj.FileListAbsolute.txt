@@ -22,3 +22,6 @@
 /Users/simon.tumanov-ext/fatec/jedster/Jedster.CoreBusiness/obj/Debug/net10.0/refint/Jedster.CoreBusiness.dll
 /Users/simon.tumanov-ext/fatec/jedster/Jedster.CoreBusiness/obj/Debug/net10.0/Jedster.CoreBusiness.pdb
 /Users/simon.tumanov-ext/fatec/jedster/Jedster.CoreBusiness/obj/Debug/net10.0/ref/Jedster.CoreBusiness.dll
+/tmp/junie/session-261016-225258-1thm/build/Jedster.CoreBusiness.deps.json
+/tmp/junie/session-261016-225258-1thm/build/Jedster.CoreBusiness.dll
+/tmp/junie/session-261016-225258-1thm/build/Jedster.CoreBusiness.pdb

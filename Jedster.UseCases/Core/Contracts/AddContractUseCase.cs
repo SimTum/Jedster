@@ -8,6 +8,6 @@ public class AddContractUseCase(IContractRepository contractRepository) : IAddCo
 {
     public async Task ExecuteAsync(Contract contract)
     {
-        await contractRepository.AddContractAsync(contractRepository);
+        await contractRepository.AddContractAsync(contract);
     }
 }

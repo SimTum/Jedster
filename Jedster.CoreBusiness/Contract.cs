@@ -6,6 +6,7 @@ public class Contract
     public Student Student { get; init; }
     public int StudentId { get; set; }
     public DateTime StartDate { get; set; }
+    
 
     public double HoursCompleted { get; set; } = 0;
 

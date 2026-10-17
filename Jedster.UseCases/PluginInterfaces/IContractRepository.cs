@@ -8,5 +8,5 @@ public interface IContractRepository
     Task EditContractAsync(Contract contract);
     Task<Contract> GetContractByIdAsync(int contractId);
     Task<IEnumerable<Contract>> GetContractsAsync();
-    Task AddContractAsync(IContractRepository contractRepository);
+    Task AddContractAsync(Contract contract);
 }

@@ -270,8 +270,13 @@ public class StudentRepository : IStudentRepository
             return Task.CompletedTask;
         }
 
-        var maxId = _students.Max(x => x.StudentId);
+        var maxId = _students.Count > 0 ? _students.Max(x => x.StudentId) : 0;
         student.StudentId = maxId + 1;
+
+        if (student.Contract != null)
+        {
+            student.Contract.StudentId = student.StudentId;
+        }
 
         _students.Add(student);
         return Task.CompletedTask;

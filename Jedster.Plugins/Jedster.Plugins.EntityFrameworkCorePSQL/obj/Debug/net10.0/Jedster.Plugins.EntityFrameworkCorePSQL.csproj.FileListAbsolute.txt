@@ -38,3 +38,7 @@
 /Users/simon.tumanov-ext/fatec/jedster/Jedster.Plugins/Jedster.Plugins.EntityFrameworkCorePSQL/obj/Debug/net10.0/Jedster.Plugins.EntityFrameworkCorePSQL.pdb
 /Users/simon.tumanov-ext/fatec/jedster/Jedster.Plugins/Jedster.Plugins.EntityFrameworkCorePSQL/obj/Debug/net10.0/Jedster.Plugins.EntityFrameworkCorePSQL.genruntimeconfig.cache
 /Users/simon.tumanov-ext/fatec/jedster/Jedster.Plugins/Jedster.Plugins.EntityFrameworkCorePSQL/obj/Debug/net10.0/ref/Jedster.Plugins.EntityFrameworkCorePSQL.dll
+/tmp/junie/session-261016-225258-1thm/build/Jedster.Plugins.EntityFrameworkCorePSQL.deps.json
+/tmp/junie/session-261016-225258-1thm/build/Jedster.Plugins.EntityFrameworkCorePSQL.runtimeconfig.json
+/tmp/junie/session-261016-225258-1thm/build/Jedster.Plugins.EntityFrameworkCorePSQL.dll
+/tmp/junie/session-261016-225258-1thm/build/Jedster.Plugins.EntityFrameworkCorePSQL.pdb
