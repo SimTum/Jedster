@@ -82,6 +82,7 @@
 
     public void RedirectToEdit(int groupId)
     {
-        Navigator.NavigateTo(($"/edit-turma/{groupId}"));
+        Navigator.NavigateTo(($"/edit-aluno/" +
+                              $"{groupId}"));
     }
 }

@@ -1,14 +1,17 @@
 @page "/alunos/add"
 
+@using Jedster.CoreBuisness
 @using Jedster.CoreBusiness
 @using Jedster.UseCases.Core.Contracts
 @using Jedster.UseCases.Core.Contracts.Interfaces
+@using Jedster.UseCases.Core.TextbookTypes
 @using Jedster.UseCases.Groups
 @using Jedster.UseCases.Students
 
 @inject IViewGroupUseCase ViewGroupUseCase;
 @inject IEditGroupUseCase EditGroupUseCase;
 @inject IViewStudentsUseCase ViewStudentUseCase;
+@inject IViewTextbookTypesUseCase ViewTextbookTypesUseCase;
 @inject IRegisterStudentsUseCase RegisterStudentUseCase;
 @inject IViewContractUseCase ViewContractUseCase;
 @inject IAddContractUseCase AddContractUseCase;
@@ -61,7 +64,15 @@
             <label class="input-group-text" for="HorasContrato">Horas no contrato</label>
             <InputNumber id="HorasContrato" class="form-control" @bind-Value="_contract.HoursRemaining" disabled />
         </div>
-
+        <div class="input-group">
+            <label class="input-group-text for" for="TextBook">Material de aluno</label>
+            <InputSelect id="TextBook" @bind-Value="_textbook.TextbookTypeId">
+                @foreach(var textbook in _textbooks)
+                {
+                    <option value="@textbook.Id">@textbook.Title</option>
+                }
+            </InputSelect>
+        </div>
         @if (!string.IsNullOrEmpty(_errorMessage))
         {
             <div class="alert alert-danger">@_errorMessage</div>
@@ -98,7 +109,8 @@
     
     private List<Group> _groups { get; set; } = [];
     private List<Contract> _contracts { get; set; } = [];
-
+    private Textbook _textbook { get; set; } = new Textbook();
+    private List<TextBookType> _textbooks { get; set; } = [];
     private IJSObjectReference? module { get; set; }
 
     private string? _errorMessage;
@@ -107,6 +119,7 @@
     protected override async Task OnInitializedAsync()
     {
         _groups = (await ViewGroupUseCase.ExecuteAsync()).ToList();
+        _textbooks = (await ViewTextbookTypesUseCase.ExecuteAsync()).ToList();
         _contract.HoursRemaining = 40;
         _contract.HoursCompleted = 0;
         _contract.HoursMissed = 0;
@@ -128,6 +141,7 @@
             }
             catch (Exception)
             {
+                // ignored
             }
         }
     }
@@ -151,7 +165,8 @@
 
         try
         {
-            // Saves the student together with its 40 hour contract (linked through Contract.StudentId)
+            // Saves the student together with its 40-hour contract (linked through Contract.StudentId)
+            _student.Textbooks?.Append(_textbook);
             await RegisterStudentUseCase.ExecuteAsync(_student);
 
             var studentsInGroup = selectedGroup.Students?.ToList() ?? new List<Student>();
@@ -182,6 +197,7 @@
             }
             catch (Exception)
             {
+                // ignored
             }
         }
     }

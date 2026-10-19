@@ -293,6 +293,9 @@ namespace Jedster.Plugins.EntityFrameworkCorePSQL.Migrations
                     b.Property<int>("StudentId")
                         .HasColumnType("integer");
 
+                    b.Property<int?>("TextBookTypeId")
+                        .HasColumnType("integer");
+
                     b.Property<int>("TextbookTypeId")
                         .HasColumnType("integer");
 
@@ -303,6 +306,8 @@ namespace Jedster.Plugins.EntityFrameworkCorePSQL.Migrations
                     b.HasKey("TextbookId");
 
                     b.HasIndex("StudentId");
+
+                    b.HasIndex("TextBookTypeId");
 
                     b.HasIndex("TextbookTypeId");
 
@@ -394,11 +399,15 @@ namespace Jedster.Plugins.EntityFrameworkCorePSQL.Migrations
 
             modelBuilder.Entity("Jedster.CoreBusiness.Textbook", b =>
                 {
-                    b.HasOne("Jedster.CoreBusiness.Student", null)
+                    b.HasOne("Jedster.CoreBusiness.Student", "Student")
                         .WithMany("Textbooks")
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("Jedster.CoreBuisness.TextBookType", null)
+                        .WithMany("Textbooks")
+                        .HasForeignKey("TextBookTypeId");
 
                     b.HasOne("Jedster.CoreBuisness.TextBookType", "TextbookData")
                         .WithMany()
@@ -406,12 +415,19 @@ namespace Jedster.Plugins.EntityFrameworkCorePSQL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Student");
+
                     b.Navigation("TextbookData");
                 });
 
             modelBuilder.Entity("Jedster.CoreBuisness.Teacher", b =>
                 {
                     b.Navigation("Groups");
+                });
+
+            modelBuilder.Entity("Jedster.CoreBuisness.TextBookType", b =>
+                {
+                    b.Navigation("Textbooks");
                 });
 
             modelBuilder.Entity("Jedster.CoreBusiness.Group", b =>

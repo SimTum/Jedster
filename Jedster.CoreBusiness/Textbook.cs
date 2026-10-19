@@ -12,6 +12,7 @@ public class Textbook
     public int TextbookTypeId { get; set; }
     public TextBookType TextbookData { get; set; }
     public string Title { get; set; }
+    public Student Student { get; set; }
     public int StudentId { get; set; }
     public double HoursSpent { get; set; }
     public double Engagement { get; set; }
