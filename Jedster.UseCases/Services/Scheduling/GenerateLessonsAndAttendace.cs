@@ -12,7 +12,7 @@ public class GenerateLessonsAndAttendace(
     {
         public async Task ExecuteAsync(DateTime? from = null, int days = 30)
         {
-            var startDate = (from ?? DateTime.Today).Date;
+            var startDate = (from ?? DateTime.Today).Date.ToUniversalTime();
             var endDate = startDate.AddDays(days);
 
             var groups = await groupRepository.GetGroupsByNameAsync();
