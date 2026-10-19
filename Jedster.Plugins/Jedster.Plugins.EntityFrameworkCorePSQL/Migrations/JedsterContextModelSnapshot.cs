@@ -293,9 +293,6 @@ namespace Jedster.Plugins.EntityFrameworkCorePSQL.Migrations
                     b.Property<int>("StudentId")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("TextBookTypeId")
-                        .HasColumnType("integer");
-
                     b.Property<int>("TextbookTypeId")
                         .HasColumnType("integer");
 
@@ -306,8 +303,6 @@ namespace Jedster.Plugins.EntityFrameworkCorePSQL.Migrations
                     b.HasKey("TextbookId");
 
                     b.HasIndex("StudentId");
-
-                    b.HasIndex("TextBookTypeId");
 
                     b.HasIndex("TextbookTypeId");
 
@@ -405,19 +400,15 @@ namespace Jedster.Plugins.EntityFrameworkCorePSQL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Jedster.CoreBuisness.TextBookType", null)
+                    b.HasOne("Jedster.CoreBuisness.TextBookType", "TextbookType")
                         .WithMany("Textbooks")
-                        .HasForeignKey("TextBookTypeId");
-
-                    b.HasOne("Jedster.CoreBuisness.TextBookType", "TextbookData")
-                        .WithMany()
                         .HasForeignKey("TextbookTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Student");
 
-                    b.Navigation("TextbookData");
+                    b.Navigation("TextbookType");
                 });
 
             modelBuilder.Entity("Jedster.CoreBuisness.Teacher", b =>

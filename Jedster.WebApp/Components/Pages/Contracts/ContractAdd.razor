@@ -1,0 +1,112 @@
+@page "/contratos/add"
+
+@using Jedster.UseCases.Core.Contracts.Interfaces
+@using Jedster.UseCases.Students
+
+@inject IAddContractUseCase AddContractUseCase
+@inject IViewStudentsUseCase ViewStudentsUseCase
+@inject NavigationManager Navigator
+
+<h3>Adicionar Contrato</h3>
+<br />
+<div>
+    <EditForm Model="_contract" FormName="RegisterContractForm" OnValidSubmit="Register">
+        <DataAnnotationsValidator></DataAnnotationsValidator>
+
+        @if (_students.Count == 0)
+        {
+            <div class="alert alert-info mb-3">
+                Nenhum aluno sem contrato disponível.
+            </div>
+        }
+
+        <div class="input-group mb-3">
+            <label class="input-group-text" for="student">Aluno</label>
+            <InputSelect id="student" @bind-Value="_contract.StudentId" class="form-select">
+                <option value="0">Selecione um aluno...</option>
+                @foreach (var student in _students)
+                {
+                    <option value="@student.StudentId">@student.Name</option>
+                }
+            </InputSelect>
+            <ValidationMessage For="() => _contract.StudentId" />
+        </div>
+
+        <div class="input-group mb-3">
+            <span class="input-group-text">Data de início</span>
+            <InputDate id="start-date" @bind-Value="_contract.StartDate" class="form-control" />
+            <ValidationMessage For="() => _contract.StartDate" />
+        </div>
+
+        <div class="input-group mb-3">
+            <span class="input-group-text">Horas restantes</span>
+            <InputNumber id="hours-remaining" @bind-Value="_contract.HoursRemaining" class="form-control" />
+            <ValidationMessage For="() => _contract.HoursRemaining" />
+        </div>
+
+        <div class="input-group mb-3">
+            <span class="input-group-text">Horas concluídas</span>
+            <InputNumber id="hours-completed" @bind-Value="_contract.HoursCompleted" class="form-control" />
+            <ValidationMessage For="() => _contract.HoursCompleted" />
+        </div>
+
+        <div class="input-group mb-3">
+            <span class="input-group-text">Horas perdidas</span>
+            <InputNumber id="hours-missed" @bind-Value="_contract.HoursMissed" class="form-control" />
+            <ValidationMessage For="() => _contract.HoursMissed" />
+        </div>
+
+        @if (!string.IsNullOrEmpty(_errorMessage))
+        {
+            <div class="alert alert-danger mt-3">@_errorMessage</div>
+        }
+
+        <br />
+        <div>
+            <button type="submit" class="btn btn-primary">Salvar</button>
+            <a href="/contratos" class="btn btn-outline-danger">Cancelar</a>
+        </div>
+    </EditForm>
+</div>
+
+@code {
+    [SupplyParameterFromForm]
+    private Contract _contract { get; set; } = new()
+    {
+        StartDate = DateTime.Today,
+        HoursRemaining = 40,
+        HoursCompleted = 0,
+        HoursMissed = 0
+    };
+
+    private List<Student> _students = [];
+    private string? _errorMessage;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var allStudents = await ViewStudentsUseCase.ExecuteAsync();
+        _students = [.. allStudents.Where(s => s.Contract == null)];
+    }
+
+    private async Task Register()
+    {
+        _errorMessage = null;
+
+        if (_contract.StudentId == 0 || !_students.Any(s => s.StudentId == _contract.StudentId))
+        {
+            _errorMessage = "Selecione um aluno cadastrado sem contrato.";
+            return;
+        }
+
+        try
+        {
+            _contract.StartDate = DateTime.SpecifyKind(_contract.StartDate, DateTimeKind.Utc);
+            await AddContractUseCase.ExecuteAsync(_contract);
+            Navigator.NavigateTo("/contratos");
+        }
+        catch (Exception ex)
+        {
+            _errorMessage = $"Erro ao salvar contrato: {ex.GetBaseException().Message}";
+        }
+    }
+}

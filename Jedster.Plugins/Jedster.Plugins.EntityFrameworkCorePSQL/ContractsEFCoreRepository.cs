@@ -37,7 +37,7 @@ public class ContractsEfCoreRepository(IDbContextFactory<JedsterContext> _factor
     public async Task<IEnumerable<Contract>> GetContractsAsync()
     {
         await using var db = await _factory.CreateDbContextAsync();
-        return await db.Contracts?.ToListAsync() ?? null;
+        return await db.Contracts.Include(c => c.Student).ToListAsync();
     }
 
     public async Task AddContractAsync(Contract contract)

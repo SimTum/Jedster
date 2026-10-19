@@ -52,6 +52,11 @@
 
     private void Close()
     {
+        Hide();
+    }
+
+    public void Hide()
+    {
         HeaderText = string.Empty;
         BodyText = string.Empty;
         IsVisible = false;

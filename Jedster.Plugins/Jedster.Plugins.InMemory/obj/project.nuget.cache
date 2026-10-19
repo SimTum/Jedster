@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "EdxhkSCh6E4=",
+  "dgSpecHash": "p15FGqtn3hU=",
   "success": true,
-  "projectFilePath": "/home/Noodle/Fatec/Jedster/Jedster.Plugins/Jedster.Plugins.InMemory/Jedster.Plugins.InMemory.csproj",
+  "projectFilePath": "/Users/simon.tumanov-ext/fatec/jedster/Jedster.Plugins/Jedster.Plugins.InMemory/Jedster.Plugins.InMemory.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

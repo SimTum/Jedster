@@ -73,14 +73,18 @@ public class JedsterContext : DbContext
             .HasKey(textbook => new { textbook.TextbookId });
 
         modelBuilder.Entity<Textbook>()
-            .HasOne(textbook => textbook.TextbookData)
+            .HasOne(textbook => textbook.TextbookType)
             .WithMany()
             .HasForeignKey(textbook => textbook.TextbookTypeId);
         
         modelBuilder.Entity<TextBookType>()
             .HasKey(textbookType => new { textbookType.Id });
         
-
+        modelBuilder.Entity<TextBookType>()
+            .HasMany(textbookType => textbookType.Textbooks)
+            .WithOne(textbook => textbook.TextbookType)
+            .HasForeignKey(textbook => textbook.TextbookTypeId);
+        
         modelBuilder.Entity<Lesson>()
             .HasKey(lesson => new { lesson.LessonId });
         

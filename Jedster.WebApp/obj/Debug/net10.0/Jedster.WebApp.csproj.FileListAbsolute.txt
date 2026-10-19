@@ -376,7 +376,6 @@
 /Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp/bin/Debug/net10.0/Jedster.Plugins.EntityFrameworkCorePSQL.dll
 /Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp/bin/Debug/net10.0/Jedster.CoreBusiness.pdb
 /Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp/bin/Debug/net10.0/Jedster.Plugins.EntityFrameworkCorePSQL.pdb
-/Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp/obj/Debug/net10.0/compressed/lnil929vfy-{0}-w1fy6fy2vj-w1fy6fy2vj.gz
 /home/Noodle/Fatec/Jedster/Jedster.WebApp/obj/Debug/net10.0/compressed/lnil929vfy-{0}-hsg864mga7-hsg864mga7.gz
 /tmp/junie/session-261016-225258-1thm/build/appsettings.Development.json
 /tmp/junie/session-261016-225258-1thm/build/appsettings.json
@@ -387,3 +386,4 @@
 /tmp/junie/session-261016-225258-1thm/build/Jedster.WebApp.runtimeconfig.json
 /tmp/junie/session-261016-225258-1thm/build/Jedster.WebApp.dll
 /tmp/junie/session-261016-225258-1thm/build/Jedster.WebApp.pdb
+/Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp/obj/Debug/net10.0/compressed/lnil929vfy-{0}-hsg864mga7-hsg864mga7.gz

@@ -6,6 +6,7 @@
 @using Jedster.UseCases.Core.Contracts.Interfaces
 @using Jedster.UseCases.Core.TextbookTypes
 @using Jedster.UseCases.Groups
+@using Jedster.UseCases.Materials
 @using Jedster.UseCases.Students
 
 @inject IViewGroupUseCase ViewGroupUseCase;
@@ -15,6 +16,7 @@
 @inject IRegisterStudentsUseCase RegisterStudentUseCase;
 @inject IViewContractUseCase ViewContractUseCase;
 @inject IAddContractUseCase AddContractUseCase;
+@inject IRegisterMaterialUseCase RegisterTextBookUseCase;
 @inject NavigationManager Navigator;
 @inject IJSRuntime JS;
 
@@ -62,14 +64,15 @@
         <br/>
         <div class="input-group mb-3">
             <label class="input-group-text" for="HorasContrato">Horas no contrato</label>
-            <InputNumber id="HorasContrato" class="form-control" @bind-Value="_contract.HoursRemaining" disabled />
+            <InputNumber id="HorasContrato" class="form-control" @bind-Value="_contract.HoursRemaining" disabled/>
         </div>
         <div class="input-group">
             <label class="input-group-text for" for="TextBook">Material de aluno</label>
             <InputSelect id="TextBook" @bind-Value="_textbook.TextbookTypeId" class="form-select">
-                @foreach(var textbook in _textbooks)
+                <option value="">Sem Material</option>
+                @foreach (var textbooktype in _textbooktypes)
                 {
-                    <option value="@textbook.Id">@textbook.Title</option>
+                    <option value="@textbooktype.Id">@textbooktype.Title</option>
                 }
             </InputSelect>
         </div>
@@ -100,17 +103,17 @@
     };
 
     private Contract _contract { get; set; } = new Contract
-    {   
+    {
         HoursRemaining = 40,
         HoursCompleted = 0,
         HoursMissed = 0,
         StartDate = DateTime.UtcNow
     };
-    
+
     private List<Group> _groups { get; set; } = [];
     private List<Contract> _contracts { get; set; } = [];
     private Textbook _textbook { get; set; } = new Textbook();
-    private List<TextBookType> _textbooks { get; set; } = [];
+    private List<TextBookType> _textbooktypes { get; set; } = [];
     private IJSObjectReference? module { get; set; }
 
     private string? _errorMessage;
@@ -119,7 +122,7 @@
     protected override async Task OnInitializedAsync()
     {
         _groups = (await ViewGroupUseCase.ExecuteAsync()).ToList();
-        _textbooks = (await ViewTextbookTypesUseCase.ExecuteAsync()).ToList();
+        _textbooktypes = (await ViewTextbookTypesUseCase.ExecuteAsync()).ToList();
         _contract.HoursRemaining = 40;
         _contract.HoursCompleted = 0;
         _contract.HoursMissed = 0;
@@ -166,9 +169,17 @@
         try
         {
             // Saves the student together with its 40-hour contract (linked through Contract.StudentId)
-            _textbook.Student = _student;
-            _student.Textbooks?.Append(_textbook);
+
+            // _textbook.TextbookType = _textbooktypes.Find(t => t.Id == _textbook.TextbookTypeId);
             await RegisterStudentUseCase.ExecuteAsync(_student);
+            _student.Textbooks?.Append(_textbook);
+            _textbook.StudentId = _student.StudentId;
+            if (_textbook.TextbookTypeId > 0)
+            {
+                var selectedType = _textbooktypes.FirstOrDefault(t => t.Id == _textbook.TextbookTypeId);
+                _textbook.Title = selectedType?.Title ?? string.Empty;
+                await RegisterTextBookUseCase.ExecuteAsync(_textbook);
+            }
 
             var studentsInGroup = selectedGroup.Students?.ToList() ?? new List<Student>();
             studentsInGroup.Add(_student);
@@ -184,7 +195,7 @@
 
         Navigator.NavigateTo("/alunos");
     }
-    
+
     public async ValueTask DisposeAsync()
     {
         if (module is not null)

@@ -1,0 +1,120 @@
+@page "/materiais/add"
+
+@using Jedster.CoreBuisness
+@using Jedster.UseCases.Materials
+@using Jedster.UseCases.Students
+@using Jedster.UseCases.Core.TextbookTypes
+
+@inject IRegisterMaterialUseCase RegisterMaterialUseCase
+@inject IViewStudentsUseCase ViewStudentsUseCase
+@inject IViewTextbookTypesUseCase ViewTextbookTypesUseCase
+@inject NavigationManager Navigator
+
+<h3>Adicionar Material</h3>
+<br />
+<div>
+    <EditForm Model="_textbook" FormName="RegisterTextbookForm" OnValidSubmit="Register">
+        <DataAnnotationsValidator></DataAnnotationsValidator>
+
+        <div class="input-group mb-3">
+            <span class="input-group-text">Título</span>
+            <InputText id="title" @bind-Value="_textbook.Title" class="form-control" />
+            <ValidationMessage For="() => _textbook.Title" />
+        </div>
+
+        <div class="input-group mb-3">
+            <label class="input-group-text" for="textbook-type">Tipo de Material</label>
+            <InputSelect id="textbook-type" @bind-Value="_textbook.TextbookTypeId" class="form-select">
+                <option value="0">Selecione um tipo de material...</option>
+                @foreach (var type in _textbooktypes)
+                {
+                    <option value="@type.Id">@type.Title</option>
+                }
+            </InputSelect>
+            <ValidationMessage For="() => _textbook.TextbookTypeId" />
+        </div>
+
+        <div class="input-group mb-3">
+            <label class="input-group-text" for="student">Aluno</label>
+            <InputSelect id="student" @bind-Value="_textbook.StudentId" class="form-select">
+                <option value="0">Selecione um aluno...</option>
+                @foreach (var student in _students)
+                {
+                    <option value="@student.StudentId">@student.Name</option>
+                }
+            </InputSelect>
+            <ValidationMessage For="() => _textbook.StudentId" />
+        </div>
+
+        <div class="input-group mb-3">
+            <span class="input-group-text">Horas dedicadas</span>
+            <InputNumber id="hours" @bind-Value="_textbook.HoursSpent" class="form-control" />
+            <ValidationMessage For="() => _textbook.HoursSpent" />
+        </div>
+
+        <div class="input-group mb-3">
+            <span class="input-group-text">Engajamento</span>
+            <InputNumber id="engagement" @bind-Value="_textbook.Engagement" class="form-control" />
+            <ValidationMessage For="() => _textbook.Engagement" />
+        </div>
+
+        @if (!string.IsNullOrEmpty(_errorMessage))
+        {
+            <div class="alert alert-danger mt-3">@_errorMessage</div>
+        }
+
+        <br />
+        <div>
+            <button type="submit" class="btn btn-primary">Salvar</button>
+            <a href="/materiais" class="btn btn-outline-danger">Cancelar</a>
+        </div>
+    </EditForm>
+</div>
+
+@code {
+    [SupplyParameterFromForm]
+    private Textbook _textbook { get; set; } = new() { Title = string.Empty };
+
+    private List<Student> _students = [];
+    private List<TextBookType> _textbooktypes = [];
+    private string? _errorMessage;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _students = [.. await ViewStudentsUseCase.ExecuteAsync()];
+        _textbooktypes = [.. await ViewTextbookTypesUseCase.ExecuteAsync()];
+    }
+
+    private async Task Register()
+    {
+        _errorMessage = null;
+
+        if (_textbook.StudentId == 0 || !_students.Any(s => s.StudentId == _textbook.StudentId))
+        {
+            _errorMessage = "Selecione um aluno cadastrado.";
+            return;
+        }
+
+        if (_textbook.TextbookTypeId == 0 || !_textbooktypes.Any(t => t.Id == _textbook.TextbookTypeId))
+        {
+            _errorMessage = "Selecione um tipo de material cadastrado.";
+            return;
+        }
+
+        if (string.IsNullOrWhiteSpace(_textbook.Title))
+        {
+            var selectedType = _textbooktypes.FirstOrDefault(t => t.Id == _textbook.TextbookTypeId);
+            _textbook.Title = selectedType?.Title ?? string.Empty;
+        }
+
+        try
+        {
+            await RegisterMaterialUseCase.ExecuteAsync(_textbook);
+            Navigator.NavigateTo("/materiais");
+        }
+        catch (Exception ex)
+        {
+            _errorMessage = $"Erro ao salvar material: {ex.GetBaseException().Message}";
+        }
+    }
+}

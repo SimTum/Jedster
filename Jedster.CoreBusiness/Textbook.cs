@@ -10,7 +10,7 @@ public class Textbook
     [Required ]
     public int TextbookId { get; set; }
     public int TextbookTypeId { get; set; }
-    public TextBookType TextbookData { get; set; }
+    public TextBookType? TextbookType { get; set; }
     public string Title { get; set; }
     public Student Student { get; set; }
     public int StudentId { get; set; }

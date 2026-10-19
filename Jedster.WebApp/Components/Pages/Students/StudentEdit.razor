@@ -1,8 +1,200 @@
-@page "/aluno-edit/{AlunoId:int}"
-<h3>StudentEdit</h3>
+@page "/edit-aluno/{StudentId:int}"
 
+@using System.ComponentModel.DataAnnotations
+@using Jedster.UseCases.Groups
+@using Jedster.UseCases.Students
+@using Jedster.UseCases.Students.Interfaces
+
+@inject IViewGroupUseCase ViewGroupsUseCase
+@inject IEditStudentsUseCase EditStudentsUseCase
+@inject IViewStudentsUseCase ViewStudentsUseCase
+@inject IDeleteStudentsUseCase DeleteStudentsUseCase
+@inject NavigationManager Navigator
+
+<h3>Editar Aluno</h3>
+<br/>
+<div>
+    @if (_student is not null && Model is not null)
+    {
+        <EditForm Model="Model" FormName="EditStudentForm" OnValidSubmit="Update">
+            <DataAnnotationsValidator/>
+            <ValidationSummary class="text-danger mb-3"/>
+
+            <div class="input-group mb-3">
+                <span class="input-group-text">Nome</span>
+                <InputText id="name" @bind-Value="Model.Name" class="form-control"/>
+                <ValidationMessage For="() => Model.Name"/>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text">Data de Nascimento</span>
+                <InputDate id="birthDate" @bind-Value="Model.BirthDate" class="form-control"/>
+                <ValidationMessage For="() => Model.BirthDate"/>
+            </div>
+
+            <div class="input-group mb-3">
+                <span class="input-group-text">CPF</span>
+                <InputText id="cpf" @bind-Value="Model.CPF" class="form-control"/>
+                <ValidationMessage For="() => Model.CPF"/>
+                <span class="input-group-text">RG</span>
+                <InputText id="rg" @bind-Value="Model.RG" class="form-control"/>
+                <ValidationMessage For="() => Model.RG"/>
+            </div>
+            
+            <div class="input-group mb-3">
+                <label class="input-group-text" for="group">Turma</label>
+                <InputSelect id="group" @bind-Value="Model.GroupId" class="form-select">
+                    <option value="0">Selecione uma turma...</option>
+                    @foreach (var group in _groups)
+                    {
+                        <option value="@group.GroupId">@group.Name ==> @group.Teacher?.Name</option>
+                    }
+                </InputSelect>
+                <ValidationMessage For="() => Model.GroupId"/>
+            </div>
+
+            @if (!string.IsNullOrEmpty(_errorMessage))
+            {
+                <div class="alert alert-danger mt-3">@_errorMessage</div>
+            }
+
+            <br/>
+            <button type="submit" class="btn btn-primary">Salvar</button>
+            <a href="/alunos" class="btn btn-outline-danger">Cancelar</a>
+            <br/>
+            <br/>
+            <a id="delete-button" @onclick="RedirectPage" class="btn btn-danger">Apagar</a>
+        </EditForm>
+
+        <StudentMaterialsComponent StudentId="StudentId" />
+    }
+    else
+    {
+        <h1>Aluno não encontrado</h1>
+    }
+</div>
+
+<Popup @ref="_popupRef" OnYes="() => DeleteStudent(StudentId)"/>
 
 @code {
+    private Popup? _popupRef;
+    private string? _errorMessage;
 
-    [Parameter] public int AlunoId { get; set; }
+    private void RedirectPage()
+    {
+        _popupRef?.Show("Deseja realmente apagar este aluno?", "Confirmação de Exclusão");
+    }
+
+    [Parameter] public int StudentId { get; set; }
+    [SupplyParameterFromForm] private StudentEditModel? Model { get; set; }
+
+    private Student? _student;
+    private List<Group> _groups = [];
+    private int _loadedStudentId;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        _groups = [.. await ViewGroupsUseCase.ExecuteAsync()];
+        if (_loadedStudentId != StudentId)
+        {
+            _student = await ViewStudentsUseCase.ExecuteAsync(StudentId);
+            _loadedStudentId = StudentId;
+            if (_student is null)
+            {
+                Model = null;
+                Navigator.NotFound();
+                return;
+            }
+
+            Model = new StudentEditModel
+            {
+                Name = _student.Name,
+                BirthDate = _student.BirthDate,
+                CPF = _student.CPF,
+                RG = _student.RG,
+                GroupId = _student.GroupId
+            };
+        }
+        else if (_student is null)
+        {
+            _student = await ViewStudentsUseCase.ExecuteAsync(StudentId);
+            if (_student is null)
+            {
+                Model = null;
+                Navigator.NotFound();
+                return;
+            }
+
+            Model ??= new StudentEditModel
+            {
+                Name = _student.Name,
+                BirthDate = _student.BirthDate,
+                CPF = _student.CPF,
+                RG = _student.RG,
+                GroupId = _student.GroupId
+            };
+        }
+    }
+
+    private async Task Update()
+    {
+        if (_student is null || Model is null) return;
+
+        _errorMessage = null;
+
+        if (Model.GroupId == 0 || _groups.All(g => g.GroupId != Model.GroupId))
+        {
+            _errorMessage = "Selecione uma turma cadastrada.";
+            return;
+        }
+
+        try
+        {
+            _student.Name = Model.Name;
+            _student.BirthDate = Model.BirthDate;
+            _student.CPF = Model.CPF;
+            _student.RG = Model.RG;
+            _student.GroupId = Model.GroupId;
+
+            await EditStudentsUseCase.ExecuteAsync(_student);
+            Navigator.NavigateTo("/alunos");
+        }
+        catch (Exception ex)
+        {
+            _errorMessage = $"Erro ao salvar dados de aluno: {ex.GetBaseException().Message}";
+        }
+    }
+
+    private async Task DeleteStudent(int id)
+    {
+        try
+        {
+            _errorMessage = null;
+            await DeleteStudentsUseCase.ExecuteAsync(id);
+            Navigator.NavigateTo("/alunos");
+        }
+        catch (Exception)
+        {
+            _errorMessage = "Não foi possível apagar os dados do aluno. Tente novamente.";
+            _popupRef?.Hide();
+        }
+    }
+
+    public class StudentEditModel
+    {
+        [Required(ErrorMessage = "O nome é obrigatório.")]
+        public string Name { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "A data de nascimento é obrigatória.")]
+        public DateOnly BirthDate { get; set; }
+
+        [Required(ErrorMessage = "O CPF é obrigatório.")]
+        public string CPF { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "O RG é obrigatório.")]
+        public string RG { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Selecione uma turma cadastrada.")]
+        [Range(1, int.MaxValue, ErrorMessage = "Selecione uma turma cadastrada.")]
+        public int GroupId { get; set; }
+    }
 }

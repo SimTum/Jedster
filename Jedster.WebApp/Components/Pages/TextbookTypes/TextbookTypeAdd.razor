@@ -1,0 +1,70 @@
+@page "/tipos-material/add"
+
+@using Jedster.CoreBuisness
+@using Jedster.UseCases.Core.TextbookTypes
+
+@inject IRegisterTextBookTypeUseCase RegisterTextBookTypeUseCase
+@inject NavigationManager Navigator
+
+<h3>Adicionar Tipo de Material</h3>
+<br />
+<div>
+    <EditForm Model="_textBookType" FormName="RegisterTextBookTypeForm" OnValidSubmit="Register">
+        <DataAnnotationsValidator></DataAnnotationsValidator>
+
+        <div class="input-group mb-3">
+            <span class="input-group-text">Título</span>
+            <InputText id="title" @bind-Value="_textBookType.Title" class="form-control" />
+            <ValidationMessage For="() => _textBookType.Title" />
+        </div>
+
+        <div class="input-group mb-3">
+            <span class="input-group-text">Matéria</span>
+            <InputText id="subject" @bind-Value="_textBookType.Subject" class="form-control" />
+            <ValidationMessage For="() => _textBookType.Subject" />
+        </div>
+
+        <div class="input-group mb-3">
+            <span class="input-group-text">Nível</span>
+            <InputNumber id="level" @bind-Value="_textBookType.Level" class="form-control" />
+            <ValidationMessage For="() => _textBookType.Level" />
+        </div>
+
+        <div class="input-group mb-3">
+            <span class="input-group-text">Horas recomendadas</span>
+            <InputNumber id="hours" @bind-Value="_textBookType.HoursRecommended" class="form-control" />
+            <ValidationMessage For="() => _textBookType.HoursRecommended" />
+        </div>
+
+        <div class="input-group mb-3">
+            <span class="input-group-text">Descrição</span>
+            <InputTextArea id="description" @bind-Value="_textBookType.Description" class="form-control" />
+            <ValidationMessage For="() => _textBookType.Description" />
+        </div>
+
+        <br />
+        <div>
+            <button type="submit" class="btn btn-primary">Salvar</button>
+            <a href="/tipos-material" class="btn btn-outline-danger">Cancelar</a>
+        </div>
+        <br />
+        <br />
+    </EditForm>
+</div>
+
+@code {
+    [SupplyParameterFromForm] private TextBookType _textBookType { get; set; } = new TextBookType
+    {
+        Title = string.Empty,
+        Subject = string.Empty,
+        Description = string.Empty,
+        HoursRecommended = 40,
+        Level = 1
+    };
+
+    private async Task Register()
+    {
+        await RegisterTextBookTypeUseCase.ExecuteAsync(_textBookType);
+        Navigator.NavigateTo("/tipos-material");
+    }
+}

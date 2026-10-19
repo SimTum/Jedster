@@ -10,20 +10,29 @@ public class StudentsEfCoreRepository(IDbContextFactory<JedsterContext> _factory
     {
         await using var db = await _factory.CreateDbContextAsync();
         return await db.Students?.Include(s => s.Textbooks != null ? s.Textbooks : null)
-            .Include(s => s.Contract).
-            ToListAsync()!;
+            .Include(s => s.Contract).ToListAsync()!;
     }
 
     public async Task<Student?> GetStudentByIdAsync(int studentId)
     {
         await using var db = await _factory.CreateDbContextAsync();
-        return await db.Students.FindAsync(studentId)??  null;
-        
+        return await db.Students.FindAsync(studentId) ?? null;
     }
 
-    public Task EditStudentAsyc(Student student)
+    public async Task EditStudentAsyc(Student student)
     {
-        throw new NotImplementedException();
+        await using var db = await _factory.CreateDbContextAsync();
+        var existingStudent = await db.Students.FindAsync(student.StudentId);
+        if (existingStudent != null)
+        {
+            existingStudent.Name = student.Name;
+            existingStudent.RG = student.RG;
+            existingStudent.CPF = student.CPF;
+            existingStudent.BirthDate = student.BirthDate;
+            existingStudent.GroupId = student.GroupId;
+
+            await db.SaveChangesAsync();
+        }
     }
 
     public async Task RegisterStudentAsync(Student student)
