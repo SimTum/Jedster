@@ -66,7 +66,7 @@
         </div>
         <div class="input-group">
             <label class="input-group-text for" for="TextBook">Material de aluno</label>
-            <InputSelect id="TextBook" @bind-Value="_textbook.TextbookTypeId">
+            <InputSelect id="TextBook" @bind-Value="_textbook.TextbookTypeId" class="form-select">
                 @foreach(var textbook in _textbooks)
                 {
                     <option value="@textbook.Id">@textbook.Title</option>
@@ -166,6 +166,7 @@
         try
         {
             // Saves the student together with its 40-hour contract (linked through Contract.StudentId)
+            _textbook.Student = _student;
             _student.Textbooks?.Append(_textbook);
             await RegisterStudentUseCase.ExecuteAsync(_student);
 
