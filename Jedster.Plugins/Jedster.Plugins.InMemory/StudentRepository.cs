@@ -17,7 +17,6 @@ public class StudentRepository : IStudentRepository
             {
                 StudentId = 1, RG = "Document", GroupId = 1, CPF = "11122233344", Name = "Name1",
                 BirthDate = new DateOnly(2000, 01, 02),
-                TextbookId = 1, 
                 Contract = new Contract()
                 {
                     // ContractId = 1, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 1
@@ -27,7 +26,6 @@ public class StudentRepository : IStudentRepository
             {
                 StudentId = 2, RG = "Document", GroupId = 1, CPF = "11122233344", Name = "Name2",
                 BirthDate = new DateOnly(2000, 01, 02),
-                TextbookId = 1, 
                 Contract = new Contract()
                 {
                     // ContractId = 2, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 2
@@ -37,7 +35,6 @@ public class StudentRepository : IStudentRepository
             {
                 StudentId = 3, RG = "Document", GroupId = 1, CPF = "11122233344", Name = "Name3",
                 BirthDate = new DateOnly(2000, 01, 02),
-                TextbookId = 1, 
                 Contract = new Contract()
                 {
                     // ContractId = 3, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 3
@@ -47,7 +44,6 @@ public class StudentRepository : IStudentRepository
             {
                 StudentId = 4, RG = "Document", GroupId = 2, CPF = "11122233344", Name = "Name4",
                 BirthDate = new DateOnly(2000, 01, 02),
-                TextbookId = 1,
                 Contract = new Contract()
                 {
                     // ContractId = 4, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 4
@@ -57,7 +53,6 @@ public class StudentRepository : IStudentRepository
             {
                 StudentId = 5, RG = "Document", GroupId = 2, CPF = "11122233344", Name = "Name5",
                 BirthDate = new DateOnly(2000, 01, 02),
-                TextbookId = 1,
                 Contract = new Contract()
                 {
                     // ContractId =5, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 5
@@ -67,7 +62,6 @@ public class StudentRepository : IStudentRepository
             {
                 StudentId = 6, RG = "Document", GroupId = 3, CPF = "11122233344", Name = "Name6",
                 BirthDate = new DateOnly(2000, 01, 02),
-                TextbookId = 1,
                 Contract = new Contract()
                 {
                     // ContractId = 6, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 6
@@ -77,7 +71,6 @@ public class StudentRepository : IStudentRepository
             {
                 StudentId = 7, RG = "Document", GroupId = 3, CPF = "11122233344", Name = "Name7",
                 BirthDate = new DateOnly(2000, 01, 02),
-                TextbookId = 1,
                 Contract = new Contract()
                 {
                     // ContractId = 7, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 7
@@ -87,7 +80,6 @@ public class StudentRepository : IStudentRepository
             {
                 StudentId = 8, RG = "Document", GroupId = 3, CPF = "11122233344", Name = "Name8",
                 BirthDate = new DateOnly(2000, 01, 02),
-                TextbookId = 1,
                 Contract = new Contract()
                 {
                     // ContractId = 8, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 8
@@ -97,7 +89,6 @@ public class StudentRepository : IStudentRepository
             {
                 StudentId = 9, RG = "Document", GroupId = 3, CPF = "11122233344", Name = "Name9",
                 BirthDate = new DateOnly(2000, 01, 02),
-                TextbookId = 1,
                 Contract = new Contract()
                 {
                     // ContractId = 9, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 9
@@ -107,7 +98,6 @@ public class StudentRepository : IStudentRepository
             {
                 StudentId = 10, RG = "Document", GroupId = 3, CPF = "11122233344", Name = "Name10",
                 BirthDate = new DateOnly(2000, 01, 02),
-                TextbookId = 1,
                 Contract = new Contract()
                 {
                     // ContractId = 10, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 10
@@ -117,7 +107,6 @@ public class StudentRepository : IStudentRepository
             {
                 StudentId = 11, RG = "Document", GroupId = 4, CPF = "11122233344", Name = "Name11",
                 BirthDate = new DateOnly(2000, 01, 02),
-                TextbookId = 1,
                 Contract = new Contract()
                 {
                     // ContractId = 11, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 11
@@ -127,7 +116,6 @@ public class StudentRepository : IStudentRepository
             {
                 StudentId = 12, RG = "Document", GroupId = 4, CPF = "11122233344", Name = "Name12",
                 BirthDate = new DateOnly(2000, 01, 02),
-                TextbookId = 1,
                 Contract = new Contract()
                 {
                     // ContractId = 12, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 12
@@ -137,7 +125,6 @@ public class StudentRepository : IStudentRepository
             {
                 StudentId = 13, RG = "Document", GroupId = 4, CPF = "11122233344", Name = "Name13",
                 BirthDate = new DateOnly(2000, 01, 02),
-                TextbookId = 1,
                 Contract = new Contract()
                 {
                     // ContractId = 13, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 13
@@ -147,7 +134,6 @@ public class StudentRepository : IStudentRepository
             {
                 StudentId = 14, RG = "Document", GroupId = 5, CPF = "11122233344", Name = "Name14",
                 BirthDate = new DateOnly(2000, 01, 02),
-                TextbookId = 1,
                 Contract = new Contract()
                 {
                     // ContractId = 14, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 14
@@ -157,7 +143,6 @@ public class StudentRepository : IStudentRepository
             {
                 StudentId = 15, RG = "Document", GroupId = 5, CPF = "11122233344", Name = "Name15",
                 BirthDate = new DateOnly(2000, 01, 02),
-                TextbookId = 1,
                 Contract = new Contract()
                 {
                     // ContractId = 15, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 15
@@ -167,7 +152,6 @@ public class StudentRepository : IStudentRepository
             {
                 StudentId = 16, RG = "Document", GroupId = 5, CPF = "11122233344", Name = "Name16",
                 BirthDate = new DateOnly(2000, 01, 02),
-                TextbookId = 1,
                 Contract = new Contract()
                 {
                     // ContractId = 16, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 16
@@ -177,7 +161,6 @@ public class StudentRepository : IStudentRepository
             {
                 StudentId = 17, RG = "Document", GroupId = 6, CPF = "11122233344", Name = "Name17",
                 BirthDate = new DateOnly(2000, 01, 02),
-                TextbookId = 1,
                 Contract = new Contract()
                 {
                     // ContractId = 17, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 17
@@ -187,7 +170,6 @@ public class StudentRepository : IStudentRepository
             {
                 StudentId = 18, RG = "Document", GroupId = 6, CPF = "11122233344", Name = "Name18",
                 BirthDate = new DateOnly(2000, 01, 02),
-                TextbookId = 1,
                 Contract = new Contract()
                 {
                     // ContractId = 18, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 18
@@ -197,7 +179,6 @@ public class StudentRepository : IStudentRepository
             {
                 StudentId = 19, RG = "Document", GroupId = 6, CPF = "11122233344", Name = "Name19",
                 BirthDate = new DateOnly(2000, 01, 02),
-                TextbookId = 1,
                 Contract = new Contract()
                 {
                     // ContractId = 19, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 19
@@ -207,7 +188,6 @@ public class StudentRepository : IStudentRepository
             {
                 StudentId = 20, RG = "Document", GroupId = 7, CPF = "11122233344", Name = "Name20",
                 BirthDate = new DateOnly(2000, 01, 02),
-                TextbookId = 1,
                 Contract = new Contract()
                 {
                     // ContractId = 20, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 20
@@ -217,7 +197,6 @@ public class StudentRepository : IStudentRepository
             {
                 StudentId = 21, RG = "Document", GroupId = 7, CPF = "11122233344", Name = "Name21",
                 BirthDate = new DateOnly(2000, 01, 02),
-                TextbookId = 1,
                 Contract = new Contract()
                 {
                     // ContractId = 21, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 21
@@ -256,7 +235,6 @@ public class StudentRepository : IStudentRepository
             studentToUpdate.RG = student.RG;
             studentToUpdate.CPF = student.CPF;
             studentToUpdate.BirthDate = student.BirthDate;
-            studentToUpdate.TextbookId = student.TextbookId;
             studentToUpdate.GroupId = student.GroupId;
         }
 

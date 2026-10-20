@@ -1,10 +1,11 @@
 @using Jedster.CoreBusiness
 @using Jedster.CoreBuisness
+@using Jedster.UseCases.Core.Scheduling
 @using Jedster.UseCases.Lessons
 @using Jedster.UseCases.PluginInterfaces
 
 @inject IViewLessonsUseCase ViewLessonsUseCase
-@inject IGenerateLessonsUseCase GenerateLessonsUseCase
+@inject GenerateLessonsAndAttendace GenerateLessonsUseCase
 @inject IUpdateLessonUseCase UpdateLessonUseCase
 @inject ISnackbar Snackbar
 

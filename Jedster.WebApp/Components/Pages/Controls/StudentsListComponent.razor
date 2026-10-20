@@ -28,7 +28,7 @@
         <PropertyColumn Property="x => x.BirthDate" Title="Data de nascimento" Filterable="true" />
         <PropertyColumn Property="x => x.GroupId" Title="ID da turma" Filterable="true"/>
         <PropertyColumn Property="x => x.Contract.ContractId" Title="Contrato" Filterable="false"/>
-        <PropertyColumn Property="x => x.Textbooks" Title="Nome de material" Filterable="true"/>
+        <PropertyColumn Property="x => x.Textbooks.FirstOrDefault().Title" Title="Material" Filterable="true"/>
         <TemplateColumn Title="Actions" CellClass="d-flex justify-content-center">
             <CellTemplate>
                 

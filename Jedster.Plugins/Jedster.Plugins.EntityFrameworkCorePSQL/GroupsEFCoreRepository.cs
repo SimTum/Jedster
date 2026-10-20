@@ -9,7 +9,7 @@ public class GroupsEfCoreRepository(IDbContextFactory<JedsterContext> _factory) 
     public async Task<IEnumerable<Group>> GetGroupsByNameAsync(string nome)
     {
         await using var db = await _factory.CreateDbContextAsync();
-        return await db.Groups?.Include(g => g.Teacher).ToListAsync()!;
+        return await db.Groups?.Include(g => g.Teacher).Include(g => g.Students).ThenInclude(s => s.Textbooks).ToListAsync()!;
     }
 
     public async Task RegisterGroup(Group group)

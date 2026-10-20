@@ -67,7 +67,7 @@ public class JedsterContext : DbContext
         modelBuilder.Entity<Student>()
             .HasOne(student => student.Contract)
             .WithOne(contract => contract.Student)
-            .HasForeignKey<Contract>(contract => contract.StudentId);
+            .HasForeignKey<Student>(student => student.ContractId);
 
         modelBuilder.Entity<Textbook>()
             .HasKey(textbook => new { textbook.TextbookId });
@@ -106,5 +106,13 @@ public class JedsterContext : DbContext
             .HasOne(attendance => attendance.Student)
             .WithMany()
             .HasForeignKey(attendance => attendance.StudentId);
+        modelBuilder.Entity<Contract>()
+            .HasKey(contract => new { contract.ContractId });
+        
+        modelBuilder.Entity<Contract>()
+            .HasOne(contract => contract.Student)
+            .WithMany()
+            .HasForeignKey(contract => contract.StudentId);
+
     }
 }

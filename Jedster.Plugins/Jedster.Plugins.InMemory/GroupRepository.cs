@@ -23,7 +23,7 @@ public class GroupRepository : IGroupRepository
                     {
                         StudentId = 1, RG = "Document", GroupId = 1, CPF = "11122233344", Name = "Name1",
                         BirthDate = new DateOnly(2000, 01, 02),
-                        TextbookId = 1,
+                        
                         Contract = new Contract()
                         {
                             // ContractId = 1, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 1
@@ -33,7 +33,6 @@ public class GroupRepository : IGroupRepository
                     {
                         StudentId = 2, RG = "Document", GroupId = 1, CPF = "11122233344", Name = "Name2",
                         BirthDate = new DateOnly(2000, 01, 02),
-                        TextbookId = 1,
                         Contract = new Contract()
                         {
                             // ContractId = 2, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 2
@@ -43,7 +42,6 @@ public class GroupRepository : IGroupRepository
                     {
                         StudentId = 3, RG = "Document", GroupId = 1, CPF = "11122233344", Name = "Name3",
                         BirthDate = new DateOnly(2000, 01, 02),
-                        TextbookId = 1,
                         Contract = new Contract()
                         {
                             // ContractId = 3, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 3
