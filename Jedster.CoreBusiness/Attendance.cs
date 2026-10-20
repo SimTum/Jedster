@@ -18,8 +18,6 @@ public class  Attendance
     public EngagmentStatus? EngagementStatus { get; set; }
 
     public DateTime Date { get; set; }
-
-    public Student StudentInfo { get; set; }
     
 }
 

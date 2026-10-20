@@ -51,7 +51,7 @@
                 <MudTd DataLabel="#">@(context.EntryId > 0 ? context.EntryId : $"{context.LessonId}-{context.StudentId}")</MudTd>
                 <MudTd DataLabel="Aluno">
                     <MudText Typo="Typo.body2" Style="font-weight: 500;">
-                        @(context.Student?.Name ?? context.StudentInfo?.Name ?? $"Aluno #{context.StudentId}")
+                        @(context.Student?.Name ?? $"Aluno #{context.StudentId}")
                     </MudText>
                 </MudTd>
                 @if (!LessonId.HasValue)
@@ -141,7 +141,6 @@
                 var query = _searchString.Trim().ToLower();
                 list = list.Where(a =>
                     (a.Student?.Name?.ToLower().Contains(query) ?? false) ||
-                    (a.StudentInfo?.Name?.ToLower().Contains(query) ?? false) ||
                     (a.Lesson?.Group?.Name?.ToLower().Contains(query) ?? false) ||
                     a.LessonId.ToString().Contains(query) ||
                     a.StudentId.ToString().Contains(query) ||

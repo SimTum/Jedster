@@ -82,7 +82,7 @@ public class JedsterContext : DbContext
 
         modelBuilder.Entity<Textbook>()
             .HasOne(textbook => textbook.TextbookType)
-            .WithMany()
+            .WithMany(tt => tt.Textbooks)
             .HasForeignKey(textbook => textbook.TextbookTypeId);
         
         //TEXTBOOKTYPE

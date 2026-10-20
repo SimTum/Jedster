@@ -39,7 +39,10 @@ public class AttendanceEfCoreRepository(IDbContextFactory<JedsterContext> _facto
     public async Task<Attendance> AddAttendanceAsync(Attendance attendance)
     {
         await using var db = await _factory.CreateDbContextAsync();
-        db.Attendances.Add(attendance);
+        if (db.Attendances != null)
+        {
+            db.Attendances.Add(attendance);
+        }
         await db.SaveChangesAsync();
         return attendance;
     }

@@ -7,7 +7,8 @@ namespace Jedster.UseCases.Core.Scheduling;
 public class GenerateLessonsAndAttendace(
     IGroupRepository groupRepository,
     ILessonsRepository lessonsRepository,
-    IAttendanceRepository attendanceRepository)
+    IAttendanceRepository attendanceRepository,
+    ILessonsRepository lessonRepository)
 
     {
         public async Task ExecuteAsync(DateTime? from = null, int days = 30)
@@ -40,7 +41,8 @@ public class GenerateLessonsAndAttendace(
                         IsPaid = false,
                         Students = group.Students?
                             .Where(s => s.Contract?.HoursRemaining is > 0)
-                            .ToList()
+                            .ToList(),
+                        
                     };
                     
                     foreach (var student in lesson.Students ?? [])
@@ -50,6 +52,7 @@ public class GenerateLessonsAndAttendace(
 
                         var attendance = new Attendance
                         {
+                            
                             StudentId = student.StudentId,
                             Student = student,
                             LessonId = lesson.LessonId,
@@ -57,11 +60,15 @@ public class GenerateLessonsAndAttendace(
                             Date = lessonStart,
                             Status = AttendanceStatus.Pending,
                             EngagementStatus = EngagmentStatus.NotEngaged,
-                            StudentInfo = student
+                            Teacher = lesson.Teacher,
+                            TeacherId = lesson.TeacherId
                         };
+                        if (lesson.Attendances != null) lesson.Attendances.Append(attendance);
 
                         await attendanceRepository.AddAttendanceAsync(attendance);
                     }
+
+                    await lessonRepository.AddLessonAsync(lesson);
                 }
             }
         }

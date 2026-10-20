@@ -21,6 +21,6 @@ public class Student
     [Required]
     public Contract? Contract { get; set; }
     public IEnumerable<Textbook>? Textbooks { get ; set; } = new  List<Textbook>();
-    public IEnumerable<Attendance>? Attendance { get; set; }
-    public IEnumerable<Lesson>? Lessons { get; set; }
+    public IEnumerable<Attendance>? Attendance { get; set; } = new List<Attendance>();
+    public IEnumerable<Lesson>? Lessons { get; set; } = new List<Lesson>();
 }
