@@ -48,6 +48,9 @@ namespace Jedster.Plugins.EntityFrameworkCorePSQL.Migrations
                     b.Property<int>("StudentInfoStudentId")
                         .HasColumnType("integer");
 
+                    b.Property<int>("TeacherId")
+                        .HasColumnType("integer");
+
                     b.HasKey("EntryId");
 
                     b.HasIndex("LessonId");
@@ -55,6 +58,8 @@ namespace Jedster.Plugins.EntityFrameworkCorePSQL.Migrations
                     b.HasIndex("StudentId");
 
                     b.HasIndex("StudentInfoStudentId");
+
+                    b.HasIndex("TeacherId");
 
                     b.ToTable("Attendances");
                 });
@@ -253,9 +258,6 @@ namespace Jedster.Plugins.EntityFrameworkCorePSQL.Migrations
                     b.Property<int>("GroupId")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("LessonId")
-                        .HasColumnType("integer");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
@@ -264,14 +266,9 @@ namespace Jedster.Plugins.EntityFrameworkCorePSQL.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("TextbookId")
-                        .HasColumnType("integer");
-
                     b.HasKey("StudentId");
 
                     b.HasIndex("GroupId");
-
-                    b.HasIndex("LessonId");
 
                     b.ToTable("Students");
                 });
@@ -309,16 +306,31 @@ namespace Jedster.Plugins.EntityFrameworkCorePSQL.Migrations
                     b.ToTable("Textbooks");
                 });
 
+            modelBuilder.Entity("StudentLesson", b =>
+                {
+                    b.Property<int>("LessonId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("StudentId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("LessonId", "StudentId");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("StudentLesson");
+                });
+
             modelBuilder.Entity("Jedster.CoreBuisness.Attendance", b =>
                 {
                     b.HasOne("Jedster.CoreBusiness.Lesson", "Lesson")
-                        .WithMany()
+                        .WithMany("Attendances")
                         .HasForeignKey("LessonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Jedster.CoreBusiness.Student", "Student")
-                        .WithMany()
+                        .WithMany("Attendance")
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -329,11 +341,19 @@ namespace Jedster.Plugins.EntityFrameworkCorePSQL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Jedster.CoreBuisness.Teacher", "Teacher")
+                        .WithMany("Attendance")
+                        .HasForeignKey("TeacherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Lesson");
 
                     b.Navigation("Student");
 
                     b.Navigation("StudentInfo");
+
+                    b.Navigation("Teacher");
                 });
 
             modelBuilder.Entity("Jedster.CoreBusiness.Contract", b =>
@@ -361,13 +381,13 @@ namespace Jedster.Plugins.EntityFrameworkCorePSQL.Migrations
             modelBuilder.Entity("Jedster.CoreBusiness.Lesson", b =>
                 {
                     b.HasOne("Jedster.CoreBusiness.Group", "Group")
-                        .WithMany()
+                        .WithMany("Lessons")
                         .HasForeignKey("GroupId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Jedster.CoreBuisness.Teacher", "Teacher")
-                        .WithMany()
+                        .WithMany("Lessons")
                         .HasForeignKey("TeacherId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -384,10 +404,6 @@ namespace Jedster.Plugins.EntityFrameworkCorePSQL.Migrations
                         .HasForeignKey("GroupId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("Jedster.CoreBusiness.Lesson", null)
-                        .WithMany("Students")
-                        .HasForeignKey("LessonId");
 
                     b.Navigation("Group");
                 });
@@ -411,9 +427,28 @@ namespace Jedster.Plugins.EntityFrameworkCorePSQL.Migrations
                     b.Navigation("TextbookType");
                 });
 
+            modelBuilder.Entity("StudentLesson", b =>
+                {
+                    b.HasOne("Jedster.CoreBusiness.Lesson", null)
+                        .WithMany()
+                        .HasForeignKey("LessonId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Jedster.CoreBusiness.Student", null)
+                        .WithMany()
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Jedster.CoreBuisness.Teacher", b =>
                 {
+                    b.Navigation("Attendance");
+
                     b.Navigation("Groups");
+
+                    b.Navigation("Lessons");
                 });
 
             modelBuilder.Entity("Jedster.CoreBuisness.TextBookType", b =>
@@ -423,16 +458,20 @@ namespace Jedster.Plugins.EntityFrameworkCorePSQL.Migrations
 
             modelBuilder.Entity("Jedster.CoreBusiness.Group", b =>
                 {
+                    b.Navigation("Lessons");
+
                     b.Navigation("Students");
                 });
 
             modelBuilder.Entity("Jedster.CoreBusiness.Lesson", b =>
                 {
-                    b.Navigation("Students");
+                    b.Navigation("Attendances");
                 });
 
             modelBuilder.Entity("Jedster.CoreBusiness.Student", b =>
                 {
+                    b.Navigation("Attendance");
+
                     b.Navigation("Contract")
                         .IsRequired();
 

@@ -7,13 +7,15 @@ public class  Attendance
 {
     public int EntryId { get; set; }
 
+    
     public int StudentId { get; set; }
     public Student? Student { get; set; }
-
+    public int TeacherId { get; set; }
+    public Teacher Teacher { get; set; }        
     public int LessonId { get; set; }
+    public Lesson Lesson { get; set; }
     public AttendanceStatus? Status { get; set; }
     public EngagmentStatus? EngagementStatus { get; set; }
-    public Lesson? Lesson { get; set; }
 
     public DateTime Date { get; set; }
 

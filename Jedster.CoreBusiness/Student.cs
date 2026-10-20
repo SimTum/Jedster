@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using Jedster.CoreBuisness;
 
 namespace Jedster.CoreBusiness;
 
@@ -19,7 +20,7 @@ public class Student
     public Group? Group { get; set; }
     [Required]
     public Contract? Contract { get; set; }
-    public int ContractId { get; set; }
     public IEnumerable<Textbook>? Textbooks { get ; set; } = new  List<Textbook>();
-
+    public IEnumerable<Attendance>? Attendance { get; set; }
+    public IEnumerable<Lesson>? Lessons { get; set; }
 }

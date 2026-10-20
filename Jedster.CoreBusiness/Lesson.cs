@@ -34,6 +34,7 @@ public class Lesson
     public LessonStatus Status { get; set; }
     public bool IsPaid { get; set; }
     public IEnumerable<Student>? Students { get; set; }
+    public IEnumerable<Attendance>? Attendances { get; set; }
 }
 
 public enum LessonStatus

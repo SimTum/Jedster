@@ -26,5 +26,7 @@ namespace Jedster.CoreBuisness
         [Range(0, double.MaxValue)] public double Hours { get; set; } = 0;
         [Range(0, double.MaxValue)] public double HoursWeighed { get; set; } = 0;
         public IEnumerable<Group>? Groups { get; set; } = new List<Group>();
+        public IEnumerable<Lesson>? Lessons { get; set; }
+        public IEnumerable<Attendance>? Attendance { get; set; }
     }
 }

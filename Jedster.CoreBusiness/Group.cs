@@ -25,6 +25,7 @@ public class Group
     public Teacher Teacher { get; set; }
     public IEnumerable<Student>? Students { get; set; } = new List<Student>();
     // [Required] public double PayRate { get; set; } 
+    public IEnumerable<Lesson>? Lessons { get; set; }
 
     public void UpdateTeacherHours()
     {

@@ -56,6 +56,8 @@ public class JedsterContext : DbContext
             .WithMany(group => group.Students)
             .HasForeignKey(student => student.GroupId);
 
+        // STUDENT
+        
         modelBuilder.Entity<Student>()
             .HasKey(student => new { student.StudentId });
         modelBuilder.Entity<Student>()
@@ -63,12 +65,18 @@ public class JedsterContext : DbContext
             .WithOne(textbook => textbook.Student )
             .HasForeignKey(textbook => textbook.StudentId);
 
-
+        //CONTRACT
+        
+        modelBuilder.Entity<Contract>()
+            .HasKey(contract => new { contract.ContractId });
+        
         modelBuilder.Entity<Student>()
             .HasOne(student => student.Contract)
             .WithOne(contract => contract.Student)
-            .HasForeignKey<Student>(student => student.ContractId);
+            .HasForeignKey<Contract>(contract => contract.StudentId);
 
+        //TEXTBOOK
+        
         modelBuilder.Entity<Textbook>()
             .HasKey(textbook => new { textbook.TextbookId });
 
@@ -76,6 +84,8 @@ public class JedsterContext : DbContext
             .HasOne(textbook => textbook.TextbookType)
             .WithMany()
             .HasForeignKey(textbook => textbook.TextbookTypeId);
+        
+        //TEXTBOOKTYPE
         
         modelBuilder.Entity<TextBookType>()
             .HasKey(textbookType => new { textbookType.Id });
@@ -85,34 +95,52 @@ public class JedsterContext : DbContext
             .WithOne(textbook => textbook.TextbookType)
             .HasForeignKey(textbook => textbook.TextbookTypeId);
         
+        //LESSON
+        
         modelBuilder.Entity<Lesson>()
             .HasKey(lesson => new { lesson.LessonId });
         
-
         modelBuilder.Entity<Lesson>()
             .HasOne(lesson => lesson.Group)
-            .WithMany()
+            .WithMany(group => group.Lessons)
             .HasForeignKey(lesson => lesson.GroupId);
-
+        
+        modelBuilder.Entity<Lesson>()
+            .HasOne(lesson => lesson.Teacher)
+            .WithMany(t => t.Lessons)
+            .HasForeignKey(lesson => lesson.TeacherId);
+        
+        // Many-to-many relation through join 
+        modelBuilder.Entity<Lesson>()
+            .HasMany(l => l.Students)
+            .WithMany(s => s.Lessons)
+            .UsingEntity<Dictionary<string, object>>(
+                "StudentLesson",
+                l => l.HasOne<Student>().WithMany().HasForeignKey("StudentId"),
+                r => r.HasOne<Lesson>().WithMany().HasForeignKey("LessonId"),
+                j => j.HasKey("LessonId", "StudentId")
+            );
+        
+        //ATTENDANCE
+        
         modelBuilder.Entity<Attendance>()
             .HasKey(attendance => attendance.EntryId);
 
         modelBuilder.Entity<Attendance>()
             .HasOne(attendance => attendance.Lesson)
-            .WithMany()
+            .WithMany(l => l.Attendances)
             .HasForeignKey(attendance => attendance.LessonId);
 
         modelBuilder.Entity<Attendance>()
             .HasOne(attendance => attendance.Student)
-            .WithMany()
+            .WithMany(s => s.Attendance)
             .HasForeignKey(attendance => attendance.StudentId);
-        modelBuilder.Entity<Contract>()
-            .HasKey(contract => new { contract.ContractId });
-        
-        modelBuilder.Entity<Contract>()
-            .HasOne(contract => contract.Student)
-            .WithMany()
-            .HasForeignKey(contract => contract.StudentId);
 
+        modelBuilder.Entity<Attendance>()
+            .HasOne(attendance => attendance.Teacher)
+            .WithMany(t => t.Attendance)
+            .HasForeignKey(attendance => attendance.TeacherId);
+        
+     
     }
 }

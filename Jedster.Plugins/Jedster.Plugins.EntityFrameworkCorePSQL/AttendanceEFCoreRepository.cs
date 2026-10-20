@@ -38,7 +38,10 @@ public class AttendanceEfCoreRepository(IDbContextFactory<JedsterContext> _facto
 
     public async Task<Attendance> AddAttendanceAsync(Attendance attendance)
     {
-        throw new NotImplementedException();
+        await using var db = await _factory.CreateDbContextAsync();
+        db.Attendances.Add(attendance);
+        await db.SaveChangesAsync();
+        return attendance;
     }
 
     public async Task<bool> AttendanceExistsAsync(int lessonId, int studentId)
