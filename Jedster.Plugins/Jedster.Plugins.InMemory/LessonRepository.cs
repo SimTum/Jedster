@@ -30,11 +30,11 @@ public class LessonRepository : ILessonsRepository
         return Task.FromResult(_lessons.Any(l => l.GroupId == groupId && l.StartTime == date));
     }
 
-    public async Task AddLessonAsync(Lesson lesson)
+    public Task AddLessonAsync(Lesson lesson)
     {
         var nextId = _lessons.Count > 0 ? _lessons.Max(l => l.LessonId) + 1 : 1;
         lesson.LessonId = nextId;
         _lessons.Add(lesson);
-        Task.FromResult(lesson);
+        return Task.CompletedTask;
     }
 }

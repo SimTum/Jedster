@@ -46,14 +46,10 @@ public class JedsterContext : DbContext
             .HasKey(group => new { group.GroupId });
 
 
-        // Same deal, but for GROUP that can have many STUDENTS
+        // GROUP - STUDENTS
         modelBuilder.Entity<Group>()
             .HasMany(group => group.Students)
             .WithOne(student => student.Group)
-            .HasForeignKey(student => student.StudentId);
-        modelBuilder.Entity<Student>()
-            .HasOne(student => student.Group)
-            .WithMany(group => group.Students)
             .HasForeignKey(student => student.GroupId);
 
         // STUDENT

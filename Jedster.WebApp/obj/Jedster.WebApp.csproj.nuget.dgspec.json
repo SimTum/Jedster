@@ -1,31 +1,29 @@
 {
   "format": 1,
   "restore": {
-    "/Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp/Jedster.WebApp.csproj": {}
+    "/home/Noodle/Fatec/Jedster/Jedster.WebApp/Jedster.WebApp.csproj": {}
   },
   "projects": {
-    "/Users/simon.tumanov-ext/fatec/jedster/Jedster.CoreBusiness/Jedster.CoreBusiness.csproj": {
+    "/home/Noodle/Fatec/Jedster/Jedster.CoreBusiness/Jedster.CoreBusiness.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/simon.tumanov-ext/fatec/jedster/Jedster.CoreBusiness/Jedster.CoreBusiness.csproj",
+        "projectUniqueName": "/home/Noodle/Fatec/Jedster/Jedster.CoreBusiness/Jedster.CoreBusiness.csproj",
         "projectName": "Jedster.CoreBusiness",
-        "projectPath": "/Users/simon.tumanov-ext/fatec/jedster/Jedster.CoreBusiness/Jedster.CoreBusiness.csproj",
-        "packagesPath": "/Users/simon.tumanov-ext/.nuget/packages/",
-        "outputPath": "/Users/simon.tumanov-ext/fatec/jedster/Jedster.CoreBusiness/obj/",
+        "projectPath": "/home/Noodle/Fatec/Jedster/Jedster.CoreBusiness/Jedster.CoreBusiness.csproj",
+        "packagesPath": "/home/Noodle/.nuget/packages/",
+        "outputPath": "/home/Noodle/Fatec/Jedster/Jedster.CoreBusiness/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/simon.tumanov-ext/.nuget/NuGet/NuGet.Config"
+          "/home/Noodle/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
-          "/usr/local/share/dotnet/library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net10.0": {
-            "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {}
           }
@@ -44,7 +42,6 @@
       },
       "frameworks": {
         "net10.0": {
-          "framework": "net10.0",
           "targetAlias": "net10.0",
           "imports": [
             "net461",
@@ -62,7 +59,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/10.0.201/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "/home/Noodle/.dotnet/sdk/10.0.203/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",
@@ -340,35 +337,33 @@
         }
       }
     },
-    "/Users/simon.tumanov-ext/fatec/jedster/Jedster.Plugins/Jedster.Plugins.EntityFrameworkCorePSQL/Jedster.Plugins.EntityFrameworkCorePSQL.csproj": {
+    "/home/Noodle/Fatec/Jedster/Jedster.Plugins/Jedster.Plugins.EntityFrameworkCorePSQL/Jedster.Plugins.EntityFrameworkCorePSQL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/simon.tumanov-ext/fatec/jedster/Jedster.Plugins/Jedster.Plugins.EntityFrameworkCorePSQL/Jedster.Plugins.EntityFrameworkCorePSQL.csproj",
+        "projectUniqueName": "/home/Noodle/Fatec/Jedster/Jedster.Plugins/Jedster.Plugins.EntityFrameworkCorePSQL/Jedster.Plugins.EntityFrameworkCorePSQL.csproj",
         "projectName": "Jedster.Plugins.EntityFrameworkCorePSQL",
-        "projectPath": "/Users/simon.tumanov-ext/fatec/jedster/Jedster.Plugins/Jedster.Plugins.EntityFrameworkCorePSQL/Jedster.Plugins.EntityFrameworkCorePSQL.csproj",
-        "packagesPath": "/Users/simon.tumanov-ext/.nuget/packages/",
-        "outputPath": "/Users/simon.tumanov-ext/fatec/jedster/Jedster.Plugins/Jedster.Plugins.EntityFrameworkCorePSQL/obj/",
+        "projectPath": "/home/Noodle/Fatec/Jedster/Jedster.Plugins/Jedster.Plugins.EntityFrameworkCorePSQL/Jedster.Plugins.EntityFrameworkCorePSQL.csproj",
+        "packagesPath": "/home/Noodle/.nuget/packages/",
+        "outputPath": "/home/Noodle/Fatec/Jedster/Jedster.Plugins/Jedster.Plugins.EntityFrameworkCorePSQL/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/simon.tumanov-ext/.nuget/NuGet/NuGet.Config"
+          "/home/Noodle/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
-          "/usr/local/share/dotnet/library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net10.0": {
-            "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
-              "/Users/simon.tumanov-ext/fatec/jedster/Jedster.CoreBusiness/Jedster.CoreBusiness.csproj": {
-                "projectPath": "/Users/simon.tumanov-ext/fatec/jedster/Jedster.CoreBusiness/Jedster.CoreBusiness.csproj"
+              "/home/Noodle/Fatec/Jedster/Jedster.CoreBusiness/Jedster.CoreBusiness.csproj": {
+                "projectPath": "/home/Noodle/Fatec/Jedster/Jedster.CoreBusiness/Jedster.CoreBusiness.csproj"
               },
-              "/Users/simon.tumanov-ext/fatec/jedster/Jedster.UseCases/Jedster.UseCases.csproj": {
-                "projectPath": "/Users/simon.tumanov-ext/fatec/jedster/Jedster.UseCases/Jedster.UseCases.csproj"
+              "/home/Noodle/Fatec/Jedster/Jedster.UseCases/Jedster.UseCases.csproj": {
+                "projectPath": "/home/Noodle/Fatec/Jedster/Jedster.UseCases/Jedster.UseCases.csproj"
               }
             }
           }
@@ -387,7 +382,6 @@
       },
       "frameworks": {
         "net10.0": {
-          "framework": "net10.0",
           "targetAlias": "net10.0",
           "dependencies": {
             "Microsoft.EntityFrameworkCore.Design": {
@@ -423,7 +417,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/10.0.201/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "/home/Noodle/.dotnet/sdk/10.0.203/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",
@@ -701,32 +695,30 @@
         }
       }
     },
-    "/Users/simon.tumanov-ext/fatec/jedster/Jedster.Plugins/Jedster.Plugins.InMemory/Jedster.Plugins.InMemory.csproj": {
+    "/home/Noodle/Fatec/Jedster/Jedster.Plugins/Jedster.Plugins.InMemory/Jedster.Plugins.InMemory.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/simon.tumanov-ext/fatec/jedster/Jedster.Plugins/Jedster.Plugins.InMemory/Jedster.Plugins.InMemory.csproj",
+        "projectUniqueName": "/home/Noodle/Fatec/Jedster/Jedster.Plugins/Jedster.Plugins.InMemory/Jedster.Plugins.InMemory.csproj",
         "projectName": "Jedster.Plugins.InMemory",
-        "projectPath": "/Users/simon.tumanov-ext/fatec/jedster/Jedster.Plugins/Jedster.Plugins.InMemory/Jedster.Plugins.InMemory.csproj",
-        "packagesPath": "/Users/simon.tumanov-ext/.nuget/packages/",
-        "outputPath": "/Users/simon.tumanov-ext/fatec/jedster/Jedster.Plugins/Jedster.Plugins.InMemory/obj/",
+        "projectPath": "/home/Noodle/Fatec/Jedster/Jedster.Plugins/Jedster.Plugins.InMemory/Jedster.Plugins.InMemory.csproj",
+        "packagesPath": "/home/Noodle/.nuget/packages/",
+        "outputPath": "/home/Noodle/Fatec/Jedster/Jedster.Plugins/Jedster.Plugins.InMemory/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/simon.tumanov-ext/.nuget/NuGet/NuGet.Config"
+          "/home/Noodle/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
-          "/usr/local/share/dotnet/library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net10.0": {
-            "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
-              "/Users/simon.tumanov-ext/fatec/jedster/Jedster.UseCases/Jedster.UseCases.csproj": {
-                "projectPath": "/Users/simon.tumanov-ext/fatec/jedster/Jedster.UseCases/Jedster.UseCases.csproj"
+              "/home/Noodle/Fatec/Jedster/Jedster.UseCases/Jedster.UseCases.csproj": {
+                "projectPath": "/home/Noodle/Fatec/Jedster/Jedster.UseCases/Jedster.UseCases.csproj"
               }
             }
           }
@@ -745,7 +737,6 @@
       },
       "frameworks": {
         "net10.0": {
-          "framework": "net10.0",
           "targetAlias": "net10.0",
           "imports": [
             "net461",
@@ -763,7 +754,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/10.0.201/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "/home/Noodle/.dotnet/sdk/10.0.203/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",
@@ -1041,32 +1032,30 @@
         }
       }
     },
-    "/Users/simon.tumanov-ext/fatec/jedster/Jedster.UseCases/Jedster.UseCases.csproj": {
+    "/home/Noodle/Fatec/Jedster/Jedster.UseCases/Jedster.UseCases.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/simon.tumanov-ext/fatec/jedster/Jedster.UseCases/Jedster.UseCases.csproj",
+        "projectUniqueName": "/home/Noodle/Fatec/Jedster/Jedster.UseCases/Jedster.UseCases.csproj",
         "projectName": "Jedster.UseCases",
-        "projectPath": "/Users/simon.tumanov-ext/fatec/jedster/Jedster.UseCases/Jedster.UseCases.csproj",
-        "packagesPath": "/Users/simon.tumanov-ext/.nuget/packages/",
-        "outputPath": "/Users/simon.tumanov-ext/fatec/jedster/Jedster.UseCases/obj/",
+        "projectPath": "/home/Noodle/Fatec/Jedster/Jedster.UseCases/Jedster.UseCases.csproj",
+        "packagesPath": "/home/Noodle/.nuget/packages/",
+        "outputPath": "/home/Noodle/Fatec/Jedster/Jedster.UseCases/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/simon.tumanov-ext/.nuget/NuGet/NuGet.Config"
+          "/home/Noodle/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
-          "/usr/local/share/dotnet/library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net10.0": {
-            "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
-              "/Users/simon.tumanov-ext/fatec/jedster/Jedster.CoreBusiness/Jedster.CoreBusiness.csproj": {
-                "projectPath": "/Users/simon.tumanov-ext/fatec/jedster/Jedster.CoreBusiness/Jedster.CoreBusiness.csproj"
+              "/home/Noodle/Fatec/Jedster/Jedster.CoreBusiness/Jedster.CoreBusiness.csproj": {
+                "projectPath": "/home/Noodle/Fatec/Jedster/Jedster.CoreBusiness/Jedster.CoreBusiness.csproj"
               }
             }
           }
@@ -1085,7 +1074,6 @@
       },
       "frameworks": {
         "net10.0": {
-          "framework": "net10.0",
           "targetAlias": "net10.0",
           "imports": [
             "net461",
@@ -1103,7 +1091,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/10.0.201/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "/home/Noodle/.dotnet/sdk/10.0.203/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",
@@ -1381,41 +1369,39 @@
         }
       }
     },
-    "/Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp/Jedster.WebApp.csproj": {
+    "/home/Noodle/Fatec/Jedster/Jedster.WebApp/Jedster.WebApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp/Jedster.WebApp.csproj",
+        "projectUniqueName": "/home/Noodle/Fatec/Jedster/Jedster.WebApp/Jedster.WebApp.csproj",
         "projectName": "Jedster.WebApp",
-        "projectPath": "/Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp/Jedster.WebApp.csproj",
-        "packagesPath": "/Users/simon.tumanov-ext/.nuget/packages/",
-        "outputPath": "/Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp/obj/",
+        "projectPath": "/home/Noodle/Fatec/Jedster/Jedster.WebApp/Jedster.WebApp.csproj",
+        "packagesPath": "/home/Noodle/.nuget/packages/",
+        "outputPath": "/home/Noodle/Fatec/Jedster/Jedster.WebApp/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/simon.tumanov-ext/.nuget/NuGet/NuGet.Config"
+          "/home/Noodle/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
-          "/usr/local/share/dotnet/library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net10.0": {
-            "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
-              "/Users/simon.tumanov-ext/fatec/jedster/Jedster.CoreBusiness/Jedster.CoreBusiness.csproj": {
-                "projectPath": "/Users/simon.tumanov-ext/fatec/jedster/Jedster.CoreBusiness/Jedster.CoreBusiness.csproj"
+              "/home/Noodle/Fatec/Jedster/Jedster.CoreBusiness/Jedster.CoreBusiness.csproj": {
+                "projectPath": "/home/Noodle/Fatec/Jedster/Jedster.CoreBusiness/Jedster.CoreBusiness.csproj"
               },
-              "/Users/simon.tumanov-ext/fatec/jedster/Jedster.Plugins/Jedster.Plugins.EntityFrameworkCorePSQL/Jedster.Plugins.EntityFrameworkCorePSQL.csproj": {
-                "projectPath": "/Users/simon.tumanov-ext/fatec/jedster/Jedster.Plugins/Jedster.Plugins.EntityFrameworkCorePSQL/Jedster.Plugins.EntityFrameworkCorePSQL.csproj"
+              "/home/Noodle/Fatec/Jedster/Jedster.Plugins/Jedster.Plugins.EntityFrameworkCorePSQL/Jedster.Plugins.EntityFrameworkCorePSQL.csproj": {
+                "projectPath": "/home/Noodle/Fatec/Jedster/Jedster.Plugins/Jedster.Plugins.EntityFrameworkCorePSQL/Jedster.Plugins.EntityFrameworkCorePSQL.csproj"
               },
-              "/Users/simon.tumanov-ext/fatec/jedster/Jedster.Plugins/Jedster.Plugins.InMemory/Jedster.Plugins.InMemory.csproj": {
-                "projectPath": "/Users/simon.tumanov-ext/fatec/jedster/Jedster.Plugins/Jedster.Plugins.InMemory/Jedster.Plugins.InMemory.csproj"
+              "/home/Noodle/Fatec/Jedster/Jedster.Plugins/Jedster.Plugins.InMemory/Jedster.Plugins.InMemory.csproj": {
+                "projectPath": "/home/Noodle/Fatec/Jedster/Jedster.Plugins/Jedster.Plugins.InMemory/Jedster.Plugins.InMemory.csproj"
               },
-              "/Users/simon.tumanov-ext/fatec/jedster/Jedster.UseCases/Jedster.UseCases.csproj": {
-                "projectPath": "/Users/simon.tumanov-ext/fatec/jedster/Jedster.UseCases/Jedster.UseCases.csproj"
+              "/home/Noodle/Fatec/Jedster/Jedster.UseCases/Jedster.UseCases.csproj": {
+                "projectPath": "/home/Noodle/Fatec/Jedster/Jedster.UseCases/Jedster.UseCases.csproj"
               }
             }
           }
@@ -1434,13 +1420,12 @@
       },
       "frameworks": {
         "net10.0": {
-          "framework": "net10.0",
           "targetAlias": "net10.0",
           "dependencies": {
             "Microsoft.AspNetCore.App.Internal.Assets": {
               "suppressParent": "All",
               "target": "Package",
-              "version": "[10.0.5, )",
+              "version": "[10.0.7, )",
               "autoReferenced": true
             },
             "Microsoft.EntityFrameworkCore.Design": {
@@ -1483,7 +1468,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/10.0.201/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "/home/Noodle/.dotnet/sdk/10.0.203/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.AspNetCore": "(,10.0.32767]",
             "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",

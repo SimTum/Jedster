@@ -7,71 +7,63 @@ namespace Jedster.UseCases.Core.Scheduling;
 public class GenerateLessonsAndAttendace(
     IGroupRepository groupRepository,
     ILessonsRepository lessonsRepository,
-    IAttendanceRepository attendanceRepository,
-    ILessonsRepository lessonRepository)
-
+    IAttendanceRepository attendanceRepository)
+{
+    public async Task ExecuteAsync(DateTime? from = null, int days = 30)
     {
-        public async Task ExecuteAsync(DateTime? from = null, int days = 30)
+        var startDate = (from ?? DateTime.Today).Date.ToUniversalTime();
+        var endDate = startDate.AddDays(days);
+
+        var groups = await groupRepository.GetGroupsByNameAsync();
+
+        foreach (var date in EachDate(startDate, endDate))
         {
-            var startDate = (from ?? DateTime.Today).Date.ToUniversalTime();
-            var endDate = startDate.AddDays(days);
-
-            var groups = await groupRepository.GetGroupsByNameAsync();
-
-            foreach (var date in EachDate(startDate, endDate))
+            foreach (var group in groups.Where(g => MatchesWeekDay(g.WeekDay, date)))
             {
-                foreach (var group in groups.Where(g => MatchesWeekDay(g.WeekDay, date)))
-                {
-                    var lessonStart = date.Add(group.StartTime.ToTimeSpan());
-                    var lessonEnd = date.Add(group.EndTime.ToTimeSpan());
+                var lessonStart = DateTime.SpecifyKind(date.Date.Add(group.StartTime.ToTimeSpan()), DateTimeKind.Utc);
+                var lessonEnd = DateTime.SpecifyKind(date.Date.Add(group.EndTime.ToTimeSpan()), DateTimeKind.Utc);
 
-                    if (await lessonsRepository.LessonExistsAsync(group.GroupId, lessonStart))
+                if (await lessonsRepository.LessonExistsAsync(group.GroupId, lessonStart))
+                    continue;
+
+                var qualifyingStudents = group.Students?
+                    .Where(s => s.Contract?.HoursRemaining is > 0)
+                    .ToList() ?? [];
+
+                var lesson = new Lesson
+                {   
+                    GroupId = group.GroupId,
+                    TeacherId = group.TeacherId,
+                    StartTime = lessonStart,
+                    EndTime = lessonEnd,
+                    Duration = lessonEnd - lessonStart,
+                    Status = LessonStatus.Scheduled,
+                    IsPaid = false,
+                    Students = qualifyingStudents
+                };
+
+                await lessonsRepository.AddLessonAsync(lesson);
+
+                foreach (var student in qualifyingStudents)
+                {
+                    if (await attendanceRepository.AttendanceExistsAsync(lesson.LessonId, student.StudentId))
                         continue;
 
-                    var lesson = new Lesson
-                    {   
-                        GroupId = group.GroupId,
-                        Group = group,
-                        TeacherId = group.TeacherId,
-                        Teacher = group.Teacher,
-                        StartTime = lessonStart,
-                        EndTime = lessonEnd,
-                        Duration = lessonEnd - lessonStart,
-                        Status = LessonStatus.Scheduled,
-                        IsPaid = false,
-                        Students = group.Students?
-                            .Where(s => s.Contract?.HoursRemaining is > 0)
-                            .ToList(),
-                        
-                    };
-                    
-                    foreach (var student in lesson.Students ?? [])
+                    var attendance = new Attendance
                     {
-                        if (await attendanceRepository.AttendanceExistsAsync(lesson.LessonId, student.StudentId))
-                            continue;
+                        StudentId = student.StudentId,
+                        LessonId = lesson.LessonId,
+                        TeacherId = lesson.TeacherId,
+                        Date = lessonStart,
+                        Status = AttendanceStatus.Pending,
+                        EngagementStatus = EngagmentStatus.NotEngaged
+                    };
 
-                        var attendance = new Attendance
-                        {
-                            
-                            StudentId = student.StudentId,
-                            Student = student,
-                            LessonId = lesson.LessonId,
-                            Lesson = lesson,
-                            Date = lessonStart,
-                            Status = AttendanceStatus.Pending,
-                            EngagementStatus = EngagmentStatus.NotEngaged,
-                            Teacher = lesson.Teacher,
-                            TeacherId = lesson.TeacherId
-                        };
-                        if (lesson.Attendances != null) lesson.Attendances.Append(attendance);
-
-                        await attendanceRepository.AddAttendanceAsync(attendance);
-                    }
-
-                    await lessonRepository.AddLessonAsync(lesson);
+                    await attendanceRepository.AddAttendanceAsync(attendance);
                 }
             }
         }
+    }
 
         private static IEnumerable<DateTime> EachDate(DateTime start, DateTime end)
         {

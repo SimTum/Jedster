@@ -9,12 +9,20 @@ public class AttendanceEfCoreRepository(IDbContextFactory<JedsterContext> _facto
     public async Task<IEnumerable<Attendance>> GetAttendances()
     {
         await using var db = await _factory.CreateDbContextAsync();
-        return await db.Attendances.ToListAsync() ?? null;
+        return await db.Attendances
+            .Include(a => a.Student)
+            .Include(a => a.Teacher)
+            .Include(a => a.Lesson)
+                .ThenInclude(l => l.Group)
+            .ToListAsync();
     }
 
     public async Task GenerateAtendance(Attendance attendance)
     {
         await using var db = await _factory.CreateDbContextAsync();
+        attendance.Lesson = null!;
+        attendance.Student = null!;
+        attendance.Teacher = null!;
         db.Attendances.Add(attendance);
         await db.SaveChangesAsync();
     }
@@ -24,16 +32,32 @@ public class AttendanceEfCoreRepository(IDbContextFactory<JedsterContext> _facto
         await using var db = await _factory.CreateDbContextAsync();
         if (attendance is not null)
         {
-        db.Attendances.Update(attendance);
-        await db.SaveChangesAsync();
-        return attendance;
+            var existing = await db.Attendances.FindAsync(attendance.EntryId);
+            if (existing != null)
+            {
+                existing.Status = attendance.Status;
+                existing.EngagementStatus = attendance.EngagementStatus;
+                existing.Date = attendance.Date;
+                if (attendance.LessonId > 0) existing.LessonId = attendance.LessonId;
+                if (attendance.StudentId > 0) existing.StudentId = attendance.StudentId;
+                if (attendance.TeacherId > 0) existing.TeacherId = attendance.TeacherId;
+                await db.SaveChangesAsync();
+                return existing;
+            }
         }
-        return null;
+        return null!;
     }
 
     public async Task<IEnumerable<Attendance>> GenerateAtendanceFromSchedule(DateTime startTime, DateTime endTime)
     {
-        throw new NotImplementedException();
+        await using var db = await _factory.CreateDbContextAsync();
+        return await db.Attendances
+            .Include(a => a.Student)
+            .Include(a => a.Teacher)
+            .Include(a => a.Lesson)
+                .ThenInclude(l => l.Group)
+            .Where(a => a.Date >= startTime && a.Date <= endTime)
+            .ToListAsync();
     }
 
     public async Task<Attendance> AddAttendanceAsync(Attendance attendance)
@@ -41,9 +65,12 @@ public class AttendanceEfCoreRepository(IDbContextFactory<JedsterContext> _facto
         await using var db = await _factory.CreateDbContextAsync();
         if (db.Attendances != null)
         {
+            attendance.Lesson = null!;
+            attendance.Student = null!;
+            attendance.Teacher = null!;
             db.Attendances.Add(attendance);
+            await db.SaveChangesAsync();
         }
-        await db.SaveChangesAsync();
         return attendance;
     }
 

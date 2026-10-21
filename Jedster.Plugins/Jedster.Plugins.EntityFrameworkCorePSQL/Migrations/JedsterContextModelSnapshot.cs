@@ -45,9 +45,6 @@ namespace Jedster.Plugins.EntityFrameworkCorePSQL.Migrations
                     b.Property<int>("StudentId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("StudentInfoStudentId")
-                        .HasColumnType("integer");
-
                     b.Property<int>("TeacherId")
                         .HasColumnType("integer");
 
@@ -56,8 +53,6 @@ namespace Jedster.Plugins.EntityFrameworkCorePSQL.Migrations
                     b.HasIndex("LessonId");
 
                     b.HasIndex("StudentId");
-
-                    b.HasIndex("StudentInfoStudentId");
 
                     b.HasIndex("TeacherId");
 
@@ -335,12 +330,6 @@ namespace Jedster.Plugins.EntityFrameworkCorePSQL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Jedster.CoreBusiness.Student", "StudentInfo")
-                        .WithMany()
-                        .HasForeignKey("StudentInfoStudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Jedster.CoreBuisness.Teacher", "Teacher")
                         .WithMany("Attendance")
                         .HasForeignKey("TeacherId")
@@ -350,8 +339,6 @@ namespace Jedster.Plugins.EntityFrameworkCorePSQL.Migrations
                     b.Navigation("Lesson");
 
                     b.Navigation("Student");
-
-                    b.Navigation("StudentInfo");
 
                     b.Navigation("Teacher");
                 });
