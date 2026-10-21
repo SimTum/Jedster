@@ -89,6 +89,8 @@ builder.Services.AddTransient<IGenerateLessonsUseCase, GenerateLessonsUseCase>()
 builder.Services.AddTransient<IViewLessonsUseCase, ViewLessonsUseCase>();
 builder.Services.AddTransient<IUpdateLessonUseCase, UpdateLessonUseCase>();
 builder.Services.AddTransient<ILessonExistsUseCase, LessonExistsUseCase>();
+builder.Services.AddTransient<IDeleteLessonUseCase, DeleteLessonUseCase>();
+
 
 builder.Services.AddMudServices();
 

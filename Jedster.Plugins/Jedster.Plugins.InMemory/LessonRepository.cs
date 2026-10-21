@@ -37,4 +37,9 @@ public class LessonRepository : ILessonsRepository
         _lessons.Add(lesson);
         return Task.CompletedTask;
     }
+
+    public async Task DeleteLessonAsync(int id)
+    {
+        throw new NotImplementedException();
+    }
 }

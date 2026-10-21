@@ -22,13 +22,13 @@ build_property.TargetFrameworkIdentifier = .NETCoreApp
 build_property.TargetFrameworkVersion = v10.0
 build_property.RootNamespace = Jedster.WebApp
 build_property.RootNamespace = Jedster.WebApp
-build_property.ProjectDir = /Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp/
+build_property.ProjectDir = /Users/simon.tumanov-ext/fatec/jedster/jedster.webapp/
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 9.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = /Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp
+build_property.MSBuildProjectDirectory = /Users/simon.tumanov-ext/fatec/jedster/jedster.webapp
 build_property._RazorSourceGeneratorDebug = 
 build_property.EffectiveAnalysisLevelStyle = 10.0
 build_property.EnableCodeStyleSeverity = 
@@ -67,6 +67,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp/Components/Pages/Controls/Popup.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9Db250cm9scy9Qb3B1cC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp/Components/Pages/Controls/SaveChanges.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9Db250cm9scy9TYXZlQ2hhbmdlcy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/simon.tumanov-ext/fatec/jedster/Jedster.WebApp/Components/Pages/Controls/StudentMaterialsComponent.razor]

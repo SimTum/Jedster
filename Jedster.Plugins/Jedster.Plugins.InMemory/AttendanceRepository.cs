@@ -1,4 +1,5 @@
 using Jedster.CoreBuisness;
+using Jedster.CoreBusiness;
 using Jedster.UseCases.PluginInterfaces;
 
 namespace Jedster.Plugins.InMemory;
@@ -34,6 +35,12 @@ public class AttendanceRepository : IAttendanceRepository
         {
             _attendances.Add(attendance);
         }
+
+        if (attendance.Lesson != null && attendance.Lesson.Status == LessonStatus.Scheduled)
+        {
+            attendance.Lesson.Status = LessonStatus.Completed;
+        }
+
         return Task.FromResult(attendance);
     }
 

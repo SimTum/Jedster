@@ -25,7 +25,7 @@ public enum AttendanceStatus
 {
     Pending = 0,
     Present = 1,
-    Abscent = 2,
+    Absent = 2,
     Canceled = 3
 }
 

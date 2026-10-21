@@ -8,4 +8,5 @@ public interface ILessonsRepository
     Task<IEnumerable<Lesson>> GetLessonsAsync();
     Task<bool> LessonExistsAsync(int groupId, DateTime date);
     Task AddLessonAsync(Lesson lesson);
+    Task DeleteLessonAsync(int id);
 }

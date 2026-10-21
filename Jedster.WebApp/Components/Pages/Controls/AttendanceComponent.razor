@@ -1,10 +1,12 @@
 @using Jedster.CoreBusiness
 @using Jedster.CoreBuisness
 @using Jedster.UseCases.Attendances
+@using Jedster.UseCases.Core.Contracts.Interfaces
 @using Jedster.UseCases.PluginInterfaces
 
 @inject IViewAttendanceUseCase ViewAttendanceUseCase
 @inject IUpdateAttendanceUseCase UpdateAttendanceUseCase
+@inject IEditContractUseCase UpdateContractUseCase
 @inject ISnackbar Snackbar
 
 <MudCard Elevation="2" Class="my-3">
@@ -82,7 +84,7 @@
                   <br/>
                     <MudRadio Size="Size.Small" T="AttendanceStatus?" Value="AttendanceStatus.Canceled" Color="Color.Dark">Cancelou</MudRadio>
                   <br/>
-                    <MudRadio Size="Size.Small" T="AttendanceStatus?" Value="AttendanceStatus.Abscent" Color="Color.Secondary">Ausente</MudRadio>
+                    <MudRadio Size="Size.Small" T="AttendanceStatus?" Value="AttendanceStatus.Absent" Color="Color.Secondary">Ausente</MudRadio>
                     </MudRadioGroup>
                     @* <MudSelect T="AttendanceStatus?" *@
                     @*            Value="@context.Status" *@
@@ -230,7 +232,15 @@
     {
         try
         {
+            if (Lesson is not null && attendance.LessonId <= 0)
+            {
+                attendance.LessonId = Lesson.LessonId;
+            }
             await UpdateAttendanceUseCase.ExecuteAsync(attendance);
+            if (Lesson is not null && Lesson.Status == LessonStatus.Scheduled)
+            {
+                Lesson.Status = LessonStatus.Completed;
+            }
             Snackbar.Add("Presença atualizada com sucesso!", Severity.Success);
             if (OnAttendanceUpdated.HasDelegate)
             {

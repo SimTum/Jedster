@@ -7,6 +7,7 @@
 @inject IViewLessonsUseCase ViewLessonsUseCase
 @inject GenerateLessonsAndAttendace GenerateLessonsUseCase
 @inject IUpdateLessonUseCase UpdateLessonUseCase
+@inject IDeleteLessonUseCase DeleteLessonUseCase
 @inject ISnackbar Snackbar
 
 <MudCard Elevation="2" Class="my-3">
@@ -146,6 +147,7 @@
                         <td colspan="10" class="pa-3" style="background-color: var(--mud-palette-background-grey);">
                             <AttendanceComponent LessonId="@context.LessonId"
                                                  Lesson="@context"
+                                                 OnAttendanceUpdated="LoadLessonsAsync"
                                                  Title="@($"Presenças da Turma {context.Group?.Name} ({context.StartTime:dd/MM/yyyy HH:mm})")" />
                         </td>
                     </MudTr>

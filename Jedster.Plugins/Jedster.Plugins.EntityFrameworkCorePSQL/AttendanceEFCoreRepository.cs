@@ -1,4 +1,5 @@
 using Jedster.CoreBuisness;
+using Jedster.CoreBusiness;
 using Jedster.UseCases.PluginInterfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -33,6 +34,11 @@ public class AttendanceEfCoreRepository(IDbContextFactory<JedsterContext> _facto
         if (attendance is not null)
         {
             var existing = await db.Attendances.FindAsync(attendance.EntryId);
+            if (existing == null && attendance.LessonId > 0 && attendance.StudentId > 0)
+            {
+                existing = await db.Attendances.FirstOrDefaultAsync(a => a.LessonId == attendance.LessonId && a.StudentId == attendance.StudentId);
+            }
+
             if (existing != null)
             {
                 existing.AttendanceStatus = attendance.AttendanceStatus;
@@ -41,6 +47,13 @@ public class AttendanceEfCoreRepository(IDbContextFactory<JedsterContext> _facto
                 if (attendance.LessonId > 0) existing.LessonId = attendance.LessonId;
                 if (attendance.StudentId > 0) existing.StudentId = attendance.StudentId;
                 if (attendance.TeacherId > 0) existing.TeacherId = attendance.TeacherId;
+
+                var lesson = await db.Lessons.FindAsync(existing.LessonId);
+                if (lesson != null && lesson.Status == LessonStatus.Scheduled)
+                {
+                    lesson.Status = LessonStatus.Completed;
+                }
+
                 await db.SaveChangesAsync();
                 return existing;
             }

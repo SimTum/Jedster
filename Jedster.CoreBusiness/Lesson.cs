@@ -13,14 +13,15 @@ public class Lesson
         {
             if (Group.Students != null)
                 Students = Group.Students.Where(student =>
-                    student.Contract.GetHoursRemaining() >= -6 );
+                    student.Contract?.GetHoursRemaining() >= -6 || (student.Contract?.HoursRemaining > 0));
         }
         else
         {
             Students = new List<Student>();
         }           
-        Duration = new TimeSpan(StartTime.Hour, StartTime.Minute, StartTime.Second) 
-                   - new TimeSpan(EndTime.Hour, EndTime.Minute, EndTime.Second);
+        Duration = EndTime >= StartTime 
+            ? EndTime - StartTime 
+            : TimeSpan.Zero;
     }
 
     public int LessonId { get; set; }
