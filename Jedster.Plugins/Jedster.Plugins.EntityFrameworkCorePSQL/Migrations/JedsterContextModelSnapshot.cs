@@ -30,6 +30,9 @@ namespace Jedster.Plugins.EntityFrameworkCorePSQL.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("EntryId"));
 
+                    b.Property<int?>("AttendanceStatus")
+                        .HasColumnType("integer");
+
                     b.Property<DateTime>("Date")
                         .HasColumnType("timestamp with time zone");
 
@@ -37,9 +40,6 @@ namespace Jedster.Plugins.EntityFrameworkCorePSQL.Migrations
                         .HasColumnType("integer");
 
                     b.Property<int>("LessonId")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("Status")
                         .HasColumnType("integer");
 
                     b.Property<int>("StudentId")

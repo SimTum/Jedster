@@ -35,7 +35,7 @@ public class AttendanceEfCoreRepository(IDbContextFactory<JedsterContext> _facto
             var existing = await db.Attendances.FindAsync(attendance.EntryId);
             if (existing != null)
             {
-                existing.Status = attendance.Status;
+                existing.AttendanceStatus = attendance.AttendanceStatus;
                 existing.EngagementStatus = attendance.EngagementStatus;
                 existing.Date = attendance.Date;
                 if (attendance.LessonId > 0) existing.LessonId = attendance.LessonId;

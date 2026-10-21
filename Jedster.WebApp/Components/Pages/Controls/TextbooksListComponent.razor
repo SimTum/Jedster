@@ -19,8 +19,6 @@
     <Columns>
         <PropertyColumn Property="x => x.TextbookId" Title="Id" Filterable="true" Sortable="true" InitialDirection="SortDirection.Ascending"/>
         <PropertyColumn Property="x => x.Title" Title="Título" Filterable="true" Sortable="true"/>
-        <PropertyColumn Property="x => x.TextbookType != null ? x.TextbookType.Title : string.Empty" Title="Tipo" Filterable="true"/>
-        <PropertyColumn Property="x => x.Student.Name" Title="Aluno" Filterable="true"/>
         <PropertyColumn Property="x => x.HoursSpent" Title="Horas dedicadas" Filterable="false"/>
         <PropertyColumn Property="x => x.Engagement" Title="Engajamento" Filterable="false"/>
         <TemplateColumn Title="Ações" CellClass="d-flex justify-content-center">

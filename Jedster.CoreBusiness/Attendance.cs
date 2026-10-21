@@ -14,7 +14,7 @@ public class  Attendance
     public Teacher Teacher { get; set; }        
     public int LessonId { get; set; }
     public Lesson Lesson { get; set; }
-    public AttendanceStatus? Status { get; set; }
+    public AttendanceStatus? AttendanceStatus { get; set; }
     public EngagmentStatus? EngagementStatus { get; set; }
 
     public DateTime Date { get; set; }

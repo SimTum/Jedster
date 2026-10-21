@@ -20,7 +20,12 @@
         </CardHeaderActions>
     </MudCardHeader>
     <MudCardContent>
-        <MudTable Items="@FilteredAttendances" Hover="true" Striped="true" Dense="true" Loading="@_isLoading" LoadingProgressColor="Color.Primary">
+        <MudTable Items="@FilteredAttendances" Hover="true" 
+                  Striped="true" 
+                  Dense="true" 
+                  HorizontalScrollbar="true"
+                  Loading="@_isLoading" 
+                  LoadingProgressColor="Color.Primary">
             <ToolBarContent>
                 <MudText Typo="Typo.subtitle1">
                     Total: @(FilteredAttendances.Count()) presenças
@@ -43,9 +48,12 @@
                     <MudTh>Aula / Turma</MudTh>
                 }
                 <MudTh>Data</MudTh>
+                <MudTh>Dia Da Semana</MudTh>
+                <MudTh>Hora De Inicio</MudTh>
+                <MudTh>Hora De Final</MudTh>
                 <MudTh>Status Presença</MudTh>
                 <MudTh>Engajamento</MudTh>
-                <MudTh Style="text-align: center;">Ações</MudTh>
+                @* <MudTh Style="text-align: center;">Ações</MudTh> *@
             </HeaderContent>
             <RowTemplate>
                 <MudTd DataLabel="#">@(context.EntryId > 0 ? context.EntryId : $"{context.LessonId}-{context.StudentId}")</MudTd>
@@ -60,53 +68,76 @@
                         @(context.Lesson?.Group?.Name ?? $"Aula #{context.LessonId}")
                     </MudTd>
                 }
-                <MudTd DataLabel="Data">@context.Date.ToString("dd/MM/yyyy HH:mm")</MudTd>
+                <MudTd DataLabel="Data">@context.Date.ToString("dd/MM/yyyy")</MudTd>
+                <MudTd DataLabel="Data">@context.Date.DayOfWeek</MudTd>
+                <MudTd DataLabel="Data">@context.Lesson.StartTime.ToString("HH:mm")</MudTd>
+                <MudTd DataLabel="Data">@context.Lesson.EndTime.ToString("HH:mm")</MudTd>
                 <MudTd DataLabel="Status">
-                    <MudSelect T="AttendanceStatus?"
-                               Value="@context.Status"
-                               ValueChanged="@(async val => await OnStatusChanged(context, val))"
-                               Dense="true"
-                               Margin="Margin.Dense"
-                               Variant="Variant.Outlined">
-                        <MudSelectItem T="AttendanceStatus?" Value="@AttendanceStatus.Pending">
-                            <MudChip T="string" Color="Color.Warning" Size="Size.Small">Pendente</MudChip>
-                        </MudSelectItem>
-                        <MudSelectItem T="AttendanceStatus?" Value="@AttendanceStatus.Present">
-                            <MudChip T="string" Color="Color.Success" Size="Size.Small">Presente</MudChip>
-                        </MudSelectItem>
-                        <MudSelectItem T="AttendanceStatus?" Value="@AttendanceStatus.Abscent">
-                            <MudChip T="string" Color="Color.Error" Size="Size.Small">Ausente</MudChip>
-                        </MudSelectItem>
-                        <MudSelectItem T="AttendanceStatus?" Value="@AttendanceStatus.Canceled">
-                            <MudChip T="string" Color="Color.Dark" Size="Size.Small">Cancelado</MudChip>
-                        </MudSelectItem>
-                    </MudSelect>
+                    <MudRadioGroup T="AttendanceStatus?"
+                                   Value="@context.AttendanceStatus"
+                                   ValueChanged="@(async val => await OnStatusChanged(context, val))">
+                    <MudRadio Size="Size.Small" T="AttendanceStatus?" Value="AttendanceStatus.Pending" Color="Color.Primary">Pendente</MudRadio>
+                  <br/>
+                    <MudRadio Size="Size.Small" T="AttendanceStatus?" Value="AttendanceStatus.Present" Color="Color.Tertiary">Presente</MudRadio>
+                  <br/>
+                    <MudRadio Size="Size.Small" T="AttendanceStatus?" Value="AttendanceStatus.Canceled" Color="Color.Dark">Cancelou</MudRadio>
+                  <br/>
+                    <MudRadio Size="Size.Small" T="AttendanceStatus?" Value="AttendanceStatus.Abscent" Color="Color.Secondary">Ausente</MudRadio>
+                    </MudRadioGroup>
+                    @* <MudSelect T="AttendanceStatus?" *@
+                    @*            Value="@context.Status" *@
+                    @*            ValueChanged="@(async val => await OnStatusChanged(context, val))" *@
+                    @*            Dense="true" *@
+                    @*            Margin="Margin.Dense" *@
+                    @*            Variant="Variant.Outlined"> *@
+                    @*     <MudSelectItem T="AttendanceStatus?" Value="@AttendanceStatus.Pending"> *@
+                    @*         <MudChip T="string" Color="Color.Warning" Size="Size.Small">Pendente</MudChip> *@
+                    @*     </MudSelectItem> *@
+                    @*     <MudSelectItem T="AttendanceStatus?" Value="@AttendanceStatus.Present"> *@
+                    @*         <MudChip T="string" Color="Color.Success" Size="Size.Small">Presente</MudChip> *@
+                    @*     </MudSelectItem> *@
+                    @*     <MudSelectItem T="AttendanceStatus?" Value="@AttendanceStatus.Abscent"> *@
+                    @*         <MudChip T="string" Color="Color.Error" Size="Size.Small">Ausente</MudChip> *@
+                    @*     </MudSelectItem> *@
+                    @*     <MudSelectItem T="AttendanceStatus?" Value="@AttendanceStatus.Canceled"> *@
+                    @*         <MudChip T="string" Color="Color.Dark" Size="Size.Small">Cancelado</MudChip> *@
+                    @*     </MudSelectItem> *@
+                    @* </MudSelect> *@
                 </MudTd>
                 <MudTd DataLabel="Engajamento">
-                    <MudSelect T="EngagmentStatus?"
-                               Value="@context.EngagementStatus"
-                               ValueChanged="@(async val => await OnEngagementChanged(context, val))"
-                               Dense="true"
-                               Margin="Margin.Dense"
-                               Variant="Variant.Outlined">
-                        <MudSelectItem T="EngagmentStatus?" Value="@EngagmentStatus.NotEngaged">Não Engajado</MudSelectItem>
-                        <MudSelectItem T="EngagmentStatus?" Value="@EngagmentStatus.SlightlyEngaged">Pouco Engajado</MudSelectItem>
-                        <MudSelectItem T="EngagmentStatus?" Value="@EngagmentStatus.Engaged">Engajado</MudSelectItem>
-                        <MudSelectItem T="EngagmentStatus?" Value="@EngagmentStatus.VeryEngaged">Muito Engajado</MudSelectItem>
-                    </MudSelect>
+                    <MudRadioGroup T="EngagmentStatus?"
+                                   Value="@context.EngagementStatus"
+                                   ValueChanged="@( async val => await OnEngagementChanged(context, val))">
+                        <MudRadio Size="Size.Small" T="EngagmentStatus?" Value="EngagmentStatus.NotEngaged">Não Eengajado</MudRadio>
+                        <MudRadio Size="Size.Small" T="EngagmentStatus?" Value="EngagmentStatus.SlightlyEngaged">Pouco Engajado</MudRadio>
+                        <MudRadio Size="Size.Small" T="EngagmentStatus?" Value="EngagmentStatus.Engaged">Engajado</MudRadio>
+                        <MudRadio Size="Size.Small" T="EngagmentStatus?" Value="EngagmentStatus.VeryEngaged">Muito Engajado</MudRadio>
+
+                    </MudRadioGroup>
+                    @* <MudSelect T="EngagmentStatus?" *@
+                    @*            Value="@context.EngagementStatus" *@
+                    @*            ValueChanged="@(async val => await OnEngagementChanged(context, val))" *@
+                    @*            Dense="true" *@
+                    @*            Margin="Margin.Dense" *@
+                    @*            Variant="Variant.Outlined"> *@
+                    @*     <MudSelectItem T="EngagmentStatus?" Value="@EngagmentStatus.NotEngaged">Não Engajado</MudSelectItem> *@
+                    @*     <MudSelectItem T="EngagmentStatus?" Value="@EngagmentStatus.SlightlyEngaged">Pouco Engajado</MudSelectItem> *@
+                    @*     <MudSelectItem T="EngagmentStatus?" Value="@EngagmentStatus.Engaged">Engajado</MudSelectItem> *@
+                    @*     <MudSelectItem T="EngagmentStatus?" Value="@EngagmentStatus.VeryEngaged">Muito Engajado</MudSelectItem> *@
+                    @* </MudSelect> *@
                 </MudTd>
-                <MudTd DataLabel="Ações" Style="text-align: center;">
-                    <MudButtonGroup Size="Size.Small" Variant="Variant.Outlined">
-                        <MudIconButton Icon="@Icons.Material.Filled.Check"
-                                       Color="Color.Success"
-                                       Title="Marcar Presente"
-                                       OnClick="@(() => QuickMark(context, AttendanceStatus.Present))" />
-                        <MudIconButton Icon="@Icons.Material.Filled.Close"
-                                       Color="Color.Error"
-                                       Title="Marcar Ausente"
-                                       OnClick="@(() => QuickMark(context, AttendanceStatus.Abscent))" />
-                    </MudButtonGroup>
-                </MudTd>
+                @* <MudTd DataLabel="Ações" Style="text-align: center;"> *@
+                @*     <MudButtonGroup Size="Size.Small" Variant="Variant.Outlined"> *@
+                @*         <MudIconButton Icon="@Icons.Material.Filled.Check" *@
+                @*                        Color="Color.Success" *@
+                @*                        Title="Marcar Presente" *@
+                @*                        OnClick="@(() => QuickMark(context, AttendanceStatus.Present))" /> *@
+                @*         <MudIconButton Icon="@Icons.Material.Filled.Close" *@
+                @*                        Color="Color.Error" *@
+                @*                        Title="Marcar Ausente" *@
+                @*                        OnClick="@(() => QuickMark(context, AttendanceStatus.Abscent))" /> *@
+                @*     </MudButtonGroup> *@
+                @* </MudTd> *@
             </RowTemplate>
             <NoRecordsContent>
                 <MudText Typo="Typo.body2" Class="pa-4 text-center">Nenhum registro de presença encontrado.</MudText>
@@ -144,7 +175,7 @@
                     (a.Lesson?.Group?.Name?.ToLower().Contains(query) ?? false) ||
                     a.LessonId.ToString().Contains(query) ||
                     a.StudentId.ToString().Contains(query) ||
-                    a.Status.ToString()?.ToLower().Contains(query) == true);
+                    a.EngagementStatus.ToString()?.ToLower().Contains(query) == true);
             }
 
             return list;
@@ -184,7 +215,7 @@
 
     private async Task OnStatusChanged(Attendance attendance, AttendanceStatus? newStatus)
     {
-        attendance.Status = newStatus;
+        attendance.AttendanceStatus = newStatus;
         await SaveAttendance(attendance);
     }
 
@@ -194,15 +225,6 @@
         await SaveAttendance(attendance);
     }
 
-    private async Task QuickMark(Attendance attendance, AttendanceStatus status)
-    {
-        attendance.Status = status;
-        if (status == AttendanceStatus.Present && attendance.EngagementStatus == EngagmentStatus.NotEngaged)
-        {
-            attendance.EngagementStatus = EngagmentStatus.Engaged;
-        }
-        await SaveAttendance(attendance);
-    }
 
     private async Task SaveAttendance(Attendance attendance)
     {

@@ -55,7 +55,7 @@ public class GenerateLessonsAndAttendace(
                         LessonId = lesson.LessonId,
                         TeacherId = lesson.TeacherId,
                         Date = lessonStart,
-                        Status = AttendanceStatus.Pending,
+                        AttendanceStatus = AttendanceStatus.Pending,
                         EngagementStatus = EngagmentStatus.NotEngaged
                     };
 
