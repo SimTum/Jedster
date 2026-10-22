@@ -8,11 +8,11 @@
 <h3>TGSMHierarchyView</h3>
 <br/>
 <MudPaper Width="1200px" Elevation="0">
-    <MudStack AlignItems="AlignItems.Center">
+    <MudStack AlignItems="AlignItems.Start">
         @* <MudTextField T="string" Label="Search" Adornment="Adornment.Start" *@
         @*               AdornmentIcon="@Icons.Material.Filled.Search" TextChanged="OnTextChanged" Immediate="true" *@
         @*               Clearable="true"/> *@
-        <MudTreeView T="string"  @ref="_treeView" FilterFunc="MatchesName">
+        <MudTreeView T="string"  @ref="_treeView" FilterFunc="MatchesName" Dense="false">
             @foreach (var teacher in _teachers)
             {
                 <MudTreeViewItem Value="@teacher.Name" Text="@teacher.Name" Icon="@Icons.Material.Filled.Person">
@@ -22,12 +22,12 @@
                         @foreach (var group in teacher.Groups)
 
                         {
-                            <MudTreeViewItem Value="@group.Name" Text="@group.Name" Icon="@Icons.Material.Filled.GroupWork">
+                            <MudTreeViewItem Value="@group.Name" Text="@group.Name" Icon="@Icons.Material.Filled.Groups">
                                 @if (group.Students is not null)
                                     @foreach (var student in group.Students)
                                 {
                                     <MudTreeViewItem Value="@student.Name" Text="@student.Name"
-                                                     Icon="@Icons.Material.Filled.Person2"/>
+                                                     Icon="@Icons.Material.Outlined.Person"/>
                                 }
                             </MudTreeViewItem>
                         }

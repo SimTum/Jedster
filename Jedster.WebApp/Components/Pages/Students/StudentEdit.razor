@@ -193,8 +193,7 @@
         [Required(ErrorMessage = "O RG é obrigatório.")]
         public string RG { get; set; } = string.Empty;
 
-        [Required(ErrorMessage = "Selecione uma turma cadastrada.")]
         [Range(1, int.MaxValue, ErrorMessage = "Selecione uma turma cadastrada.")]
-        public int GroupId { get; set; }
+        public int? GroupId { get; set; }
     }
 }

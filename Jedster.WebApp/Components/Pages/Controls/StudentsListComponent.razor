@@ -26,7 +26,7 @@
         <PropertyColumn Property="x => x.StudentId" Title="#" Filterable="true" Sortable="true" SortDirection="SortDirection.Ascending"/>
         <PropertyColumn Property="x => x.Name" Title="Nome de Aluno" Filterable="true" Sortable="true" SortDirection="SortDirection.Ascending"/>
         <PropertyColumn Property="x => x.BirthDate" Title="Data de nascimento" Filterable="true" />
-        <PropertyColumn Property="x => x.GroupId" Title="ID da turma" Filterable="true"/>
+        <PropertyColumn Property="x => x.Group.Name " Title="Turma" Filterable="true"/>
         <PropertyColumn Property="x => x.Contract.ContractId" Title="Contrato" Filterable="false"/>
         <PropertyColumn Property="x => x.Textbooks.FirstOrDefault().Title" Title="Material" Filterable="true"/>
         <TemplateColumn Title="Actions" CellClass="d-flex justify-content-center">

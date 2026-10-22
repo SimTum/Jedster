@@ -4,8 +4,31 @@
 
 @inject IViewTeacherUseCase ViewTeacherUseCase
 @inject IDeleteTeacherUseCase DeleteTeacherUseCase
+@inject IEditTeacherUseCase UpdateTeacherUseCase
 @inject NavigationManager Navigation
 
+
+<MudCard Elevation="2" Class="my-3">
+    <MudCardHeader>
+        <CardHeaderContent>
+            <MudText Typo="Typo.body2">
+                <MudIcon Icon="@Icons.Material.Filled.Person" class="mr-2"/>
+                Professores
+            </MudText>
+        </CardHeaderContent>
+        <CardHeaderActions>
+            <div class="d-flex align-items-center gap-2">
+                
+                <MudButton Variant="Variant.Filled"
+                           Color="Color.Success"
+                           StartIcon="@Icons.Material.Filled.Add" 
+                           Href="/teacher/add">
+                    <MudText>Adicionar Professor</MudText>
+                </MudButton>
+            </div>
+        </CardHeaderActions>
+    </MudCardHeader>
+</MudCard>
 
 <MudTable T="Teacher" Items="@_teachers" Hover="true" Striped="true" Filter="FilterUsers">
     <ToolBarContent>
@@ -36,8 +59,8 @@
         <MudTd DataLabel="Email"> @context.Email</MudTd>
         <MudTd DataLabel="Hours"> @context.Hours</MudTd>
         <MudTd DataLabel="Buttons">
-            <a class="btn btn-secondary" href="/editProfessor/@context.TeacherId">Edit</a>
-            <button class="btn btn-danger" @onclick="() => DeleteTeacher(context.TeacherId)">Delete</button>
+            <a class="btn btn-secondary mb-3" href="/editProfessor/@context.TeacherId">Edit</a>
+            <button class="btn btn-danger mb-3" @onclick="() => DeleteTeacher(context.TeacherId)">Delete</button>
         </MudTd>
     </RowTemplate>
     <PagerContent>
@@ -56,12 +79,22 @@
     protected override async Task OnInitializedAsync()
     {
         _teachers = (await ViewTeacherUseCase.ExecuteAsync()).ToList();
+        foreach (var teacher in _teachers)
+        {
+            teacher.Hours = 0;
+            foreach (var group in teacher.Groups)
+            {
+                teacher.Hours += (group.EndTime - group.StartTime).TotalHours;
+            }
+
+            await UpdateTeacherUseCase.ExecuteAsync(teacher);
+        }
     }
 
     private async Task DeleteTeacher(int teacherId)
     {
         await DeleteTeacherUseCase.ExecuteAsync(teacherId);
-        Navigation.Refresh(forceReload:true);
+        Navigation.Refresh(forceReload: true);
     }
 
 }

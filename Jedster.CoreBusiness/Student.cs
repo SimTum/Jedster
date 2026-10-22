@@ -15,8 +15,7 @@ public class Student
     public required string Name { get; set; }
     [Required]
     public DateOnly BirthDate { get; set; }
-    [Required]
-    public required int GroupId { get; set; }
+    public int? GroupId { get; set; }
     public Group? Group { get; set; }
     [Required]
     public Contract? Contract { get; set; }

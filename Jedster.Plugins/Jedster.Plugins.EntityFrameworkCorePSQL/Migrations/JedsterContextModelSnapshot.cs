@@ -45,7 +45,7 @@ namespace Jedster.Plugins.EntityFrameworkCorePSQL.Migrations
                     b.Property<int>("StudentId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("TeacherId")
+                    b.Property<int?>("TeacherId")
                         .HasColumnType("integer");
 
                     b.HasKey("EntryId");
@@ -137,10 +137,16 @@ namespace Jedster.Plugins.EntityFrameworkCorePSQL.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ContractId"));
 
+                    b.Property<double>("HoursAbsent")
+                        .HasColumnType("double precision");
+
                     b.Property<double>("HoursCompleted")
                         .HasColumnType("double precision");
 
                     b.Property<double>("HoursMissed")
+                        .HasColumnType("double precision");
+
+                    b.Property<double>("HoursPresent")
                         .HasColumnType("double precision");
 
                     b.Property<double>("HoursRemaining")
@@ -182,7 +188,7 @@ namespace Jedster.Plugins.EntityFrameworkCorePSQL.Migrations
                     b.Property<TimeOnly>("StartTime")
                         .HasColumnType("time without time zone");
 
-                    b.Property<int>("TeacherId")
+                    b.Property<int?>("TeacherId")
                         .HasColumnType("integer");
 
                     b.Property<string>("WeekDay")
@@ -211,7 +217,7 @@ namespace Jedster.Plugins.EntityFrameworkCorePSQL.Migrations
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("GroupId")
+                    b.Property<int?>("GroupId")
                         .HasColumnType("integer");
 
                     b.Property<bool>("IsPaid")
@@ -223,7 +229,7 @@ namespace Jedster.Plugins.EntityFrameworkCorePSQL.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("integer");
 
-                    b.Property<int>("TeacherId")
+                    b.Property<int?>("TeacherId")
                         .HasColumnType("integer");
 
                     b.HasKey("LessonId");
@@ -250,7 +256,7 @@ namespace Jedster.Plugins.EntityFrameworkCorePSQL.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("GroupId")
+                    b.Property<int?>("GroupId")
                         .HasColumnType("integer");
 
                     b.Property<string>("Name")
@@ -332,9 +338,7 @@ namespace Jedster.Plugins.EntityFrameworkCorePSQL.Migrations
 
                     b.HasOne("Jedster.CoreBuisness.Teacher", "Teacher")
                         .WithMany("Attendance")
-                        .HasForeignKey("TeacherId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TeacherId");
 
                     b.Navigation("Lesson");
 
@@ -359,8 +363,7 @@ namespace Jedster.Plugins.EntityFrameworkCorePSQL.Migrations
                     b.HasOne("Jedster.CoreBuisness.Teacher", "Teacher")
                         .WithMany("Groups")
                         .HasForeignKey("TeacherId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Teacher");
                 });
@@ -369,15 +372,11 @@ namespace Jedster.Plugins.EntityFrameworkCorePSQL.Migrations
                 {
                     b.HasOne("Jedster.CoreBusiness.Group", "Group")
                         .WithMany("Lessons")
-                        .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("GroupId");
 
                     b.HasOne("Jedster.CoreBuisness.Teacher", "Teacher")
                         .WithMany("Lessons")
-                        .HasForeignKey("TeacherId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TeacherId");
 
                     b.Navigation("Group");
 
@@ -389,8 +388,7 @@ namespace Jedster.Plugins.EntityFrameworkCorePSQL.Migrations
                     b.HasOne("Jedster.CoreBusiness.Group", "Group")
                         .WithMany("Students")
                         .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Group");
                 });

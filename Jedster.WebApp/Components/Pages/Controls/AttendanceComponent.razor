@@ -72,8 +72,8 @@
                 }
                 <MudTd DataLabel="Data">@context.Date.ToString("dd/MM/yyyy")</MudTd>
                 <MudTd DataLabel="Data">@context.Date.DayOfWeek</MudTd>
-                <MudTd DataLabel="Data">@context.Lesson.StartTime.ToString("HH:mm")</MudTd>
-                <MudTd DataLabel="Data">@context.Lesson.EndTime.ToString("HH:mm")</MudTd>
+                <MudTd DataLabel="Data">@context.Lesson?.StartTime.ToString("HH:mm")</MudTd>
+                <MudTd DataLabel="Data">@context.Lesson?.EndTime.ToString("HH:mm")</MudTd>
                 <MudTd DataLabel="Status">
                     <MudRadioGroup T="AttendanceStatus?"
                                    Value="@context.AttendanceStatus"
@@ -203,7 +203,7 @@
         try
         {
             var result = await ViewAttendanceUseCase.GetAttendances();
-            _attendances = result?.ToList() ?? [];
+            _attendances = result?.OrderBy(a => a.Lesson.StartTime).ToList() ?? [];
         }
         catch (Exception ex)
         {

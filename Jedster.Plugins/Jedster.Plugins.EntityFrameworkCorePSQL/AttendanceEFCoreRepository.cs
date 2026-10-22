@@ -12,6 +12,7 @@ public class AttendanceEfCoreRepository(IDbContextFactory<JedsterContext> _facto
         await using var db = await _factory.CreateDbContextAsync();
         return await db.Attendances
             .Include(a => a.Student)
+                .ThenInclude(s => s.Contract)
             .Include(a => a.Teacher)
             .Include(a => a.Lesson)
                 .ThenInclude(l => l.Group)
@@ -41,6 +42,9 @@ public class AttendanceEfCoreRepository(IDbContextFactory<JedsterContext> _facto
 
             if (existing != null)
             {
+                var oldStatus = existing.AttendanceStatus;
+                var newStatus = attendance.AttendanceStatus;
+
                 existing.AttendanceStatus = attendance.AttendanceStatus;
                 existing.EngagementStatus = attendance.EngagementStatus;
                 existing.Date = attendance.Date;
@@ -48,10 +52,63 @@ public class AttendanceEfCoreRepository(IDbContextFactory<JedsterContext> _facto
                 if (attendance.StudentId > 0) existing.StudentId = attendance.StudentId;
                 if (attendance.TeacherId > 0) existing.TeacherId = attendance.TeacherId;
 
-                var lesson = await db.Lessons.FindAsync(existing.LessonId);
+                var lesson = await db.Lessons.Include(l => l.Group).FirstOrDefaultAsync(l => l.LessonId == existing.LessonId);
                 if (lesson != null && lesson.Status == LessonStatus.Scheduled)
                 {
                     lesson.Status = LessonStatus.Completed;
+                }
+
+                if (oldStatus != newStatus && existing.StudentId > 0)
+                {
+                    var contract = await db.Contracts.FirstOrDefaultAsync(c => c.StudentId == existing.StudentId);
+                    if (contract == null)
+                    {
+                        var student = await db.Students.Include(s => s.Contract).FirstOrDefaultAsync(s => s.StudentId == existing.StudentId);
+                        contract = student?.Contract;
+                    }
+
+                    if (contract != null)
+                    {
+                        double duration = 0;
+                        if (lesson != null)
+                        {
+                            if (lesson.Duration.TotalHours > 0)
+                                duration = lesson.Duration.TotalHours;
+                            else if (lesson.EndTime > lesson.StartTime)
+                                duration = (lesson.EndTime - lesson.StartTime).TotalHours;
+                            else if (lesson.Group != null)
+                                duration = (lesson.Group.EndTime - lesson.Group.StartTime).TotalHours;
+                        }
+
+                        if (duration <= 0)
+                        {
+                            duration = 1.0;
+                        }
+
+                        // Revert old status
+                        if (oldStatus == AttendanceStatus.Present)
+                        {
+                            contract.HoursCompleted -= duration;
+                            contract.HoursRemaining += duration;
+                        }
+                        else if (oldStatus == AttendanceStatus.Absent)
+                        {
+                            contract.HoursMissed -= duration;
+                            contract.HoursRemaining += duration;
+                        }
+
+                        // Apply new status
+                        if (newStatus == AttendanceStatus.Present)
+                        {
+                            contract.HoursRemaining -= duration;
+                            contract.HoursCompleted += duration;
+                        }
+                        else if (newStatus == AttendanceStatus.Absent)
+                        {
+                            contract.HoursRemaining -= duration;
+                            contract.HoursMissed += duration;
+                        }
+                    }
                 }
 
                 await db.SaveChangesAsync();
@@ -66,6 +123,7 @@ public class AttendanceEfCoreRepository(IDbContextFactory<JedsterContext> _facto
         await using var db = await _factory.CreateDbContextAsync();
         return await db.Attendances
             .Include(a => a.Student)
+                .ThenInclude(s => s.Contract)
             .Include(a => a.Teacher)
             .Include(a => a.Lesson)
                 .ThenInclude(l => l.Group)
@@ -82,6 +140,48 @@ public class AttendanceEfCoreRepository(IDbContextFactory<JedsterContext> _facto
             attendance.Student = null!;
             attendance.Teacher = null!;
             db.Attendances.Add(attendance);
+
+            if (attendance.AttendanceStatus == AttendanceStatus.Present || attendance.AttendanceStatus == AttendanceStatus.Absent)
+            {
+                var lesson = await db.Lessons.Include(l => l.Group).FirstOrDefaultAsync(l => l.LessonId == attendance.LessonId);
+                var contract = await db.Contracts.FirstOrDefaultAsync(c => c.StudentId == attendance.StudentId);
+                if (contract == null)
+                {
+                    var student = await db.Students.Include(s => s.Contract).FirstOrDefaultAsync(s => s.StudentId == attendance.StudentId);
+                    contract = student?.Contract;
+                }
+
+                if (contract != null)
+                {
+                    double duration = 0;
+                    if (lesson != null)
+                    {
+                        if (lesson.Duration.TotalHours > 0)
+                            duration = lesson.Duration.TotalHours;
+                        else if (lesson.EndTime > lesson.StartTime)
+                            duration = (lesson.EndTime - lesson.StartTime).TotalHours;
+                        else if (lesson.Group != null)
+                            duration = (lesson.Group.EndTime - lesson.Group.StartTime).TotalHours;
+                    }
+
+                    if (duration <= 0)
+                    {
+                        duration = 1.0;
+                    }
+
+                    if (attendance.AttendanceStatus == AttendanceStatus.Present)
+                    {
+                        contract.HoursRemaining -= duration;
+                        contract.HoursCompleted += duration;
+                    }
+                    else if (attendance.AttendanceStatus == AttendanceStatus.Absent)
+                    {
+                        contract.HoursRemaining -= duration;
+                        contract.HoursMissed += duration;
+                    }
+                }
+            }
+
             await db.SaveChangesAsync();
         }
         return attendance;

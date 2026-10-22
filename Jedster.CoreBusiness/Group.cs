@@ -21,16 +21,11 @@ public class Group
 
     [Required] public TimeOnly StartTime { get; set; }
     [Required] public TimeOnly EndTime { get; set; }
-    [Required] public int TeacherId { get; set; }
-    public Teacher Teacher { get; set; }
+    public int? TeacherId { get; set; }
+    public Teacher? Teacher { get; set; }
     public IEnumerable<Student>? Students { get; set; } = new List<Student>();
     // [Required] public double PayRate { get; set; } 
     public IEnumerable<Lesson>? Lessons { get; set; }
-
-    public void UpdateTeacherHours()
-    {
-        Teacher.Hours += (EndTime - StartTime).TotalHours;
-        // Teacher.HoursWeighed += (EndTime - StartTime).TotalHours * PayRate / 25.00;
-    }
+    
  
 }

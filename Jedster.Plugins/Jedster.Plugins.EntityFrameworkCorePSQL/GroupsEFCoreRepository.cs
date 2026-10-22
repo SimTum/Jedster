@@ -54,7 +54,7 @@ public class GroupsEfCoreRepository(IDbContextFactory<JedsterContext> _factory) 
                 .ToListAsync();
 
             var qualifyingStudents = _group.Students?
-                .Where(s => s.Contract != null && (s.Contract.HoursRemaining > 0 || s.Contract.GetHoursRemaining() >= -6))
+                .Where(s => s.Contract != null && (s.Contract.HoursRemaining > 0 || s.Contract.GetHoursRemaining() >= 0))
                 .ToList() ?? [];
             var groupStudentIds = qualifyingStudents.Select(s => s.StudentId).ToHashSet();
 
@@ -73,6 +73,9 @@ public class GroupsEfCoreRepository(IDbContextFactory<JedsterContext> _factory) 
                     {
                         attendance.TeacherId = _group.TeacherId;
                         attendance.Date = correctStartTime;
+                        attendance.Lesson.StartTime = correctStartTime;
+                        attendance.Lesson.EndTime = correctEndTime;
+                        attendance.Lesson.Duration = correctEndTime - correctStartTime;
                     }
                 }
 

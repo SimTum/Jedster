@@ -23,7 +23,10 @@ public class ContractsEfCoreRepository(IDbContextFactory<JedsterContext> _factor
         var existingContract = await db.Contracts.FindAsync(contract.ContractId);
         if (existingContract != null)
         {
-            existingContract.SetHoursRemaning(contract.GetHoursRemaining());
+            existingContract.HoursRemaining = contract.HoursRemaining;
+            existingContract.HoursCompleted = contract.HoursCompleted;
+            existingContract.HoursMissed = contract.HoursMissed;
+            existingContract.StartDate = contract.StartDate;
             await db.SaveChangesAsync();
         }
     }

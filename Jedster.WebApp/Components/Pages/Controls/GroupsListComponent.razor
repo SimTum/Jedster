@@ -28,7 +28,7 @@
         <PropertyColumn Property="x => x.WeekDay" Title="Dia de semana" Filterable="true"/>
         <PropertyColumn Property="x => x.StartTime" Title="Tempo de inicio" Filterable="false"/>
         <PropertyColumn Property="x => x.EndTime" Title="Tempo de fim" Filterable="false"/>
-        <PropertyColumn Property="x => x.Teacher.Name" Title="Nome do professor" Filterable="true"/>
+        <PropertyColumn Property="x => x.Teacher != null ? x.Teacher.Name : null " Title="Nome do professor" Filterable="true"/>
         <TemplateColumn Title="Actions" CellClass="d-flex justify-content-center">
             <CellTemplate>
                 

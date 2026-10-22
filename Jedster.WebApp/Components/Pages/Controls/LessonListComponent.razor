@@ -209,6 +209,7 @@
             var result = await ViewLessonsUseCase.ExecuteAsync();
             _lessons = result?.ToList() ?? [];
         }
+        
         catch (Exception ex)
         {
             Snackbar.Add($"Erro ao carregar aulas: {ex.Message}", Severity.Error);

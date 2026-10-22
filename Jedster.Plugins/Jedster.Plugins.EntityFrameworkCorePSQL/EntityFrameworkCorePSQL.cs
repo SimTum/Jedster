@@ -40,18 +40,23 @@ public class JedsterContext : DbContext
         modelBuilder.Entity<Group>()
             .HasOne(group => group.Teacher)
             .WithMany(teacher => teacher.Groups)
-            .HasForeignKey(group => group.TeacherId);
+            .HasForeignKey(group => group.TeacherId)
+            .IsRequired(false)
+            .OnDelete(DeleteBehavior.SetNull);
 
         modelBuilder.Entity<Group>()
             .HasKey(group => new { group.GroupId });
 
 
         // GROUP - STUDENTS
+        
         modelBuilder.Entity<Group>()
             .HasMany(group => group.Students)
             .WithOne(student => student.Group)
-            .HasForeignKey(student => student.GroupId);
-
+            .HasForeignKey(student => student.GroupId)
+            .IsRequired(false)
+            .OnDelete(DeleteBehavior.SetNull);
+        
         // STUDENT
         
         modelBuilder.Entity<Student>()
@@ -60,7 +65,7 @@ public class JedsterContext : DbContext
             .HasMany(student => student.Textbooks)
             .WithOne(textbook => textbook.Student )
             .HasForeignKey(textbook => textbook.StudentId);
-
+        
         //CONTRACT
         
         modelBuilder.Entity<Contract>()
