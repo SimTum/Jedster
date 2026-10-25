@@ -42,6 +42,9 @@ namespace Jedster.Plugins.EntityFrameworkCorePSQL.Migrations
                     b.Property<int>("LessonId")
                         .HasColumnType("integer");
 
+                    b.Property<string>("Observations")
+                        .HasColumnType("text");
+
                     b.Property<int>("StudentId")
                         .HasColumnType("integer");
 

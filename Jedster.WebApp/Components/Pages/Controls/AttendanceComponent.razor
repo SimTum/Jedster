@@ -13,26 +13,28 @@
     <MudCardHeader>
         <CardHeaderContent>
             <MudText Typo="Typo.h6">
-                <MudIcon Icon="@Icons.Material.Filled.FactCheck" Class="mr-2" />
+                <MudIcon Icon="@Icons.Material.Filled.FactCheck" Class="mr-2"/>
                 @(Title ?? (LessonId.HasValue ? $"Presenças da Aula #{LessonId}" : "Lista de Presenças"))
             </MudText>
         </CardHeaderContent>
         <CardHeaderActions>
-            <MudIconButton Icon="@Icons.Material.Filled.Refresh" Color="Color.Default" OnClick="LoadAttendancesAsync" Title="Atualizar" />
+            <MudIconButton Icon="@Icons.Material.Filled.Refresh" Color="Color.Default" OnClick="LoadAttendancesAsync"
+                           Title="Atualizar"/>
         </CardHeaderActions>
     </MudCardHeader>
     <MudCardContent>
-        <MudTable Items="@FilteredAttendances" Hover="true" 
-                  Striped="true" 
-                  Dense="true" 
-                  HorizontalScrollbar="true"
-                  Loading="@_isLoading" 
-                  LoadingProgressColor="Color.Primary">
+        <MudDataGrid T="Attendance" Items="@FilteredAttendances" Hover="true"
+                     Striped="true"
+                     Dense="true"
+                     Loading="@_isLoading"
+                     Style="width: 80vi; height: 65vh"
+                     HorizontalScrollbar="true"
+                     LoadingProgressColor="Color.Primary">
             <ToolBarContent>
                 <MudText Typo="Typo.subtitle1">
                     Total: @(FilteredAttendances.Count()) presenças
                 </MudText>
-                <MudSpacer />
+                <MudSpacer/>
                 <MudTextField @bind-Value="_searchString"
                               Placeholder="Buscar por aluno, turma..."
                               Adornment="Adornment.Start"
@@ -40,111 +42,146 @@
                               IconSize="Size.Medium"
                               Clearable="true"
                               Immediate="true"
-                              Class="mt-0" />
+                              Class="mt-0"/>
             </ToolBarContent>
-            <HeaderContent>
-                <MudTh>#</MudTh>
-                <MudTh>Aluno</MudTh>
+            <Columns>
+                <TemplateColumn Title="#">
+                    <CellTemplate>
+                        @(context.Item.EntryId > 0 ? context.Item.EntryId : $"{context.Item.LessonId}-{context.Item.StudentId}")
+                    </CellTemplate>
+                </TemplateColumn>
+                <PropertyColumn Title="Aluno"
+                                StickyLeft="true"
+                                Filterable="true"
+                                Sortable="true"
+                                Property="x => x.Student.Name"/>
+                @* <TemplateColumn Title="Aluno" *@
+                @*                 Filterable="true" *@
+                @*                 Sortable="true"> *@
+                @*     <CellTemplate> *@
+                @*         <MudText Typo="Typo.body2" Style="font-weight: 500;"> *@
+                @*             @(context.Item.Student?.Name ?? $"Aluno #{context.Item.StudentId}") *@
+                @*         </MudText> *@
+                @*     </CellTemplate> *@
+                @* </TemplateColumn> *@
                 @if (!LessonId.HasValue)
                 {
-                    <MudTh>Aula / Turma</MudTh>
+                    <TemplateColumn Title="Aula / Turma">
+                        <CellTemplate>
+                            @(context.Item.Lesson?.Group?.Name)
+                        </CellTemplate>
+                    </TemplateColumn>
                 }
-                <MudTh>Data</MudTh>
-                <MudTh>Dia Da Semana</MudTh>
-                <MudTh>Hora De Inicio</MudTh>
-                <MudTh>Hora De Final</MudTh>
-                <MudTh>Status Presença</MudTh>
-                <MudTh>Engajamento</MudTh>
-                @* <MudTh Style="text-align: center;">Ações</MudTh> *@
-            </HeaderContent>
-            <RowTemplate>
-                <MudTd DataLabel="#">@(context.EntryId > 0 ? context.EntryId : $"{context.LessonId}-{context.StudentId}")</MudTd>
-                <MudTd DataLabel="Aluno">
-                    <MudText Typo="Typo.body2" Style="font-weight: 500;">
-                        @(context.Student?.Name ?? $"Aluno #{context.StudentId}")
-                    </MudText>
-                </MudTd>
-                @if (!LessonId.HasValue)
-                {
-                    <MudTd DataLabel="Aula / Turma">
-                        @(context.Lesson?.Group?.Name ?? $"Aula #{context.LessonId}")
-                    </MudTd>
-                }
-                <MudTd DataLabel="Data">@context.Date.ToString("dd/MM/yyyy")</MudTd>
-                <MudTd DataLabel="Data">@context.Date.DayOfWeek</MudTd>
-                <MudTd DataLabel="Data">@context.Lesson?.StartTime.ToString("HH:mm")</MudTd>
-                <MudTd DataLabel="Data">@context.Lesson?.EndTime.ToString("HH:mm")</MudTd>
-                <MudTd DataLabel="Status">
-                    <MudRadioGroup T="AttendanceStatus?"
-                                   Value="@context.AttendanceStatus"
-                                   ValueChanged="@(async val => await OnStatusChanged(context, val))">
-                    <MudRadio Size="Size.Small" T="AttendanceStatus?" Value="AttendanceStatus.Pending" Color="Color.Primary">Pendente</MudRadio>
-                  <br/>
-                    <MudRadio Size="Size.Small" T="AttendanceStatus?" Value="AttendanceStatus.Present" Color="Color.Tertiary">Presente</MudRadio>
-                  <br/>
-                    <MudRadio Size="Size.Small" T="AttendanceStatus?" Value="AttendanceStatus.Canceled" Color="Color.Dark">Cancelou</MudRadio>
-                  <br/>
-                    <MudRadio Size="Size.Small" T="AttendanceStatus?" Value="AttendanceStatus.Absent" Color="Color.Secondary">Ausente</MudRadio>
-                    </MudRadioGroup>
-                    @* <MudSelect T="AttendanceStatus?" *@
-                    @*            Value="@context.Status" *@
-                    @*            ValueChanged="@(async val => await OnStatusChanged(context, val))" *@
-                    @*            Dense="true" *@
-                    @*            Margin="Margin.Dense" *@
-                    @*            Variant="Variant.Outlined"> *@
-                    @*     <MudSelectItem T="AttendanceStatus?" Value="@AttendanceStatus.Pending"> *@
-                    @*         <MudChip T="string" Color="Color.Warning" Size="Size.Small">Pendente</MudChip> *@
-                    @*     </MudSelectItem> *@
-                    @*     <MudSelectItem T="AttendanceStatus?" Value="@AttendanceStatus.Present"> *@
-                    @*         <MudChip T="string" Color="Color.Success" Size="Size.Small">Presente</MudChip> *@
-                    @*     </MudSelectItem> *@
-                    @*     <MudSelectItem T="AttendanceStatus?" Value="@AttendanceStatus.Abscent"> *@
-                    @*         <MudChip T="string" Color="Color.Error" Size="Size.Small">Ausente</MudChip> *@
-                    @*     </MudSelectItem> *@
-                    @*     <MudSelectItem T="AttendanceStatus?" Value="@AttendanceStatus.Canceled"> *@
-                    @*         <MudChip T="string" Color="Color.Dark" Size="Size.Small">Cancelado</MudChip> *@
-                    @*     </MudSelectItem> *@
-                    @* </MudSelect> *@
-                </MudTd>
-                <MudTd DataLabel="Engajamento">
-                    <MudRadioGroup T="EngagmentStatus?"
-                                   Value="@context.EngagementStatus"
-                                   ValueChanged="@( async val => await OnEngagementChanged(context, val))">
-                        <MudRadio Size="Size.Small" T="EngagmentStatus?" Value="EngagmentStatus.NotEngaged">Não Eengajado</MudRadio>
-                        <MudRadio Size="Size.Small" T="EngagmentStatus?" Value="EngagmentStatus.SlightlyEngaged">Pouco Engajado</MudRadio>
-                        <MudRadio Size="Size.Small" T="EngagmentStatus?" Value="EngagmentStatus.Engaged">Engajado</MudRadio>
-                        <MudRadio Size="Size.Small" T="EngagmentStatus?" Value="EngagmentStatus.VeryEngaged">Muito Engajado</MudRadio>
+                <PropertyColumn
+                    Title="Professor"
+                    Property="a => a.Teacher.Name"
+                    Sortable="true"
+                    Filterable="true"
+                />
+                <PropertyColumn
+                    Property="a => a.Date"
+                    Format="dd/MM/yyyy"
+                    Filterable="true"
+                    Sortable="true"
+                    Title="Data"
+                />
 
-                    </MudRadioGroup>
-                    @* <MudSelect T="EngagmentStatus?" *@
-                    @*            Value="@context.EngagementStatus" *@
-                    @*            ValueChanged="@(async val => await OnEngagementChanged(context, val))" *@
-                    @*            Dense="true" *@
-                    @*            Margin="Margin.Dense" *@
-                    @*            Variant="Variant.Outlined"> *@
-                    @*     <MudSelectItem T="EngagmentStatus?" Value="@EngagmentStatus.NotEngaged">Não Engajado</MudSelectItem> *@
-                    @*     <MudSelectItem T="EngagmentStatus?" Value="@EngagmentStatus.SlightlyEngaged">Pouco Engajado</MudSelectItem> *@
-                    @*     <MudSelectItem T="EngagmentStatus?" Value="@EngagmentStatus.Engaged">Engajado</MudSelectItem> *@
-                    @*     <MudSelectItem T="EngagmentStatus?" Value="@EngagmentStatus.VeryEngaged">Muito Engajado</MudSelectItem> *@
-                    @* </MudSelect> *@
-                </MudTd>
-                @* <MudTd DataLabel="Ações" Style="text-align: center;"> *@
-                @*     <MudButtonGroup Size="Size.Small" Variant="Variant.Outlined"> *@
-                @*         <MudIconButton Icon="@Icons.Material.Filled.Check" *@
-                @*                        Color="Color.Success" *@
-                @*                        Title="Marcar Presente" *@
-                @*                        OnClick="@(() => QuickMark(context, AttendanceStatus.Present))" /> *@
-                @*         <MudIconButton Icon="@Icons.Material.Filled.Close" *@
-                @*                        Color="Color.Error" *@
-                @*                        Title="Marcar Ausente" *@
-                @*                        OnClick="@(() => QuickMark(context, AttendanceStatus.Abscent))" /> *@
-                @*     </MudButtonGroup> *@
-                @* </MudTd> *@
-            </RowTemplate>
+                @* <TemplateColumn Title="Data" Sortable="true" *@
+                @*                 Filterable="true"> *@
+                @*     <CellTemplate> *@
+                @*         @context.Item.Date.ToString("dd/MM/yyyy") *@
+                @*     </CellTemplate> *@
+                @* </TemplateColumn> *@
+                <TemplateColumn Title="Dia Da Semana"
+                                Filterable="true"
+                                Sortable="true">
+                    <CellTemplate>
+                        @context.Item.Date.DayOfWeek
+                    </CellTemplate>
+                </TemplateColumn>
+                <TemplateColumn Title="Hora De Inicio">
+                    <CellTemplate>
+                        @context.Item.Lesson?.StartTime.ToString("HH:mm")
+                    </CellTemplate>
+                </TemplateColumn>
+                <TemplateColumn Title="Hora De Final">
+                    <CellTemplate>
+                        @context.Item.Lesson?.EndTime.ToString("HH:mm")
+                    </CellTemplate>
+                </TemplateColumn>
+                <TemplateColumn Title="Status Presença" Filterable="true">
+                    <CellTemplate>
+                        <MudRadioGroup T="AttendanceStatus?"
+                                       Style="max-width: 20px"
+                                       Value="@context.Item.AttendanceStatus"
+                                       ValueChanged="@(async val => await OnStatusChanged(context.Item, val))">
+                            <MudRadio Size="Size.Small" T="AttendanceStatus?" Value="AttendanceStatus.Pending"
+                                      Color="Color.Primary">Pendente
+                            </MudRadio>
+                            <MudRadio Size="Size.Small" T="AttendanceStatus?" Value="AttendanceStatus.Present"
+                                      Color="Color.Tertiary">Presente
+                            </MudRadio>
+                            <MudRadio Size="Size.Small" T="AttendanceStatus?" Value="AttendanceStatus.Canceled"
+                                      Color="Color.Dark">Cancelou
+                            </MudRadio>
+                            <MudRadio Size="Size.Small" T="AttendanceStatus?" Value="AttendanceStatus.Absent"
+                                      Color="Color.Secondary">Ausente
+                            </MudRadio>
+                        </MudRadioGroup>
+                    </CellTemplate>
+                </TemplateColumn>
+                <TemplateColumn Title="Engajamento">
+                    <CellTemplate>
+                        <MudRadioGroup T="EngagmentStatus?"
+                                       Value="@context.Item.EngagementStatus"
+                                       Style="max-width: 250px"
+                                       ValueChanged="@(async val => await OnEngagementChanged(context.Item, val))">
+                            <MudRadio Size="Size.Small" T="EngagmentStatus?" Value="EngagmentStatus.NotEngaged">Não
+                                Eengajado
+                            </MudRadio>
+                            <MudRadio Size="Size.Small" T="EngagmentStatus?" Value="EngagmentStatus.SlightlyEngaged">
+                                Pouco Engajado
+                            </MudRadio>
+                            <MudRadio Size="Size.Small" T="EngagmentStatus?" Value="EngagmentStatus.Engaged">Engajado
+                            </MudRadio>
+                            <MudRadio Size="Size.Small" T="EngagmentStatus?" Value="EngagmentStatus.VeryEngaged">Muito
+                                Engajado
+                            </MudRadio>
+                        </MudRadioGroup>
+                    </CellTemplate>
+                </TemplateColumn>
+                <TemplateColumn Title="Observações">
+                    <CellTemplate>
+                        <div class="d-flex flex-column align-items-start" style="min-width: 220px; max-width: 320px;">
+                            <MudTextField T="string"
+                                          Value="@GetObservationText(context.Item)"
+                                          ValueChanged="@(val => OnObservationChanged(context.Item, val))"
+                                          Placeholder="Observações da aula..."
+                                          Lines="2"
+                                          AutoGrow="true"
+                                          Immediate="true"
+                                          Variant="Variant.Outlined"
+                                          Margin="Margin.Dense"
+                                          Class="w-100" />
+                            @if (IsObservationEdited(context.Item))
+                            {
+                                <MudButton Size="Size.Small"
+                                           Variant="Variant.Filled"
+                                           Color="Color.Primary"
+                                           StartIcon="@Icons.Material.Filled.Save"
+                                           Class="mt-1"
+                                           OnClick="@(async () => await SaveObservationAsync(context.Item))">
+                                    Salvar
+                                </MudButton>
+                            }
+                        </div>
+                    </CellTemplate>
+                </TemplateColumn>
+                </Columns>
             <NoRecordsContent>
                 <MudText Typo="Typo.body2" Class="pa-4 text-center">Nenhum registro de presença encontrado.</MudText>
             </NoRecordsContent>
-        </MudTable>
+        </MudDataGrid>
     </MudCardContent>
 </MudCard>
 
@@ -157,6 +194,7 @@
     private List<Attendance> _attendances = [];
     private string _searchString = "";
     private bool _isLoading = false;
+    private readonly Dictionary<string, string> _editedObservations = new();
 
     private IEnumerable<Attendance> FilteredAttendances
     {
@@ -175,6 +213,7 @@
                 list = list.Where(a =>
                     (a.Student?.Name?.ToLower().Contains(query) ?? false) ||
                     (a.Lesson?.Group?.Name?.ToLower().Contains(query) ?? false) ||
+                    (a.Observations?.ToLower().Contains(query) ?? false) ||
                     a.LessonId.ToString().Contains(query) ||
                     a.StudentId.ToString().Contains(query) ||
                     a.EngagementStatus.ToString()?.ToLower().Contains(query) == true);
@@ -204,6 +243,7 @@
         {
             var result = await ViewAttendanceUseCase.GetAttendances();
             _attendances = result?.OrderBy(a => a.Lesson.StartTime).ToList() ?? [];
+            _editedObservations.Clear();
         }
         catch (Exception ex)
         {
@@ -213,6 +253,106 @@
         {
             _isLoading = false;
         }
+    }
+
+    private string GetAttendanceKey(Attendance attendance)
+    {
+        if (attendance.EntryId > 0)
+            return $"e_{attendance.EntryId}";
+        return $"l_{attendance.LessonId}_s_{attendance.StudentId}";
+    }
+
+    private string GetObservationText(Attendance attendance)
+    {
+        var key = GetAttendanceKey(attendance);
+        if (_editedObservations.TryGetValue(key, out var editedText))
+        {
+            return editedText;
+        }
+        return attendance.Observations ?? string.Empty;
+    }
+
+    private void OnObservationChanged(Attendance attendance, string val)
+    {
+        var key = GetAttendanceKey(attendance);
+        _editedObservations[key] = val;
+    }
+
+    private bool IsObservationEdited(Attendance attendance)
+    {
+        var key = GetAttendanceKey(attendance);
+        if (_editedObservations.TryGetValue(key, out var editedText))
+        {
+            return editedText != (attendance.Observations ?? string.Empty);
+        }
+        return false;
+    }
+
+    private async Task SaveObservationAsync(Attendance attendance)
+    {
+        var key = GetAttendanceKey(attendance);
+        if (!_editedObservations.TryGetValue(key, out var newText))
+        {
+            newText = attendance.Observations ?? string.Empty;
+        }
+
+        if (!string.IsNullOrWhiteSpace(newText))
+        {
+            var existing = attendance.Observations ?? string.Empty;
+            string formattedObservation;
+
+            if (string.IsNullOrWhiteSpace(existing))
+            {
+                if (!newText.TrimStart().StartsWith("["))
+                {
+                    formattedObservation = $"[{DateTime.Now:dd/MM/yyyy HH:mm}] {newText.Trim()}";
+                }
+                else
+                {
+                    formattedObservation = newText.Trim();
+                }
+            }
+            else if (newText.StartsWith(existing))
+            {
+                var appended = newText[existing.Length..].Trim();
+                if (!string.IsNullOrWhiteSpace(appended))
+                {
+                    if (!appended.StartsWith("["))
+                    {
+                        formattedObservation = $"{existing}\n[{DateTime.Now:dd/MM/yyyy HH:mm}] {appended}";
+                    }
+                    else
+                    {
+                        formattedObservation = $"{existing}\n{appended}";
+                    }
+                }
+                else
+                {
+                    formattedObservation = existing;
+                }
+            }
+            else
+            {
+                if (!newText.TrimStart().StartsWith("["))
+                {
+                    formattedObservation = $"[{DateTime.Now:dd/MM/yyyy HH:mm}] {newText.Trim()}";
+                }
+                else
+                {
+                    formattedObservation = newText.Trim();
+                }
+            }
+
+            attendance.Observations = formattedObservation;
+            _editedObservations[key] = formattedObservation;
+        }
+        else
+        {
+            attendance.Observations = null;
+            _editedObservations[key] = string.Empty;
+        }
+
+        await SaveAttendance(attendance);
     }
 
     private async Task OnStatusChanged(Attendance attendance, AttendanceStatus? newStatus)
@@ -227,7 +367,6 @@
         await SaveAttendance(attendance);
     }
 
-
     private async Task SaveAttendance(Attendance attendance)
     {
         try
@@ -236,11 +375,13 @@
             {
                 attendance.LessonId = Lesson.LessonId;
             }
+
             await UpdateAttendanceUseCase.ExecuteAsync(attendance);
             if (Lesson is not null && Lesson.Status == LessonStatus.Scheduled)
             {
                 Lesson.Status = LessonStatus.Completed;
             }
+
             Snackbar.Add("Presença atualizada com sucesso!", Severity.Success);
             if (OnAttendanceUpdated.HasDelegate)
             {

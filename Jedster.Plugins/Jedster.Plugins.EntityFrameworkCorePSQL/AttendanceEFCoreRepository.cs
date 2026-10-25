@@ -48,6 +48,7 @@ public class AttendanceEfCoreRepository(IDbContextFactory<JedsterContext> _facto
                 existing.AttendanceStatus = attendance.AttendanceStatus;
                 existing.EngagementStatus = attendance.EngagementStatus;
                 existing.Date = attendance.Date;
+                existing.Observations = attendance.Observations;
                 if (attendance.LessonId > 0) existing.LessonId = attendance.LessonId;
                 if (attendance.StudentId > 0) existing.StudentId = attendance.StudentId;
                 if (attendance.TeacherId > 0) existing.TeacherId = attendance.TeacherId;

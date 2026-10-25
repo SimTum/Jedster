@@ -18,7 +18,7 @@ public class  Attendance
     public EngagmentStatus? EngagementStatus { get; set; }
 
     public DateTime Date { get; set; }
-    
+    public string? Observations { get; set; }
 }
 
 public enum AttendanceStatus
