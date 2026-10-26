@@ -28,5 +28,7 @@ namespace Jedster.CoreBuisness
         public IEnumerable<Group>? Groups { get; set; } = new List<Group>();
         public IEnumerable<Lesson>? Lessons { get; set; }
         public IEnumerable<Attendance>? Attendance { get; set; }
+        public bool IsAdmin { get; set; }
+        
     }
 }

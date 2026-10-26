@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "Rfb/gSEFH6Y=",
-  "success": true,
+  "dgSpecHash": "Xxz7vdaBTHU=",
+  "success": false,
   "projectFilePath": "/home/Noodle/Fatec/Jedster/Jedster.WebApp/Jedster.WebApp.csproj",
   "expectedPackageFiles": [
     "/home/Noodle/.nuget/packages/humanizer.core/2.14.1/humanizer.core.2.14.1.nupkg.sha512",
     "/home/Noodle/.nuget/packages/microsoft.aspnetcore.app.internal.assets/10.0.7/microsoft.aspnetcore.app.internal.assets.10.0.7.nupkg.sha512",
+    "/home/Noodle/.nuget/packages/microsoft.aspnetcore.identity.entityframeworkcore/10.0.14/microsoft.aspnetcore.identity.entityframeworkcore.10.0.14.nupkg.sha512",
     "/home/Noodle/.nuget/packages/microsoft.build.framework/18.0.2/microsoft.build.framework.18.0.2.nupkg.sha512",
     "/home/Noodle/.nuget/packages/microsoft.codeanalysis.analyzers/3.11.0/microsoft.codeanalysis.analyzers.3.11.0.nupkg.sha512",
     "/home/Noodle/.nuget/packages/microsoft.codeanalysis.common/5.0.0/microsoft.codeanalysis.common.5.0.0.nupkg.sha512",
@@ -13,11 +14,11 @@
     "/home/Noodle/.nuget/packages/microsoft.codeanalysis.csharp.workspaces/5.0.0/microsoft.codeanalysis.csharp.workspaces.5.0.0.nupkg.sha512",
     "/home/Noodle/.nuget/packages/microsoft.codeanalysis.workspaces.common/5.0.0/microsoft.codeanalysis.workspaces.common.5.0.0.nupkg.sha512",
     "/home/Noodle/.nuget/packages/microsoft.codeanalysis.workspaces.msbuild/5.0.0/microsoft.codeanalysis.workspaces.msbuild.5.0.0.nupkg.sha512",
-    "/home/Noodle/.nuget/packages/microsoft.entityframeworkcore/10.0.8/microsoft.entityframeworkcore.10.0.8.nupkg.sha512",
-    "/home/Noodle/.nuget/packages/microsoft.entityframeworkcore.abstractions/10.0.8/microsoft.entityframeworkcore.abstractions.10.0.8.nupkg.sha512",
-    "/home/Noodle/.nuget/packages/microsoft.entityframeworkcore.analyzers/10.0.8/microsoft.entityframeworkcore.analyzers.10.0.8.nupkg.sha512",
+    "/home/Noodle/.nuget/packages/microsoft.entityframeworkcore/10.0.14/microsoft.entityframeworkcore.10.0.14.nupkg.sha512",
+    "/home/Noodle/.nuget/packages/microsoft.entityframeworkcore.abstractions/10.0.14/microsoft.entityframeworkcore.abstractions.10.0.14.nupkg.sha512",
+    "/home/Noodle/.nuget/packages/microsoft.entityframeworkcore.analyzers/10.0.14/microsoft.entityframeworkcore.analyzers.10.0.14.nupkg.sha512",
     "/home/Noodle/.nuget/packages/microsoft.entityframeworkcore.design/10.0.8/microsoft.entityframeworkcore.design.10.0.8.nupkg.sha512",
-    "/home/Noodle/.nuget/packages/microsoft.entityframeworkcore.relational/10.0.8/microsoft.entityframeworkcore.relational.10.0.8.nupkg.sha512",
+    "/home/Noodle/.nuget/packages/microsoft.entityframeworkcore.relational/10.0.14/microsoft.entityframeworkcore.relational.10.0.14.nupkg.sha512",
     "/home/Noodle/.nuget/packages/microsoft.entityframeworkcore.tools/10.0.8/microsoft.entityframeworkcore.tools.10.0.8.nupkg.sha512",
     "/home/Noodle/.nuget/packages/microsoft.extensions.dependencymodel/10.0.8/microsoft.extensions.dependencymodel.10.0.8.nupkg.sha512",
     "/home/Noodle/.nuget/packages/microsoft.visualstudio.solutionpersistence/1.0.52/microsoft.visualstudio.solutionpersistence.1.0.52.nupkg.sha512",
@@ -34,5 +35,17 @@
     "/home/Noodle/.nuget/packages/system.composition.runtime/9.0.0/system.composition.runtime.9.0.0.nupkg.sha512",
     "/home/Noodle/.nuget/packages/system.composition.typedparts/9.0.0/system.composition.typedparts.9.0.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1605",
+      "level": "Error",
+      "message": "Warning As Error: Detected package downgrade: Npgsql.EntityFrameworkCore.PostgreSQL from 10.0.3 to 10.0.1. Reference the package directly from the project to select a different version. \n Jedster.WebApp -> Jedster.Plugins.EntityFrameworkCorePSQL -> Npgsql.EntityFrameworkCore.PostgreSQL (>= 10.0.3) \n Jedster.WebApp -> Npgsql.EntityFrameworkCore.PostgreSQL (>= 10.0.1)",
+      "projectPath": "/home/Noodle/Fatec/Jedster/Jedster.WebApp/Jedster.WebApp.csproj",
+      "filePath": "/home/Noodle/Fatec/Jedster/Jedster.WebApp/Jedster.WebApp.csproj",
+      "libraryId": "Npgsql.EntityFrameworkCore.PostgreSQL",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    }
+  ]
 }

@@ -32,6 +32,14 @@
             "fileVersion": "1.0.0.0"
           }
         }
+      },
+      "Microsoft.Extensions.Identity.Stores/10.0.0.0": {
+        "runtime": {
+          "Microsoft.Extensions.Identity.Stores.dll": {
+            "assemblyVersion": "10.0.0.0",
+            "fileVersion": "10.0.1426.52326"
+          }
+        }
       }
     }
   },
@@ -48,6 +56,11 @@
     },
     "Jedster.UseCases/1.0.0": {
       "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.Extensions.Identity.Stores/10.0.0.0": {
+      "type": "reference",
       "serviceable": false,
       "sha512": ""
     }

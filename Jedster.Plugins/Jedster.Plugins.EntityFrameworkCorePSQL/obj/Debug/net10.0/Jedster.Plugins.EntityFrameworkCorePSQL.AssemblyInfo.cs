@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Jedster.Plugins.EntityFrameworkCorePSQL")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e4b184f7ead5302b970ee70c2d1594728f67c086")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9a40df6e841b438d464119bd4825b18d961e52dc")]
 [assembly: System.Reflection.AssemblyProductAttribute("Jedster.Plugins.EntityFrameworkCorePSQL")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Jedster.Plugins.EntityFrameworkCorePSQL")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

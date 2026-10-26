@@ -1,10 +1,11 @@
 ﻿using Jedster.CoreBuisness;
 using Jedster.CoreBusiness;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Jedster.Plugins.EntityFrameworkCorePSQL;
 
-public class JedsterContext : DbContext
+public class JedsterContext : IdentityDbContext<JedsterUser>
 {
     public JedsterContext(DbContextOptions<JedsterContext> options) : base(options)
     {
@@ -142,6 +143,11 @@ public class JedsterContext : DbContext
             .WithMany(t => t.Attendance)
             .HasForeignKey(attendance => attendance.TeacherId);
         
+        //Autentication
+        modelBuilder.Entity<JedsterUser>()
+            .HasOne(t => t.Teacher)
+            .WithOne()
+            .HasForeignKey<JedsterUser>(t => t.TeacherId);
      
     }
 }

@@ -1,4 +1,5 @@
 using System.Net.Security;
+using Jedster.CoreBuisness;
 using Jedster.Plugins.EntityFrameworkCorePSQL;
 using Jedster.Plugins.InMemory;
 using Jedster.UseCases.Attendances;
@@ -16,6 +17,9 @@ using Jedster.UseCases.Students.Interfaces;
 using Jedster.UseCases.Teachers;
 using Jedster.UseCases.Teachers.Interfaces;
 using Jedster.WebApp.Components;
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Components.Server;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MudBlazor.Services;
 
@@ -30,6 +34,37 @@ builder.Services.AddRazorPages();
 builder.Services.AddDbContextFactory<JedsterContext>(options =>
 {
     options.UseNpgsql(builder.Configuration.GetConnectionString("JedsterDB"));
+});
+
+//Blazor Authentication State
+builder.Services.AddCascadingAuthenticationState();
+builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingServerAuthenticationStateProvider>();
+// 2. Identity & Cookies
+builder.Services.AddAuthentication(options =>
+    {
+        options.DefaultScheme = IdentityConstants.ApplicationScheme;
+        options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
+    })
+    .AddIdentityCookies();
+
+builder.Services.AddIdentityCore<JedsterUser>(options =>
+    {
+        options.Password.RequireDigit = true;
+        options.Password.RequiredLength = 6;
+        options.Password.RequireNonAlphanumeric = false;
+        options.SignIn.RequireConfirmedAccount = false;
+    })
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<JedsterContext>()
+    .AddSignInManager()
+    .AddDefaultTokenProviders();
+
+// 3. Authorization Policies (Hierarchical or Exact)
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("RequireAdmin", policy => policy.RequireRole(UserRoles.Admin));
+    options.AddPolicy("RequireTeacher", policy => policy.RequireRole(UserRoles.Teacher, UserRoles.Admin));
+    options.AddPolicy("RequireStudent", policy => policy.RequireRole(UserRoles.Student));
 });
 
 builder.Services.AddTransient<ITeacherRepository, TeachersEfCoreRepository>();
@@ -106,6 +141,9 @@ if (!app.Environment.IsDevelopment())
 app.UseStatusCodePagesWithReExecute("/not-found", createScopeForStatusCodePages: true);
 app.UseHttpsRedirection();
 
+//Auth middleware
+app.UseAuthentication();
+app.UseAuthorization();
 app.UseAntiforgery();
 
 app.MapStaticAssets();
