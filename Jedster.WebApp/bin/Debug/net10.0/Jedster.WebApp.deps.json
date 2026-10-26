@@ -13,9 +13,9 @@
           "Jedster.Plugins.InMemory": "1.0.0",
           "Jedster.UseCases": "1.0.0",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "10.0.14",
-          "Microsoft.EntityFrameworkCore.Design": "10.0.8",
-          "MudBlazor": "9.2.0",
-          "Npgsql.EntityFrameworkCore.PostgreSQL": "10.0.1"
+          "Microsoft.EntityFrameworkCore.Design": "10.0.14",
+          "MudBlazor": "9.11.0",
+          "Npgsql.EntityFrameworkCore.PostgreSQL": "10.0.3"
         },
         "runtime": {
           "Jedster.WebApp.dll": {}
@@ -265,7 +265,7 @@
           "Microsoft.Build.Framework": "18.0.2",
           "Microsoft.CodeAnalysis.Workspaces.Common": "5.0.0",
           "Microsoft.VisualStudio.SolutionPersistence": "1.0.52",
-          "Newtonsoft.Json": "13.0.3",
+          "Newtonsoft.Json": "13.0.4",
           "System.Composition": "9.0.0"
         },
         "runtime": {
@@ -339,7 +339,7 @@
           }
         }
       },
-      "Microsoft.EntityFrameworkCore.Design/10.0.8": {
+      "Microsoft.EntityFrameworkCore.Design/10.0.14": {
         "dependencies": {
           "Humanizer.Core": "2.14.1",
           "Microsoft.Build.Framework": "18.0.2",
@@ -347,14 +347,14 @@
           "Microsoft.CodeAnalysis.CSharp.Workspaces": "5.0.0",
           "Microsoft.CodeAnalysis.Workspaces.MSBuild": "5.0.0",
           "Microsoft.EntityFrameworkCore.Relational": "10.0.14",
-          "Microsoft.Extensions.DependencyModel": "10.0.8",
+          "Microsoft.Extensions.DependencyModel": "10.0.14",
           "Mono.TextTemplating": "3.0.0",
-          "Newtonsoft.Json": "13.0.3"
+          "Newtonsoft.Json": "13.0.4"
         },
         "runtime": {
           "lib/net10.0/Microsoft.EntityFrameworkCore.Design.dll": {
-            "assemblyVersion": "10.0.8.0",
-            "fileVersion": "10.0.826.23019"
+            "assemblyVersion": "10.0.14.0",
+            "fileVersion": "10.0.1426.52326"
           }
         }
       },
@@ -369,11 +369,11 @@
           }
         }
       },
-      "Microsoft.Extensions.DependencyModel/10.0.8": {
+      "Microsoft.Extensions.DependencyModel/10.0.14": {
         "runtime": {
           "lib/net10.0/Microsoft.Extensions.DependencyModel.dll": {
-            "assemblyVersion": "10.0.0.8",
-            "fileVersion": "10.0.826.23019"
+            "assemblyVersion": "10.0.0.14",
+            "fileVersion": "10.0.1426.52326"
           }
         }
       },
@@ -396,40 +396,40 @@
           }
         }
       },
-      "MudBlazor/9.2.0": {
+      "MudBlazor/9.11.0": {
         "runtime": {
           "lib/net10.0/MudBlazor.dll": {
-            "assemblyVersion": "9.2.0.0",
-            "fileVersion": "9.2.0.0"
+            "assemblyVersion": "9.11.0.0",
+            "fileVersion": "9.11.0.0"
           }
         }
       },
-      "Newtonsoft.Json/13.0.3": {
+      "Newtonsoft.Json/13.0.4": {
         "runtime": {
           "lib/net6.0/Newtonsoft.Json.dll": {
             "assemblyVersion": "13.0.0.0",
-            "fileVersion": "13.0.3.27908"
+            "fileVersion": "13.0.4.30916"
           }
         }
       },
-      "Npgsql/10.0.2": {
+      "Npgsql/10.0.3": {
         "runtime": {
           "lib/net10.0/Npgsql.dll": {
-            "assemblyVersion": "10.0.2.0",
-            "fileVersion": "10.0.2.0"
+            "assemblyVersion": "10.0.3.0",
+            "fileVersion": "10.0.3.0"
           }
         }
       },
-      "Npgsql.EntityFrameworkCore.PostgreSQL/10.0.1": {
+      "Npgsql.EntityFrameworkCore.PostgreSQL/10.0.3": {
         "dependencies": {
           "Microsoft.EntityFrameworkCore": "10.0.14",
           "Microsoft.EntityFrameworkCore.Relational": "10.0.14",
-          "Npgsql": "10.0.2"
+          "Npgsql": "10.0.3"
         },
         "runtime": {
           "lib/net10.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll": {
-            "assemblyVersion": "10.0.1.0",
-            "fileVersion": "10.0.1.0"
+            "assemblyVersion": "10.0.3.0",
+            "fileVersion": "10.0.3.0"
           }
         }
       },
@@ -514,7 +514,7 @@
           "Jedster.CoreBusiness": "1.0.0",
           "Jedster.UseCases": "1.0.0",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "10.0.14",
-          "Npgsql.EntityFrameworkCore.PostgreSQL": "10.0.1"
+          "Npgsql.EntityFrameworkCore.PostgreSQL": "10.0.3"
         },
         "runtime": {
           "Jedster.Plugins.EntityFrameworkCorePSQL.dll": {
@@ -623,12 +623,12 @@
       "path": "microsoft.entityframeworkcore.abstractions/10.0.14",
       "hashPath": "microsoft.entityframeworkcore.abstractions.10.0.14.nupkg.sha512"
     },
-    "Microsoft.EntityFrameworkCore.Design/10.0.8": {
+    "Microsoft.EntityFrameworkCore.Design/10.0.14": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-LlUUXdfqKFk7RlGExojVP8GI6hN9O21WjpxFnp5mLeGjd9iYdwywIgK9WOLvPM2hrknrRyHR/i43FQdw/oCrOw==",
-      "path": "microsoft.entityframeworkcore.design/10.0.8",
-      "hashPath": "microsoft.entityframeworkcore.design.10.0.8.nupkg.sha512"
+      "sha512": "sha512-hRaYw8yzhpGq3Yz9apZrr/tp6FeBDUiAq4zJELRxQH1J1PfSBb2uGZoXlOL6EoSB3/M+OMpIjHDH0aOfgwyUUQ==",
+      "path": "microsoft.entityframeworkcore.design/10.0.14",
+      "hashPath": "microsoft.entityframeworkcore.design.10.0.14.nupkg.sha512"
     },
     "Microsoft.EntityFrameworkCore.Relational/10.0.14": {
       "type": "package",
@@ -637,12 +637,12 @@
       "path": "microsoft.entityframeworkcore.relational/10.0.14",
       "hashPath": "microsoft.entityframeworkcore.relational.10.0.14.nupkg.sha512"
     },
-    "Microsoft.Extensions.DependencyModel/10.0.8": {
+    "Microsoft.Extensions.DependencyModel/10.0.14": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-vLyZVpxmduO2jx+76ggqnsA3m81kwMY3NkWciNTj5E+Nvqb0VihqCvQP89QsGONWp0AJwMZG+u9GzaCjDdFGNw==",
-      "path": "microsoft.extensions.dependencymodel/10.0.8",
-      "hashPath": "microsoft.extensions.dependencymodel.10.0.8.nupkg.sha512"
+      "sha512": "sha512-N8OcqM0370wSXMJ3ZxO66rSElHrIgxvpfUn0vV7zRj7NvKo0nfwgEoTmC3Yz3860o60IaQ4KIPyeLIGX9EeNWA==",
+      "path": "microsoft.extensions.dependencymodel/10.0.14",
+      "hashPath": "microsoft.extensions.dependencymodel.10.0.14.nupkg.sha512"
     },
     "Microsoft.VisualStudio.SolutionPersistence/1.0.52": {
       "type": "package",
@@ -658,33 +658,33 @@
       "path": "mono.texttemplating/3.0.0",
       "hashPath": "mono.texttemplating.3.0.0.nupkg.sha512"
     },
-    "MudBlazor/9.2.0": {
+    "MudBlazor/9.11.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-ckAndxv3to3CahczgLrqKdzhPV3750B7taqICSIAdKXoh0dSyqcUcjAI5YlE5s7NB7C+NdpkfWpK+dKQwxvUOA==",
-      "path": "mudblazor/9.2.0",
-      "hashPath": "mudblazor.9.2.0.nupkg.sha512"
+      "sha512": "sha512-hboxF5cQuMYjB0w6+tScmNt0ACuoCu35TGPsCmCq8OeQgvtPtzQ1s9auAOrINj/J6I/ZyBB1rmUzrcMKj14RFA==",
+      "path": "mudblazor/9.11.0",
+      "hashPath": "mudblazor.9.11.0.nupkg.sha512"
     },
-    "Newtonsoft.Json/13.0.3": {
+    "Newtonsoft.Json/13.0.4": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-HrC5BXdl00IP9zeV+0Z848QWPAoCr9P3bDEZguI+gkLcBKAOxix/tLEAAHC+UvDNPv4a2d18lOReHMOagPa+zQ==",
-      "path": "newtonsoft.json/13.0.3",
-      "hashPath": "newtonsoft.json.13.0.3.nupkg.sha512"
+      "sha512": "sha512-pdgNNMai3zv51W5aq268sujXUyx7SNdE2bj1wZcWjAQrKMFZV260lbqYop1d2GM67JI1huLRwxo9ZqnfF/lC6A==",
+      "path": "newtonsoft.json/13.0.4",
+      "hashPath": "newtonsoft.json.13.0.4.nupkg.sha512"
     },
-    "Npgsql/10.0.2": {
+    "Npgsql/10.0.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-q5RfBI+wywJSFUNDE1L4ZbHEHCFTblo8Uf6A6oe4feOUFYiUQXyAf9GBh5qEZpvJaHiEbpBPkQumjEhXCJxdrg==",
-      "path": "npgsql/10.0.2",
-      "hashPath": "npgsql.10.0.2.nupkg.sha512"
+      "sha512": "sha512-7nb5YzXuvWWJxB0J8DiyL3we+X4FOctZrt0fIBnucOIaIevFEEwGQVZKtiu9olXdlNAK1eNgqSral6r/jlhI4w==",
+      "path": "npgsql/10.0.3",
+      "hashPath": "npgsql.10.0.3.nupkg.sha512"
     },
-    "Npgsql.EntityFrameworkCore.PostgreSQL/10.0.1": {
+    "Npgsql.EntityFrameworkCore.PostgreSQL/10.0.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-P6EwH0Q4xkaA264iNZDqCPhWt8pscfUGxXazDQg4noBfqjoOlk4hKWfvBjF9ZX3R/9JybRmmJfmxr2iBMj0EpA==",
-      "path": "npgsql.entityframeworkcore.postgresql/10.0.1",
-      "hashPath": "npgsql.entityframeworkcore.postgresql.10.0.1.nupkg.sha512"
+      "sha512": "sha512-IPGrrZnRkuW7OlHDhUESZz4G5DLkW7Nej/O3Cx+0iTsgyU5XJxBgpsvTHLloo3WWuAKKbDHXBvWPVkX1deRh1Q==",
+      "path": "npgsql.entityframeworkcore.postgresql/10.0.3",
+      "hashPath": "npgsql.entityframeworkcore.postgresql.10.0.3.nupkg.sha512"
     },
     "System.CodeDom/6.0.0": {
       "type": "package",

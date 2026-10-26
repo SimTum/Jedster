@@ -16,6 +16,7 @@ using Jedster.UseCases.Students;
 using Jedster.UseCases.Students.Interfaces;
 using Jedster.UseCases.Teachers;
 using Jedster.UseCases.Teachers.Interfaces;
+using Jedster.WebApp;
 using Jedster.WebApp.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Server;
@@ -38,7 +39,7 @@ builder.Services.AddDbContextFactory<JedsterContext>(options =>
 
 //Blazor Authentication State
 builder.Services.AddCascadingAuthenticationState();
-builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingServerAuthenticationStateProvider>();
+builder.Services.AddScoped<AuthenticationStateProvider, IdentityRevalidatingAuthenticationStateProvider>();
 // 2. Identity & Cookies
 builder.Services.AddAuthentication(options =>
     {

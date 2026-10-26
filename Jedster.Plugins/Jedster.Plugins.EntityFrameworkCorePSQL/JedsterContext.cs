@@ -147,7 +147,9 @@ public class JedsterContext : IdentityDbContext<JedsterUser>
         modelBuilder.Entity<JedsterUser>()
             .HasOne(t => t.Teacher)
             .WithOne()
-            .HasForeignKey<JedsterUser>(t => t.TeacherId);
+            .HasForeignKey<JedsterUser>(t => t.TeacherId)
+            .IsRequired(false)
+            .OnDelete(DeleteBehavior.SetNull);
      
     }
 }
