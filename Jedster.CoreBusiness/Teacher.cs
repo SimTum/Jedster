@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Runtime.CompilerServices;
+using Jedster.CoreBusiness;
 
-namespace Jedster.CoreBusiness
+namespace Jedster.CoreBuisness
 {
     public class Teacher
     {
@@ -16,11 +16,19 @@ namespace Jedster.CoreBusiness
         public string Email { get; set; } = string.Empty;
 
         [Required] public string RG { get; set; } = string.Empty;
-        [Required] public DateOnly BirthDate { get; set; }
-        [Required] public string CPF { get; set; } = string.Empty;
+
+        // [Required]
+        // [DataType(DataType.Date)]
+        // [Range(typeof(DateTime), "01/01/1900", "01/01/2008",  ErrorMessage = "Data Invalida")]   
+        public DateOnly BirthDate { get; set; }
+
+        public string CPF { get; set; } = string.Empty;
         [Range(0, double.MaxValue)] public double Hours { get; set; } = 0;
         [Range(0, double.MaxValue)] public double HoursWeighed { get; set; } = 0;
         public IEnumerable<Group>? Groups { get; set; } = new List<Group>();
-    
+        public IEnumerable<Lesson>? Lessons { get; set; }
+        public IEnumerable<Attendance>? Attendance { get; set; }
+        public bool IsAdmin { get; set; }
+        
     }
 }

@@ -34,3 +34,8 @@
 /home/Noodle/Fatec/Jedster/Jedster.Plugins/Jedster.Plugins.InMemory/obj/Debug/net10.0/ref/Jedster.Plugins.InMemory.dll
 /Users/simon.tumanov-ext/fatec/jedster/Jedster.Plugins/Jedster.Plugins.InMemory/bin/Debug/net10.0/Jedster.CoreBusiness.dll
 /Users/simon.tumanov-ext/fatec/jedster/Jedster.Plugins/Jedster.Plugins.InMemory/bin/Debug/net10.0/Jedster.CoreBusiness.pdb
+/tmp/junie/session-261016-225258-1thm/build/Jedster.Plugins.InMemory.deps.json
+/tmp/junie/session-261016-225258-1thm/build/Jedster.Plugins.InMemory.dll
+/tmp/junie/session-261016-225258-1thm/build/Jedster.Plugins.InMemory.pdb
+/home/Noodle/Fatec/Jedster/Jedster.Plugins/Jedster.Plugins.InMemory/bin/Debug/net10.0/Microsoft.Extensions.Identity.Stores.dll
+/home/Noodle/Fatec/Jedster/Jedster.Plugins/Jedster.Plugins.InMemory/bin/Debug/net10.0/Microsoft.Extensions.Identity.Stores.xml

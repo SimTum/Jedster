@@ -22,3 +22,10 @@
 /Users/simon.tumanov-ext/fatec/jedster/Jedster.CoreBusiness/obj/Debug/net10.0/refint/Jedster.CoreBusiness.dll
 /Users/simon.tumanov-ext/fatec/jedster/Jedster.CoreBusiness/obj/Debug/net10.0/Jedster.CoreBusiness.pdb
 /Users/simon.tumanov-ext/fatec/jedster/Jedster.CoreBusiness/obj/Debug/net10.0/ref/Jedster.CoreBusiness.dll
+/tmp/junie/session-261016-225258-1thm/build/Jedster.CoreBusiness.deps.json
+/tmp/junie/session-261016-225258-1thm/build/Jedster.CoreBusiness.dll
+/tmp/junie/session-261016-225258-1thm/build/Jedster.CoreBusiness.pdb
+/home/Noodle/Fatec/Jedster/Jedster.CoreBusiness/bin/Debug/net10.0/Microsoft.Extensions.Identity.Stores.dll
+/home/Noodle/Fatec/Jedster/Jedster.CoreBusiness/bin/Debug/net10.0/Microsoft.Extensions.Identity.Stores.xml
+/home/Noodle/Fatec/Jedster/Jedster.CoreBusiness/obj/Debug/net10.0/Jedster.CoreBusiness.csproj.AssemblyReference.cache
+/home/Noodle/Fatec/Jedster/Jedster.CoreBusiness/obj/Debug/net10.0/Jedster..739DA26F.Up2Date

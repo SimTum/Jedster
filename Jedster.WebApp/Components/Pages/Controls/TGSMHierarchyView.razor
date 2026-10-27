@@ -1,0 +1,69 @@
+@using Jedster.CoreBuisness
+@using Jedster.UseCases.Teachers
+@using Jedster.UseCases.Teachers.Interfaces
+
+@inject IViewTeacherUseCase ViewTeacherUseCase
+
+// Teacher - Group - Student - Material
+<h3>TGSMHierarchyView</h3>
+<br/>
+<MudPaper Width="1200px" Elevation="0">
+    <MudStack AlignItems="AlignItems.Start">
+        @* <MudTextField T="string" Label="Search" Adornment="Adornment.Start" *@
+        @*               AdornmentIcon="@Icons.Material.Filled.Search" TextChanged="OnTextChanged" Immediate="true" *@
+        @*               Clearable="true"/> *@
+        <MudTreeView T="string"  @ref="_treeView" FilterFunc="MatchesName" Dense="false">
+            @foreach (var teacher in _teachers)
+            {
+                <MudTreeViewItem Value="@teacher.Name" Text="@teacher.Name" Icon="@Icons.Material.Filled.Person">
+                    @if (teacher.Groups is not null)
+                    {
+
+                        @foreach (var group in teacher.Groups)
+
+                        {
+                            <MudTreeViewItem Value="@group.Name" Text="@group.Name" Icon="@Icons.Material.Filled.Groups">
+                                @if (group.Students is not null)
+                                    @foreach (var student in group.Students)
+                                {
+                                    <MudTreeViewItem Value="@student.Name" Text="@student.Name"
+                                                     Icon="@Icons.Material.Outlined.Person"/>
+                                }
+                            </MudTreeViewItem>
+                        }
+                    }
+                </MudTreeViewItem>
+            }
+        </MudTreeView>
+    </MudStack>
+</MudPaper>
+@code {
+    private List<Teacher>? _teachers = [];
+
+    private MudTreeView<string> _treeView;
+
+    private string _searchPhrase;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _teachers = (await ViewTeacherUseCase.ExecuteAsync()).ToList();
+    }
+
+
+    private async void OnTextChanged(string query)
+    {
+        _searchPhrase = query;
+        await _treeView.FilterAsync();
+    }
+    
+    private Task<bool> MatchesName(ITreeItemData<string> item)
+    {
+        if (string.IsNullOrEmpty(item.Text))
+        {
+            return Task.FromResult(false);
+        }
+
+        return Task.FromResult(item.Text.Contains(_searchPhrase, StringComparison.OrdinalIgnoreCase));
+    }
+
+}

@@ -1,0 +1,51 @@
+@using Jedster.UseCases.Materials
+
+@inject IViewMaterialUseCase ViewMaterialUseCase
+@inject NavigationManager Navigator
+
+<MudDataGrid T="Textbook" Items="@_textbooks" Filterable="true"
+             FilterMode="@_filterMode" FilterCaseSensitivity="@_caseSensitivity"
+             RowsPerPage="20">
+    
+    <ToolBarContent>
+        <MudText Typo="Typo.h6"> Materiais </MudText>
+        <MudSpacer/>
+        <MudButtonGroup Color="Color.Success" Variant="Variant.Filled">
+            <MudButton Href="/materiais/add">
+                Adicionar material
+            </MudButton>
+        </MudButtonGroup>
+    </ToolBarContent>
+    <Columns>
+        <PropertyColumn Property="x => x.TextbookId" Title="Id" Filterable="true" Sortable="true" InitialDirection="SortDirection.Ascending"/>
+        <PropertyColumn Property="x => x.Title" Title="Título" Filterable="true" Sortable="true"/>
+        <PropertyColumn Property="x => x.HoursSpent" Title="Horas dedicadas" Filterable="false"/>
+        <PropertyColumn Property="x => x.Engagement" Title="Engajamento" Filterable="false"/>
+        <TemplateColumn Title="Ações" CellClass="d-flex justify-content-center">
+            <CellTemplate>
+                <MudButton Color="Color.Primary" Variant="Variant.Filled" OnClick="() => RedirectToEdit(context.Item.TextbookId)">
+                    Editar
+                </MudButton>
+            </CellTemplate>
+        </TemplateColumn>
+    </Columns>
+    <PagerContent>
+        <MudDataGridPager T="Textbook" PageSizeOptions="[5, 10, 20]"/>
+    </PagerContent>
+</MudDataGrid>
+
+@code {
+    private List<Textbook> _textbooks = [];
+    private readonly DataGridFilterMode _filterMode = DataGridFilterMode.Simple;
+    private readonly DataGridFilterCaseSensitivity _caseSensitivity = DataGridFilterCaseSensitivity.Default;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _textbooks = [.. await ViewMaterialUseCase.ExecuteAsync()];
+    }
+
+    public void RedirectToEdit(int id)
+    {
+        Navigator.NavigateTo($"/edit-material/{id}");
+    }
+}

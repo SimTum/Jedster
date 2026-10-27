@@ -1,0 +1,216 @@
+@page "/alunos/add"
+
+@using Jedster.CoreBuisness
+@using Jedster.CoreBusiness
+@using Jedster.UseCases.Core.Contracts
+@using Jedster.UseCases.Core.Contracts.Interfaces
+@using Jedster.UseCases.Core.TextbookTypes
+@using Jedster.UseCases.Groups
+@using Jedster.UseCases.Materials
+@using Jedster.UseCases.Students
+
+@inject IViewGroupUseCase ViewGroupUseCase;
+@inject IEditGroupUseCase EditGroupUseCase;
+@inject IViewStudentsUseCase ViewStudentUseCase;
+@inject IViewTextbookTypesUseCase ViewTextbookTypesUseCase;
+@inject IRegisterStudentsUseCase RegisterStudentUseCase;
+@inject IViewContractUseCase ViewContractUseCase;
+@inject IAddContractUseCase AddContractUseCase;
+@inject IRegisterMaterialUseCase RegisterTextBookUseCase;
+@inject NavigationManager Navigator;
+@inject IJSRuntime JS;
+
+
+@implements IAsyncDisposable;
+
+<h3>Adicionar Aluno</h3>
+<br/>
+
+<div>
+
+    <EditForm Model="_student" FormName="RegisterStudentForm" OnValidSubmit="Save">
+        <DataAnnotationsValidator></DataAnnotationsValidator>
+
+        <div class="input-group mb-3">
+            <span class="input-group-text">Nome de Aluno</span>
+            <InputText id="name" @bind-Value="_student.Name" class="form-control"></InputText>
+            <ValidationMessage For="() => _student.Name"></ValidationMessage>
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text">RG</span>
+            <InputText id="RG" @bind-Value="_student.RG" class="form-control"></InputText>
+            <ValidationMessage For="() => _student.RG"></ValidationMessage>
+            <span class="input-group-text">CPF</span>
+            <InputText id="CPF" @bind-Value="_student.CPF" class="form-control"></InputText>
+            <ValidationMessage For="() => _student.CPF"></ValidationMessage>
+        </div>
+        <div class="input-group mb-3">
+            <label class="input-group-text" for="birthDate">Data de Nascimento</label>
+            <InputDate id="birthDate" class="form-control" TValue="System.DateOnly"
+                       @bind-Value="_student.BirthDate"></InputDate>
+            <ValidationMessage For="() => _student.BirthDate"></ValidationMessage>
+        </div>
+        <div class="input-group mb-3">
+            <label class="input-group-text" for="group">Turma</label>
+            <InputSelect id="group" @bind-Value="_student.GroupId" class="form-select">
+                <option value="0">Selecione uma turma...</option>
+                @foreach (var group in _groups)
+                {
+                    <option value="@group.GroupId">@group.Name >> Teacher @group.Teacher?.Name</option>
+                }
+            </InputSelect>
+            <ValidationMessage For="() => _student.GroupId"></ValidationMessage>
+        </div>
+        <br/>
+        <div class="input-group mb-3">
+            <label class="input-group-text" for="HorasContrato">Horas no contrato</label>
+            <InputNumber id="HorasContrato" class="form-control" @bind-Value="_contract.HoursRemaining" disabled/>
+        </div>
+        <div class="input-group">
+            <label class="input-group-text for" for="TextBook">Material de aluno</label>
+            <InputSelect id="TextBook" @bind-Value="_textbook.TextbookTypeId" class="form-select">
+                <option value="">Sem Material</option>
+                @foreach (var textbooktype in _textbooktypes)
+                {
+                    <option value="@textbooktype.Id">@textbooktype.Title</option>
+                }
+            </InputSelect>
+        </div>
+        @if (!string.IsNullOrEmpty(_errorMessage))
+        {
+            <div class="alert alert-danger">@_errorMessage</div>
+        }
+
+        <br/>
+        <div>
+            <button type="submit" class="btn btn-success mb-3">Salvar</button>
+            <a href="/alunos" class="btn btn-danger mb-3">Cancelar</a>
+        </div>
+    </EditForm>
+</div>
+
+@code {
+
+    [SupplyParameterFromForm]
+    private Student _student { get; set; } = new Student
+    {
+        RG = string.Empty,
+        CPF = string.Empty,
+        Name = string.Empty,
+        BirthDate = DateOnly.FromDateTime(DateTime.Today),
+        GroupId = 0,
+    };
+
+    private Contract _contract { get; set; } = new Contract
+    {
+        HoursRemaining = 40,
+        HoursCompleted = 0,
+        HoursMissed = 0,
+        StartDate = DateTime.UtcNow
+    };
+
+    private List<Group> _groups { get; set; } = [];
+    private List<Contract> _contracts { get; set; } = [];
+    private Textbook _textbook { get; set; } = new Textbook();
+    private List<TextBookType> _textbooktypes { get; set; } = [];
+    private IJSObjectReference? module { get; set; }
+
+    private string? _errorMessage;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        _groups = (await ViewGroupUseCase.ExecuteAsync()).ToList();
+        _textbooktypes = (await ViewTextbookTypesUseCase.ExecuteAsync()).ToList();
+        _contract.HoursRemaining = 40;
+        _contract.HoursCompleted = 0;
+        _contract.HoursMissed = 0;
+        _contract.StartDate = DateTime.UtcNow;
+        _student.Contract = _contract;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            try
+            {
+                module = await JS.InvokeAsync<IJSObjectReference>("import", "./Components/Pages/Students/StudentAdd.razor.js");
+                await module.InvokeVoidAsync("ApplyMask");
+            }
+            catch (JSDisconnectedException)
+            {
+            }
+            catch (Exception)
+            {
+                // ignored
+            }
+        }
+    }
+
+    private async Task Save()
+    {
+        _errorMessage = null;
+
+        var selectedGroup = _groups.FirstOrDefault(g => g.GroupId == _student.GroupId);
+        if (selectedGroup == null)
+        {
+            _errorMessage = "Selecione uma turma para o aluno.";
+            return;
+        }
+
+        _contract.HoursRemaining = 40;
+        _contract.HoursCompleted = 0;
+        _contract.HoursMissed = 0;
+        _contract.StartDate = DateTime.UtcNow;
+        _student.Contract = _contract;
+
+        try
+        {
+            // Saves the student together with its 40-hour contract (linked through Contract.StudentId)
+
+            // _textbook.TextbookType = _textbooktypes.Find(t => t.Id == _textbook.TextbookTypeId);
+            await RegisterStudentUseCase.ExecuteAsync(_student);
+            _student.Textbooks?.Append(_textbook);
+            _textbook.StudentId = _student.StudentId;
+            if (_textbook.TextbookTypeId > 0)
+            {
+                var selectedType = _textbooktypes.FirstOrDefault(t => t.Id == _textbook.TextbookTypeId);
+                _textbook.Title = selectedType?.Title ?? string.Empty;
+                await RegisterTextBookUseCase.ExecuteAsync(_textbook);
+            }
+
+            var studentsInGroup = selectedGroup.Students?.ToList() ?? new List<Student>();
+            studentsInGroup.Add(_student);
+            selectedGroup.Students = studentsInGroup;
+            selectedGroup.NumberStudents += 1;
+            await EditGroupUseCase.ExecuteAsync(selectedGroup);
+        }
+        catch (Exception ex)
+        {
+            _errorMessage = $"Erro ao salvar aluno: {ex.GetBaseException().Message}";
+            return;
+        }
+
+        Navigator.NavigateTo("/alunos");
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (module is not null)
+        {
+            try
+            {
+                await module.DisposeAsync();
+            }
+            catch (JSDisconnectedException)
+            {
+            }
+            catch (Exception)
+            {
+                // ignored
+            }
+        }
+    }
+
+}

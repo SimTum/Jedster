@@ -1,0 +1,126 @@
+@page "/edit-tipo-material/{Id:int}"
+
+@using Jedster.CoreBuisness
+@using Jedster.UseCases.Core.TextbookTypes
+@using Jedster.UseCases.Materials
+
+@inject IViewTextbookTypesUseCase ViewTextbookTypesUseCase
+@inject IEditTextBookTypeUseCase EditTextBookTypeUseCase
+@inject IDeleteTextBookTypeUseCase DeleteTextBookTypeUseCase
+@inject IViewMaterialUseCase ViewMaterialUseCase
+@inject NavigationManager Navigator
+
+<h3>Editar Tipo de Material</h3>
+<br />
+<div>
+    @if (_textBookType is not null)
+    {
+        <EditForm Model="_textBookType" FormName="EditTextBookTypeForm" OnValidSubmit="Update">
+            <DataAnnotationsValidator></DataAnnotationsValidator>
+
+            <div class="input-group mb-3">
+                <span class="input-group-text">Título</span>
+                <InputText id="title" @bind-Value="_textBookType.Title" class="form-control" />
+                <ValidationMessage For="() => _textBookType.Title" />
+            </div>
+
+            <div class="input-group mb-3">
+                <span class="input-group-text">Matéria</span>
+                <InputText id="subject" @bind-Value="_textBookType.Subject" class="form-control" />
+                <ValidationMessage For="() => _textBookType.Subject" />
+            </div>
+
+            <div class="input-group mb-3">
+                <span class="input-group-text">Nível</span>
+                <InputNumber id="level" @bind-Value="_textBookType.Level" class="form-control" />
+                <ValidationMessage For="() => _textBookType.Level" />
+            </div>
+
+            <div class="input-group mb-3">
+                <span class="input-group-text">Horas recomendadas</span>
+                <InputNumber id="hours" @bind-Value="_textBookType.HoursRecommended" class="form-control" />
+                <ValidationMessage For="() => _textBookType.HoursRecommended" />
+            </div>
+
+            <div class="input-group mb-3">
+                <span class="input-group-text">Descrição</span>
+                <InputTextArea id="description" @bind-Value="_textBookType.Description" class="form-control" />
+                <ValidationMessage For="() => _textBookType.Description" />
+            </div>
+
+            @if (!string.IsNullOrEmpty(_errorMessage))
+            {
+                <div class="alert alert-danger mt-3">@_errorMessage</div>
+            }
+
+            <br />
+            <button type="submit" class="btn btn-primary">Salvar</button>
+            <a href="/tipos-material" class="btn btn-outline-danger">Cancelar</a>
+            <br />
+            <br />
+            <a id="delete-button" @onclick="RedirectPage" class="btn btn-danger">Apagar</a>
+        </EditForm>
+    }
+    else
+    {
+        <h1>Tipo de material não encontrado</h1>
+    }
+</div>
+
+<Popup @ref="_popupRef" OnYes="() => DeleteTextBookType(Id)" />
+
+@code {
+    private Popup? _popupRef;
+    private string? _errorMessage;
+
+    private void RedirectPage()
+    {
+        _popupRef?.Show("Deseja realmente apagar este tipo de material?", "Confirmação de Exclusão");
+    }
+
+    [Parameter] public int Id { get; set; }
+    [SupplyParameterFromForm] private TextBookType? _textBookType { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        _textBookType ??= await ViewTextbookTypesUseCase.ExecuteAsync(Id);
+        if (_textBookType is null)
+        {
+            Navigator.NotFound();
+        }
+    }
+
+    private async Task Update()
+    {
+        if (_textBookType is not null)
+        {
+            await EditTextBookTypeUseCase.ExecuteAsync(_textBookType);
+            Navigator.NavigateTo("/tipos-material");
+        }
+    }
+
+    private async Task DeleteTextBookType(int id)
+    {
+        try
+        {
+            _errorMessage = null;
+
+            var materialsUsingType = (await ViewMaterialUseCase.ExecuteAsync())
+                .Count(material => material.TextbookTypeId == id);
+            if (materialsUsingType > 0)
+            {
+                _errorMessage = $"Não é possível apagar: existem {materialsUsingType} materiais usando este tipo.";
+                _popupRef?.Hide();
+                return;
+            }
+
+            await DeleteTextBookTypeUseCase.ExecuteAsync(id);
+            Navigator.NavigateTo("/tipos-material");
+        }
+        catch (Exception)
+        {
+            _errorMessage = "Não foi possível apagar o tipo de material. Tente novamente.";
+            _popupRef?.Hide();
+        }
+    }
+}

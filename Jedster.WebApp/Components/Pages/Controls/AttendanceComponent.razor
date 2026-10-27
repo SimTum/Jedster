@@ -1,0 +1,396 @@
+@using Jedster.CoreBusiness
+@using Jedster.CoreBuisness
+@using Jedster.UseCases.Attendances
+@using Jedster.UseCases.Core.Contracts.Interfaces
+@using Jedster.UseCases.PluginInterfaces
+
+@inject IViewAttendanceUseCase ViewAttendanceUseCase
+@inject IUpdateAttendanceUseCase UpdateAttendanceUseCase
+@inject IEditContractUseCase UpdateContractUseCase
+@inject ISnackbar Snackbar
+
+<MudCard Elevation="2" Class="my-3">
+    <MudCardHeader>
+        <CardHeaderContent>
+            <MudText Typo="Typo.h6">
+                <MudIcon Icon="@Icons.Material.Filled.FactCheck" Class="mr-2"/>
+                @(Title ?? (LessonId.HasValue ? $"Presenças da Aula #{LessonId}" : "Lista de Presenças"))
+            </MudText>
+        </CardHeaderContent>
+        <CardHeaderActions>
+            <MudIconButton Icon="@Icons.Material.Filled.Refresh" Color="Color.Default" OnClick="LoadAttendancesAsync"
+                           Title="Atualizar"/>
+        </CardHeaderActions>
+    </MudCardHeader>
+    <MudCardContent>
+        <MudDataGrid T="Attendance" Items="@FilteredAttendances" Hover="true"
+                     Striped="true"
+                     Dense="true"
+                     Loading="@_isLoading"
+                     Style="width: 80vi; height: 65vh"
+                     HorizontalScrollbar="true"
+                     LoadingProgressColor="Color.Primary">
+            <ToolBarContent>
+                <MudText Typo="Typo.subtitle1">
+                    Total: @(FilteredAttendances.Count()) presenças
+                </MudText>
+                <MudSpacer/>
+                <MudTextField @bind-Value="_searchString"
+                              Placeholder="Buscar por aluno, turma..."
+                              Adornment="Adornment.Start"
+                              AdornmentIcon="@Icons.Material.Filled.Search"
+                              IconSize="Size.Medium"
+                              Clearable="true"
+                              Immediate="true"
+                              Class="mt-0"/>
+            </ToolBarContent>
+            <Columns>
+                <TemplateColumn Title="#">
+                    <CellTemplate>
+                        @(context.Item.EntryId > 0 ? context.Item.EntryId : $"{context.Item.LessonId}-{context.Item.StudentId}")
+                    </CellTemplate>
+                </TemplateColumn>
+                <PropertyColumn Title="Aluno"
+                                StickyLeft="true"
+                                Filterable="true"
+                                Sortable="true"
+                                Property="x => x.Student.Name"/>
+                @* <TemplateColumn Title="Aluno" *@
+                @*                 Filterable="true" *@
+                @*                 Sortable="true"> *@
+                @*     <CellTemplate> *@
+                @*         <MudText Typo="Typo.body2" Style="font-weight: 500;"> *@
+                @*             @(context.Item.Student?.Name ?? $"Aluno #{context.Item.StudentId}") *@
+                @*         </MudText> *@
+                @*     </CellTemplate> *@
+                @* </TemplateColumn> *@
+                @if (!LessonId.HasValue)
+                {
+                    <TemplateColumn Title="Aula / Turma">
+                        <CellTemplate>
+                            @(context.Item.Lesson?.Group?.Name)
+                        </CellTemplate>
+                    </TemplateColumn>
+                }
+                <PropertyColumn
+                    Title="Professor"
+                    Property="a => a.Teacher.Name"
+                    Sortable="true"
+                    Filterable="true"
+                />
+                <PropertyColumn
+                    Property="a => a.Date"
+                    Format="dd/MM/yyyy"
+                    Filterable="true"
+                    Sortable="true"
+                    Title="Data"
+                />
+
+                @* <TemplateColumn Title="Data" Sortable="true" *@
+                @*                 Filterable="true"> *@
+                @*     <CellTemplate> *@
+                @*         @context.Item.Date.ToString("dd/MM/yyyy") *@
+                @*     </CellTemplate> *@
+                @* </TemplateColumn> *@
+                <TemplateColumn Title="Dia Da Semana"
+                                Filterable="true"
+                                Sortable="true">
+                    <CellTemplate>
+                        @context.Item.Date.DayOfWeek
+                    </CellTemplate>
+                </TemplateColumn>
+                <TemplateColumn Title="Hora De Inicio">
+                    <CellTemplate>
+                        @context.Item.Lesson?.StartTime.ToString("HH:mm")
+                    </CellTemplate>
+                </TemplateColumn>
+                <TemplateColumn Title="Hora De Final">
+                    <CellTemplate>
+                        @context.Item.Lesson?.EndTime.ToString("HH:mm")
+                    </CellTemplate>
+                </TemplateColumn>
+                <TemplateColumn Title="Status Presença" Filterable="true">
+                    <CellTemplate>
+                        <MudRadioGroup T="AttendanceStatus?"
+                                       Style="max-width: 20px"
+                                       Value="@context.Item.AttendanceStatus"
+                                       ValueChanged="@(async val => await OnStatusChanged(context.Item, val))">
+                            <MudRadio Size="Size.Small" T="AttendanceStatus?" Value="AttendanceStatus.Pending"
+                                      Color="Color.Primary">Pendente
+                            </MudRadio>
+                            <MudRadio Size="Size.Small" T="AttendanceStatus?" Value="AttendanceStatus.Present"
+                                      Color="Color.Tertiary">Presente
+                            </MudRadio>
+                            <MudRadio Size="Size.Small" T="AttendanceStatus?" Value="AttendanceStatus.Canceled"
+                                      Color="Color.Dark">Cancelou
+                            </MudRadio>
+                            <MudRadio Size="Size.Small" T="AttendanceStatus?" Value="AttendanceStatus.Absent"
+                                      Color="Color.Secondary">Ausente
+                            </MudRadio>
+                        </MudRadioGroup>
+                    </CellTemplate>
+                </TemplateColumn>
+                <TemplateColumn Title="Engajamento">
+                    <CellTemplate>
+                        <MudRadioGroup T="EngagmentStatus?"
+                                       Value="@context.Item.EngagementStatus"
+                                       Style="max-width: 250px"
+                                       ValueChanged="@(async val => await OnEngagementChanged(context.Item, val))">
+                            <MudRadio Size="Size.Small" T="EngagmentStatus?" Value="EngagmentStatus.NotEngaged">Não
+                                Eengajado
+                            </MudRadio>
+                            <MudRadio Size="Size.Small" T="EngagmentStatus?" Value="EngagmentStatus.SlightlyEngaged">
+                                Pouco Engajado
+                            </MudRadio>
+                            <MudRadio Size="Size.Small" T="EngagmentStatus?" Value="EngagmentStatus.Engaged">Engajado
+                            </MudRadio>
+                            <MudRadio Size="Size.Small" T="EngagmentStatus?" Value="EngagmentStatus.VeryEngaged">Muito
+                                Engajado
+                            </MudRadio>
+                        </MudRadioGroup>
+                    </CellTemplate>
+                </TemplateColumn>
+                <TemplateColumn Title="Observações">
+                    <CellTemplate>
+                        <div class="d-flex flex-column align-items-start" style="min-width: 220px; max-width: 320px;">
+                            <MudTextField T="string"
+                                          Value="@GetObservationText(context.Item)"
+                                          ValueChanged="@(val => OnObservationChanged(context.Item, val))"
+                                          Placeholder="Observações da aula..."
+                                          Lines="2"
+                                          AutoGrow="true"
+                                          Immediate="true"
+                                          Variant="Variant.Outlined"
+                                          Margin="Margin.Dense"
+                                          Class="w-100" />
+                            @if (IsObservationEdited(context.Item))
+                            {
+                                <MudButton Size="Size.Small"
+                                           Variant="Variant.Filled"
+                                           Color="Color.Primary"
+                                           StartIcon="@Icons.Material.Filled.Save"
+                                           Class="mt-1"
+                                           OnClick="@(async () => await SaveObservationAsync(context.Item))">
+                                    Salvar
+                                </MudButton>
+                            }
+                        </div>
+                        </CellTemplate>
+                </TemplateColumn>
+                </Columns>
+            <NoRecordsContent>
+                <MudText Typo="Typo.body2" Class="pa-4 text-center">Nenhum registro de presença encontrado.</MudText>
+            </NoRecordsContent>
+        </MudDataGrid>
+    </MudCardContent>
+</MudCard>
+
+@code {
+    [Parameter] public int? LessonId { get; set; }
+    [Parameter] public Lesson? Lesson { get; set; }
+    [Parameter] public string? Title { get; set; }
+    [Parameter] public EventCallback OnAttendanceUpdated { get; set; }
+
+    private List<Attendance> _attendances = [];
+    private string _searchString = "";
+    private bool _isLoading = false;
+    private readonly Dictionary<string, string> _editedObservations = new();
+
+    private IEnumerable<Attendance> FilteredAttendances
+    {
+        get
+        {
+            var list = _attendances.AsEnumerable();
+
+            if (LessonId.HasValue)
+            {
+                list = list.Where(a => a.LessonId == LessonId.Value);
+            }
+
+            if (!string.IsNullOrWhiteSpace(_searchString))
+            {
+                var query = _searchString.Trim().ToLower();
+                list = list.Where(a =>
+                    (a.Student?.Name?.ToLower().Contains(query) ?? false) ||
+                    (a.Lesson?.Group?.Name?.ToLower().Contains(query) ?? false) ||
+                    (a.Observations?.ToLower().Contains(query) ?? false) ||
+                    a.LessonId.ToString().Contains(query) ||
+                    a.StudentId.ToString().Contains(query) ||
+                    a.EngagementStatus.ToString()?.ToLower().Contains(query) == true);
+            }
+
+            return list;
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadAttendancesAsync();
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (Lesson is not null && Lesson.LessonId > 0 && !LessonId.HasValue)
+        {
+            LessonId = Lesson.LessonId;
+        }
+    }
+
+    public async Task LoadAttendancesAsync()
+    {
+        _isLoading = true;
+        try
+        {
+            var result = await ViewAttendanceUseCase.GetAttendances();
+            _attendances = result?.OrderBy(a => a.Lesson.StartTime).ToList() ?? [];
+            _editedObservations.Clear();
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"Erro ao carregar presenças: {ex.Message}", Severity.Error);
+        }
+        finally
+        {
+            _isLoading = false;
+        }
+    }
+
+    private string GetAttendanceKey(Attendance attendance)
+    {
+        if (attendance.EntryId > 0)
+            return $"e_{attendance.EntryId}";
+        return $"l_{attendance.LessonId}_s_{attendance.StudentId}";
+    }
+
+    private string GetObservationText(Attendance attendance)
+    {
+        var key = GetAttendanceKey(attendance);
+        if (_editedObservations.TryGetValue(key, out var editedText))
+        {
+            return editedText;
+        }
+        return attendance.Observations ?? string.Empty;
+    }
+
+    private void OnObservationChanged(Attendance attendance, string val)
+    {
+        var key = GetAttendanceKey(attendance);
+        _editedObservations[key] = val;
+    }
+
+    private bool IsObservationEdited(Attendance attendance)
+    {
+        var key = GetAttendanceKey(attendance);
+        if (_editedObservations.TryGetValue(key, out var editedText))
+        {
+            return editedText != (attendance.Observations ?? string.Empty);
+        }
+        return false;
+    }
+
+    private async Task SaveObservationAsync(Attendance attendance)
+    {
+        var key = GetAttendanceKey(attendance);
+        if (!_editedObservations.TryGetValue(key, out var newText))
+        {
+            newText = attendance.Observations ?? string.Empty;
+        }
+
+        if (!string.IsNullOrWhiteSpace(newText))
+        {
+            var existing = attendance.Observations ?? string.Empty;
+            string formattedObservation;
+
+            if (string.IsNullOrWhiteSpace(existing))
+            {
+                if (!newText.TrimStart().StartsWith("["))
+                {
+                    formattedObservation = $"[{DateTime.Now:dd/MM/yyyy HH:mm}] {newText.Trim()}";
+                }
+                else
+                {
+                    formattedObservation = newText.Trim();
+                }
+            }
+            else if (newText.StartsWith(existing))
+            {
+                var appended = newText[existing.Length..].Trim();
+                if (!string.IsNullOrWhiteSpace(appended))
+                {
+                    if (!appended.StartsWith("["))
+                    {
+                        formattedObservation = $"{existing}\n[{DateTime.Now:dd/MM/yyyy HH:mm}] {appended}";
+                    }
+                    else
+                    {
+                        formattedObservation = $"{existing}\n{appended}";
+                    }
+                }
+                else
+                {
+                    formattedObservation = existing;
+                }
+            }
+            else
+            {
+                if (!newText.TrimStart().StartsWith("["))
+                {
+                    formattedObservation = $"[{DateTime.Now:dd/MM/yyyy HH:mm}] {newText.Trim()}";
+                }
+                else
+                {
+                    formattedObservation = newText.Trim();
+                }
+            }
+
+            attendance.Observations = formattedObservation;
+            _editedObservations[key] = formattedObservation;
+        }
+        else
+        {
+            attendance.Observations = null;
+            _editedObservations[key] = string.Empty;
+        }
+
+        await SaveAttendance(attendance);
+    }
+
+    private async Task OnStatusChanged(Attendance attendance, AttendanceStatus? newStatus)
+    {
+        attendance.AttendanceStatus = newStatus;
+        await SaveAttendance(attendance);
+    }
+
+    private async Task OnEngagementChanged(Attendance attendance, EngagmentStatus? newEngagement)
+    {
+        attendance.EngagementStatus = newEngagement;
+        await SaveAttendance(attendance);
+    }
+
+    private async Task SaveAttendance(Attendance attendance)
+    {
+        try
+        {
+            if (Lesson is not null && attendance.LessonId <= 0)
+            {
+                attendance.LessonId = Lesson.LessonId;
+            }
+
+            await UpdateAttendanceUseCase.ExecuteAsync(attendance);
+            if (Lesson is not null && Lesson.Status == LessonStatus.Scheduled)
+            {
+                Lesson.Status = LessonStatus.Completed;
+            }
+
+            Snackbar.Add("Presença atualizada com sucesso!", Severity.Success);
+            if (OnAttendanceUpdated.HasDelegate)
+            {
+                await OnAttendanceUpdated.InvokeAsync();
+            }
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"Erro ao salvar presença: {ex.Message}", Severity.Error);
+        }
+    }
+}

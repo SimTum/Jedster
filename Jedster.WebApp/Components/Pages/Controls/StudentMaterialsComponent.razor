@@ -1,0 +1,293 @@
+@using Jedster.CoreBuisness
+@using Jedster.UseCases.Materials
+@using Jedster.UseCases.Core.TextbookTypes
+
+@inject IViewMaterialUseCase ViewMaterialUseCase
+@inject IRegisterMaterialUseCase RegisterMaterialUseCase
+@inject IDeleteMaterialUseCase DeleteMaterialUseCase
+@inject IViewTextbookTypesUseCase ViewTextbookTypesUseCase
+
+<div class="card mt-4 mb-3">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">Materiais do Aluno (@_studentMaterials.Count)</h5>
+        <button type="button" class="btn btn-sm btn-outline-secondary" @onclick="LoadDataAsync" title="Atualizar" disabled="@_isBusy">
+            Atualizar
+        </button>
+    </div>
+    <div class="card-body">
+        @if (!string.IsNullOrEmpty(_errorMessage))
+        {
+            <div class="alert alert-danger">@_errorMessage</div>
+        }
+
+        @if (!string.IsNullOrEmpty(_successMessage))
+        {
+            <div class="alert alert-success">@_successMessage</div>
+        }
+
+        @if (_isBusy)
+        {
+            <div class="text-center my-3">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Carregando...</span>
+                </div>
+            </div>
+        }
+        else if (_studentMaterials.Count == 0)
+        {
+            <p class="text-muted">Nenhum material associado a este aluno.</p>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table table-striped table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th>Título</th>
+                            <th>Tipo de Material</th>
+                            <th>Horas Dedicadas</th>
+                            <th>Engajamento</th>
+                            <th class="text-center" style="width: 120px;">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var material in _studentMaterials)
+                        {
+                            <tr>
+                                <td>@material.Title</td>
+                                <td>@(material.TextbookType?.Title ?? "-")</td>
+                                <td>@material.HoursSpent</td>
+                                <td>@material.Engagement</td>
+                                <td class="text-center">
+                                    <button type="button" class="btn btn-sm btn-danger" @onclick="() => RemoveMaterial(material.TextbookId)" disabled="@_isBusy">
+                                        Remover
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+
+        <hr class="my-4" />
+
+        <h6>Adicionar Material</h6>
+        <div class="row g-3 align-items-end mt-1">
+            <div class="col-md-3">
+                <label class="form-label" for="material-type-select">Tipo de Material</label>
+                <select id="material-type-select" class="form-select" value="@_newTextbookTypeId" @onchange="OnTypeChanged">
+                    <option value="0">Selecione um tipo...</option>
+                    @foreach (var type in _textbookTypes)
+                    {
+                        <option value="@type.Id">@type.Title</option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label class="form-label" for="material-title-input">Título</label>
+                <input id="material-title-input" type="text" class="form-control" placeholder="Título do material" @bind="_newTitle" />
+            </div>
+            <div class="col-md-2">
+                <label class="form-label" for="material-hours-input">Horas Dedicadas</label>
+                <input id="material-hours-input" type="number" step="0.5" min="0" class="form-control" @bind="_newHoursSpent" />
+            </div>
+            <div class="col-md-2">
+                <label class="form-label" for="material-engagement-input">Engajamento</label>
+                <input id="material-engagement-input" type="number" step="0.1" min="0" class="form-control" @bind="_newEngagement" />
+            </div>
+            <div class="col-md-2">
+                <button type="button" class="btn btn-success w-100" @onclick="AddMaterial" disabled="@_isBusy">
+                    Adicionar Material
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public int StudentId { get; set; }
+
+    private List<Textbook> _studentMaterials = [];
+    private List<TextBookType> _textbookTypes = [];
+    private bool _isBusy;
+    private string? _errorMessage;
+    private string? _successMessage;
+    private int _lastLoadedStudentId = -1;
+
+    private int _newTextbookTypeId;
+    private string _newTitle = string.Empty;
+    private double _newHoursSpent;
+    private double _newEngagement;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (StudentId != _lastLoadedStudentId)
+        {
+            _lastLoadedStudentId = StudentId;
+            await LoadDataAsync();
+        }
+    }
+
+    public async Task LoadDataAsync()
+    {
+        if (_isBusy) return;
+
+        _isBusy = true;
+        _errorMessage = null;
+        _successMessage = null;
+
+        try
+        {
+            _textbookTypes = [.. await ViewTextbookTypesUseCase.ExecuteAsync()];
+            await LoadMaterialsOnlyAsync();
+        }
+        catch (Exception ex)
+        {
+            _errorMessage = $"Erro ao carregar dados: {ex.GetBaseException().Message}";
+        }
+        finally
+        {
+            _isBusy = false;
+        }
+    }
+
+    private async Task LoadMaterialsOnlyAsync()
+    {
+        if (StudentId > 0)
+        {
+            var allMaterials = await ViewMaterialUseCase.ExecuteAsync();
+            _studentMaterials = [.. allMaterials.Where(m => m.StudentId == StudentId)];
+        }
+        else
+        {
+            _studentMaterials = [];
+        }
+    }
+
+    private void OnTypeChanged(ChangeEventArgs e)
+    {
+        if (!int.TryParse(e.Value?.ToString(), out var selectedId))
+        {
+            return;
+        }
+
+        _newTextbookTypeId = selectedId;
+        var selectedType = _textbookTypes.FirstOrDefault(t => t.Id == selectedId);
+        if (selectedType != null && (string.IsNullOrWhiteSpace(_newTitle) || _textbookTypes.Any(t => t.Title == _newTitle)))
+        {
+            _newTitle = selectedType.Title;
+        }
+    }
+
+    private async Task AddMaterial()
+    {
+        if (_isBusy) return;
+        _isBusy = true;
+        _errorMessage = null;
+        _successMessage = null;
+
+        if (StudentId <= 0)
+        {
+            _errorMessage = "Identificador de aluno inválido.";
+            _isBusy = false;
+            return;
+        }
+
+        if (_newTextbookTypeId <= 0 || _textbookTypes.All(t => t.Id != _newTextbookTypeId))
+        {
+            _errorMessage = "Selecione um tipo de material válido.";
+            _isBusy = false;
+            return;
+        }
+
+        if (_newHoursSpent < 0)
+        {
+            _errorMessage = "Horas dedicadas não podem ser negativas.";
+            _isBusy = false;
+            return;
+        }
+
+        if (_newEngagement < 0)
+        {
+            _errorMessage = "Engajamento não pode ser negativo.";
+            _isBusy = false;
+            return;
+        }
+
+        var selectedType = _textbookTypes.FirstOrDefault(t => t.Id == _newTextbookTypeId);
+        var finalTitle = !string.IsNullOrWhiteSpace(_newTitle) ? _newTitle.Trim() : selectedType?.Title ?? "Material";
+
+        var textbook = new Textbook
+        {
+            StudentId = StudentId,
+            TextbookTypeId = _newTextbookTypeId,
+            Title = finalTitle,
+            HoursSpent = _newHoursSpent,
+            Engagement = _newEngagement
+        };
+
+        try
+        {
+            await RegisterMaterialUseCase.ExecuteAsync(textbook);
+            _successMessage = "Material adicionado com sucesso.";
+            _newTextbookTypeId = 0;
+            _newTitle = string.Empty;
+            _newHoursSpent = 0;
+            _newEngagement = 0;
+        }
+        catch (Exception ex)
+        {
+            _errorMessage = $"Erro ao adicionar material: {ex.GetBaseException().Message}";
+            _isBusy = false;
+            return;
+        }
+
+        try
+        {
+            await LoadMaterialsOnlyAsync();
+        }
+        catch (Exception)
+        {
+            _successMessage += " (Atenção: a lista não pôde ser atualizada automaticamente. Atualize a página.)";
+        }
+        finally
+        {
+            _isBusy = false;
+        }
+    }
+
+    private async Task RemoveMaterial(int materialId)
+    {
+        if (_isBusy) return;
+        _isBusy = true;
+        _errorMessage = null;
+        _successMessage = null;
+
+        try
+        {
+            await DeleteMaterialUseCase.ExecuteAsync(materialId);
+            _successMessage = "Material removido com sucesso.";
+        }
+        catch (Exception ex)
+        {
+            _errorMessage = $"Erro ao remover material: {ex.GetBaseException().Message}";
+            _isBusy = false;
+            return;
+        }
+
+        try
+        {
+            await LoadMaterialsOnlyAsync();
+        }
+        catch (Exception)
+        {
+            _successMessage += " (Atenção: a lista não pôde ser atualizada automaticamente. Atualize a página.)";
+        }
+        finally
+        {
+            _isBusy = false;
+        }
+    }
+}

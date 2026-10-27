@@ -1,0 +1,10 @@
+@using Jedster.CoreBuisness
+@using Jedster.UseCases
+
+
+<h3>SaveChanges</h3>
+
+@code {
+    [Parameter] public List<Lesson> Lessons { get; set; } = new List<Lesson>();
+    [Parameter] public List<Attendance> Attendances { get; set; } = new List<Attendance>();
+}

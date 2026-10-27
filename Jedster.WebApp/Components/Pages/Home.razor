@@ -1,4 +1,5 @@
-﻿@page "/a"
+﻿@page "/"
+@using Jedster.CoreBuisness
 @using Jedster.UseCases.Teachers.Interfaces
 @inject IViewTeacherUseCase ViewTeacherUseCase
 @inject IEditTeacherUseCase EditTeacherUseCase
@@ -8,43 +9,44 @@
 
 <br />
 <br />
-
-<table class="table">
-    <tr>
-        <th>id</th>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Work Hours</th>
-    </tr>
-    @if (teachers is not null && teachers.Count > 0)
-    {
-        foreach (Teacher teacher in teachers)
-        {
-            <tr>
-                <td>
-                    @teacher.TeacherId
-                </td>
-
-                <td>
-                    @teacher.Name
-        
-                </td>
-
-                <td>
-                    @teacher.Email
-        
-                </td>
-
-                <td>
-                    @teacher.Hours
-        
-                </td>
-
-            </tr>
-                
-        }
-    }
-</table>
+<TGSMHierarchyView/>
+@* *@
+@* <table class="table"> *@
+@*     <tr> *@
+@*         <th>id</th> *@
+@*         <th>Name</th> *@
+@*         <th>Email</th> *@
+@*         <th>Work Hours</th> *@
+@*     </tr> *@
+@*     @if (teachers is not null && teachers.Count > 0) *@
+@*     { *@
+@*         foreach (Teacher teacher in teachers) *@
+@*         { *@
+@*             <tr> *@
+@*                 <td> *@
+@*                     @teacher.TeacherId *@
+@*                 </td> *@
+@* *@
+@*                 <td> *@
+@*                     @teacher.Name *@
+@*          *@
+@*                 </td> *@
+@* *@
+@*                 <td> *@
+@*                     @teacher.Email *@
+@*          *@
+@*                 </td> *@
+@* *@
+@*                 <td> *@
+@*                     @teacher.Hours *@
+@*          *@
+@*                 </td> *@
+@* *@
+@*             </tr> *@
+@*                  *@
+@*         } *@
+@*     } *@
+@* </table> *@
 @code {
     private List<Teacher>? teachers;
 

@@ -8,48 +8,149 @@ namespace Jedster.Plugins.InMemory;
 
 public class GroupRepository : IGroupRepository
 {
-
     private List<Group> _groups;
 
     public GroupRepository()
     {
-        _groups = new List<Group> {
+        _groups = new List<Group>
+        {
             new Group
             {
-                GroupId = 1, NumberStudents = 3, Name = "Kids1" ,WeekDay = "SEG", StartTime = new TimeOnly(17,30), EndTime = new TimeOnly (19,30), TeacherId = 1
+                GroupId = 1, NumberStudents = 3, Name = "Kids1", WeekDay = "SEG", StartTime = new TimeOnly(17, 30),
+                EndTime = new TimeOnly(19, 30), TeacherId = 1, Students =
+                [
+                    new Student
+                    {
+                        StudentId = 1, RG = "Document", GroupId = 1, CPF = "11122233344", Name = "Name1",
+                        BirthDate = new DateOnly(2000, 01, 02),
+                        
+                        Contract = new Contract()
+                        {
+                            // ContractId = 1, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 1
+                        }
+                    },
+                    new Student
+                    {
+                        StudentId = 2, RG = "Document", GroupId = 1, CPF = "11122233344", Name = "Name2",
+                        BirthDate = new DateOnly(2000, 01, 02),
+                        Contract = new Contract()
+                        {
+                            // ContractId = 2, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 2
+                        }
+                    },
+                    new Student
+                    {
+                        StudentId = 3, RG = "Document", GroupId = 1, CPF = "11122233344", Name = "Name3",
+                        BirthDate = new DateOnly(2000, 01, 02),
+                        Contract = new Contract()
+                        {
+                            // ContractId = 3, HoursRemaining = 40, HoursMissed = 0, HoursCompleted = 0, StudentId = 3
+                        }
+                    }
+                ]
             },
             new Group
             {
-                GroupId = 2, NumberStudents = 4, Name = "Kids2" ,WeekDay = "SEG", StartTime = new TimeOnly(19,30), EndTime = new TimeOnly (21,30), TeacherId = 1
+                GroupId = 2, NumberStudents = 2, Name = "Kids2", WeekDay = "SEG", StartTime = new TimeOnly(19, 30),
+                EndTime = new TimeOnly(21, 30), TeacherId = 1
             },
             new Group
             {
-                GroupId = 3, NumberStudents = 5, Name = "Teens1" ,WeekDay = "QUA", StartTime = new TimeOnly(14,30), EndTime = new TimeOnly (16,30), TeacherId = 2
+                GroupId = 3, NumberStudents = 5, Name = "Teens1", WeekDay = "QUA", StartTime = new TimeOnly(14, 30),
+                EndTime = new TimeOnly(16, 30), TeacherId = 2
             },
             new Group
             {
-                GroupId = 4, NumberStudents = 3, Name = "Adults1" ,WeekDay = "SEG", StartTime = new TimeOnly(17,30), EndTime = new TimeOnly (19,30), TeacherId = 1
+                GroupId = 4, NumberStudents = 3, Name = "Adults1", WeekDay = "SEG", StartTime = new TimeOnly(17, 30),
+                EndTime = new TimeOnly(19, 30), TeacherId = 1
             },
+            new Group
+            {
+                GroupId = 5, NumberStudents = 3, Name = "Kids3", WeekDay = "SEG", StartTime = new TimeOnly(17, 30),
+                EndTime = new TimeOnly(19, 30), TeacherId = 1
+            },
+            new Group
+            {
+                GroupId = 6, NumberStudents = 3, Name = "Adults2", WeekDay = "SEG", StartTime = new TimeOnly(17, 30),
+                EndTime = new TimeOnly(19, 30), TeacherId = 4
+            },
+            new Group
+            {
+                GroupId = 7, NumberStudents = 2, Name = "Teens2", WeekDay = "SEG", StartTime = new TimeOnly(17, 30),
+                EndTime = new TimeOnly(19, 30), TeacherId = 3
+            }
         };
     }
 
-    public Task<IEnumerable<Group>> GetGroupsByNameAsync(string nome)
+    public List<Group> GetGroups()
     {
-        throw new NotImplementedException();
+        return _groups;
+    }
+
+    public async Task<IEnumerable<Group>> GetGroupsByNameAsync(string name)
+    {
+        if (string.IsNullOrWhiteSpace(name)) return await Task.FromResult(_groups);
+
+        return _groups.Where(x => x.Name.Contains(name, StringComparison.OrdinalIgnoreCase));
+    }
+
+    public async Task<Group?> GetGroupByIdAsync(int groupId)
+    {
+        if (_groups.Any(x => x.GroupId == groupId))
+        {
+            return await Task.FromResult(_groups.FirstOrDefault(x => x.GroupId == groupId));
+        }
+        else
+        {
+            return null;
+        }
     }
 
     public Task RegisterGroup(Group group)
     {
-        throw new NotImplementedException();
+        if (_groups.Any(x => x.Name.Equals(group.Name, StringComparison.OrdinalIgnoreCase)))
+        {
+            return Task.CompletedTask;
+        }
+
+        var maxId = _groups.Max(x => x.GroupId);
+        group.GroupId = maxId + 1;
+
+        _groups.Add(group);
+        return Task.CompletedTask;
     }
 
-    public Task RegisterGroup(System.Text.RegularExpressions.Group group)
+
+    public Task EditGroupAsync(Group group)
     {
-        throw new NotImplementedException();
+        if (_groups.Any(x =>
+                x.Name.Equals(group.Name, StringComparison.OrdinalIgnoreCase) && x.GroupId != group.GroupId))
+            return Task.CompletedTask;
+
+        var groupToUpdate = _groups.FirstOrDefault(x => x.GroupId == group.GroupId);
+        if (groupToUpdate is not null)
+        {
+            groupToUpdate.Name = group.Name;
+            groupToUpdate.StartTime = group.StartTime;
+            groupToUpdate.EndTime = group.EndTime;
+            groupToUpdate.TeacherId = group.TeacherId;
+            groupToUpdate.Teacher = group.Teacher;
+            groupToUpdate.WeekDay = group.WeekDay;
+            groupToUpdate.NumberStudents = group.NumberStudents;
+            groupToUpdate.Students = group.Students;
+        }
+
+        return Task.CompletedTask;
     }
 
-    Task<IEnumerable<System.Text.RegularExpressions.Group>> IGroupRepository.GetGroupsByNameAsync(string nome)
+    public Task DeleteGroupByIdAsync(int groupId)
     {
-        throw new NotImplementedException();
+        var groupToDelete = _groups.FirstOrDefault(x => x.GroupId == groupId);
+        if (groupToDelete is not null)
+        {
+            _groups.Remove(groupToDelete);
+        }
+
+        return Task.CompletedTask;
     }
 }

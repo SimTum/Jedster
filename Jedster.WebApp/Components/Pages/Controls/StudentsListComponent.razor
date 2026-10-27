@@ -1,0 +1,88 @@
+@using Jedster.CoreBusiness
+@using Jedster.UseCases.Groups
+@using Jedster.UseCases.PluginInterfaces
+@using Jedster.UseCases.Students
+
+@inject IViewStudentsUseCase ViewStudentsUseCase
+@inject IEditGroupUseCase EditGroupUseCase
+@inject IRegisterGroupUseCase RegisterGroupUseCase
+@inject IDeleteGroupUseCase DeleteGroupUseCase
+
+@inject NavigationManager Navigator
+
+<MudDataGrid @ref="_dataGrid" T="Student" Items="@_students" Filterable="true"
+             FilterMode="@_filterMode" FilterCaseSensitivity="@_caseSensitivity">
+    
+    <ToolBarContent>
+        <MudText Typo="Typo.h6"> Alunos </MudText>
+        <MudSpacer/>
+        <MudButtonGroup Color="Color.Success" Variant="Variant.Filled">
+            <MudButton Href="/alunos/add">
+                Adicionar Aluno
+            </MudButton>
+        </MudButtonGroup>
+    </ToolBarContent>
+    <Columns>
+        <PropertyColumn Property="x => x.StudentId" Title="#" Filterable="true" Sortable="true" SortDirection="SortDirection.Ascending"/>
+        <PropertyColumn Property="x => x.Name" Title="Nome de Aluno" Filterable="true" Sortable="true" SortDirection="SortDirection.Ascending"/>
+        <PropertyColumn Property="x => x.Group.Teacher.Name" Title="Professor" Filterable="true" />
+        <PropertyColumn Property="x => x.Group.Name " Title="Turma" Filterable="true"/>
+        <PropertyColumn Property="x => x.Group.StartTime.ToString()"  Title="Hora inicio    " Filterable="true"/>
+        <PropertyColumn Property="x => x.Group.EndTime.ToString()"  Title="Hora fim" Filterable="true"/>
+        <PropertyColumn Property="x => x.Textbooks.FirstOrDefault().Title" Title="Material" Filterable="true"/>
+        <TemplateColumn Title="Actions" CellClass="d-flex justify-content-center">
+            <CellTemplate>
+                
+                    <MudButton Color="Color.Primary" Variant="Variant.Filled" OnClick=" () => RedirectToEdit(context.Item.StudentId)">
+                        Editar
+                    </MudButton>
+            </CellTemplate>
+            <EditTemplate>
+
+            </EditTemplate>
+        </TemplateColumn>
+    </Columns>
+    <PagerContent>
+        <MudDataGridPager T="Student" PageSizeOptions="new[] {15, 20, 25, 30}"/>
+    </PagerContent>
+</MudDataGrid>
+
+
+@code {
+    private bool _isCellEditMode = false;
+    private bool _editTriggerRowClick = false;
+    private  List<Student> _students = [];
+    private DataGridFilterMode _filterMode = DataGridFilterMode.Simple;
+    private DataGridFilterCaseSensitivity _caseSensitivity = DataGridFilterCaseSensitivity.Default;
+    private MudDataGrid<Student> _dataGrid = default!;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _students = (await ViewStudentsUseCase.ExecuteAsync()).ToList();
+        
+    }
+
+    private async Task ResetGridAndFilters()
+    {
+        // reset external options
+        _filterMode = DataGridFilterMode.Simple;
+        _caseSensitivity = DataGridFilterCaseSensitivity.Default;
+        // reset all active filters and sorting
+        await _dataGrid.ClearFiltersAsync();        
+        foreach (var field in _dataGrid.SortDefinitions.Keys.ToList())
+        {
+            await _dataGrid.RemoveSortAsync(field);
+        }
+    }
+
+    private Task EditRow(CellContext<Group> context)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void RedirectToEdit(int groupId)
+    {
+        Navigator.NavigateTo(($"/edit-aluno/" +
+                              $"{groupId}"));
+    }
+}

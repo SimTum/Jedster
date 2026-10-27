@@ -1,19 +1,16 @@
+using Jedster.CoreBuisness;
 using Jedster.CoreBusiness;
 using Jedster.UseCases.PluginInterfaces;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
 
 namespace Jedster.Plugins.EntityFrameworkCorePSQL;
 
-public class TeachersEfCoreRepository(IDbContextFactory<JedsterContext> contextFactorySource) : ITeacherRepository
+public class TeachersEfCoreRepository(IDbContextFactory<JedsterContext> _factory) : ITeacherRepository
 {
-    
-    private readonly IDbContextFactory<JedsterContext> _factory = contextFactorySource;
-    
     public async Task<IEnumerable<Teacher>> GetTeachersByNameAsync(string name)
     {
         await using var db =  await _factory.CreateDbContextAsync();
-        return await db.Teachers?.ToListAsync();
+        return await db.Teachers?.Include(t => t.Groups).ThenInclude(g => g.Students).ToListAsync()!;
     }
 
     public async Task RegisterTeacherAsync(Teacher teacher)
@@ -29,9 +26,14 @@ public class TeachersEfCoreRepository(IDbContextFactory<JedsterContext> contextF
         var _teacher = await db.Teachers.FindAsync(teacher.TeacherId);
         if (_teacher != null)
         {
-            _teacher.Name = teacher.Name;
-            _teacher.Email = teacher.Email;
+                _teacher.Name = teacher.Name;
+                _teacher.Email = teacher.Email;
+                _teacher.BirthDate = teacher.BirthDate;
+                _teacher.CPF = teacher.CPF;
+                _teacher.RG = teacher.RG;
+
             
+                
             await db.SaveChangesAsync(); 
         }
     }

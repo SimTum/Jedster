@@ -1,0 +1,40 @@
+@using Jedster.UseCases.Core.Contracts.Interfaces
+
+@inject IViewContractUseCase ViewContractUseCase
+
+<MudDataGrid T="Contract" Items="@_contracts" Filterable="true"
+             FilterMode="@_filterMode" FilterCaseSensitivity="@_caseSensitivity"
+             RowsPerPage="20">
+    
+    <ToolBarContent>
+        <MudText Typo="Typo.h6"> Contratos </MudText>
+        <MudSpacer/>
+        <MudButtonGroup Color="Color.Success" Variant="Variant.Filled">
+            <MudButton Href="/contratos/add">
+                Adicionar contrato
+            </MudButton>
+        </MudButtonGroup>
+    </ToolBarContent>
+    <Columns>
+        <PropertyColumn Property="x => x.ContractId" Title="Id" Filterable="true" Sortable="true" InitialDirection="SortDirection.Ascending"/>
+        <PropertyColumn Property="x => x.Student.Name" Title="Aluno" Filterable="true" Sortable="true"/>
+        <PropertyColumn Property="x => x.StartDate" Title="Data de início" Format="dd/MM/yyyy" Filterable="true" Sortable="true"/>
+        <PropertyColumn Property="x => x.HoursCompleted" Title="Horas concluídas" Filterable="false"/>
+        <PropertyColumn Property="x => x.HoursMissed" Title="Horas perdidas" Filterable="false"/>
+        <PropertyColumn Property="x => x.HoursRemaining" Title="Horas restantes" Filterable="false"/>
+    </Columns>
+    <PagerContent>
+        <MudDataGridPager T="Contract" PageSizeOptions="[5, 10, 20]"/>
+    </PagerContent>
+</MudDataGrid>
+
+@code {
+    private List<Contract> _contracts = [];
+    private readonly DataGridFilterMode _filterMode = DataGridFilterMode.Simple;
+    private readonly DataGridFilterCaseSensitivity _caseSensitivity = DataGridFilterCaseSensitivity.Default;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _contracts = [.. await ViewContractUseCase.ExecuteAsync()];
+    }
+}

@@ -1,0 +1,54 @@
+@using Jedster.CoreBuisness
+@using Jedster.UseCases.Core.TextbookTypes
+
+@inject IViewTextbookTypesUseCase ViewTextbookTypesUseCase
+@inject NavigationManager Navigator
+
+<MudDataGrid T="TextBookType" Items="@_textBookTypes" Filterable="true"
+             FilterMode="@_filterMode" FilterCaseSensitivity="@_caseSensitivity"
+             RowsPerPage="20">
+    
+    <ToolBarContent>
+        <MudText Typo="Typo.h6"> Tipos de Material </MudText>
+        <MudSpacer/>
+        <MudButtonGroup Color="Color.Success" Variant="Variant.Filled">
+            <MudButton Href="/tipos-material/add">
+                Adicionar tipo de material
+            </MudButton>
+        </MudButtonGroup>
+    </ToolBarContent>
+    <Columns>
+        <PropertyColumn Property="x => x.Id" Title="Id" Filterable="true" Sortable="true" InitialDirection="SortDirection.Ascending"/>
+        <PropertyColumn Property="x => x.Title" Title="Título" Filterable="true" Sortable="true"/>
+        <PropertyColumn Property="x => x.Subject" Title="Matéria" Filterable="true"/>
+        <PropertyColumn Property="x => x.Level" Title="Nível" Filterable="true"/>
+        <PropertyColumn Property="x => x.HoursRecommended" Title="Horas recomendadas" Filterable="false"/>
+        <PropertyColumn Property="x => x.Description" Title="Descrição" Filterable="true"/>
+        <TemplateColumn Title="Ações" CellClass="d-flex justify-content-center">
+            <CellTemplate>
+                <MudButton Color="Color.Primary" Variant="Variant.Filled" OnClick="() => RedirectToEdit(context.Item.Id)">
+                    Editar
+                </MudButton>
+            </CellTemplate>
+        </TemplateColumn>
+    </Columns>
+    <PagerContent>
+        <MudDataGridPager T="TextBookType" PageSizeOptions="[5, 10, 20]"/>
+    </PagerContent>
+</MudDataGrid>
+
+@code {
+    private List<TextBookType> _textBookTypes = [];
+    private readonly DataGridFilterMode _filterMode = DataGridFilterMode.Simple;
+    private readonly DataGridFilterCaseSensitivity _caseSensitivity = DataGridFilterCaseSensitivity.Default;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _textBookTypes = (await ViewTextbookTypesUseCase.ExecuteAsync()).ToList();
+    }
+
+    public void RedirectToEdit(int id)
+    {
+        Navigator.NavigateTo($"/edit-tipo-material/{id}");
+    }
+}
