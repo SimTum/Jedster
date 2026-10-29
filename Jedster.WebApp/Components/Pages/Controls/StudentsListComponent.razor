@@ -29,6 +29,8 @@
         <PropertyColumn Property="x => x.Group.Name " Title="Turma" Filterable="true"/>
         <PropertyColumn Property="x => x.Group.StartTime.ToString()"  Title="Hora inicio    " Filterable="true"/>
         <PropertyColumn Property="x => x.Group.EndTime.ToString()"  Title="Hora fim" Filterable="true"/>
+        <PropertyColumn Property="x => x.Contract.HoursPresent"  Title="Horas presente" Filterable="true"/>
+        <PropertyColumn Property="x => x.Contract.HoursAbsent"  Title="Hora faltou" Filterable="true"/>
         <PropertyColumn Property="x => x.Textbooks.FirstOrDefault().Title" Title="Material" Filterable="true"/>
         <TemplateColumn Title="Actions" CellClass="d-flex justify-content-center">
             <CellTemplate>

@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations; 
 using Jedster.CoreBusiness;
 
-namespace Jedster.CoreBuisness;
+namespace Jedster.CoreBusiness;
 
 public class  Attendance
 {

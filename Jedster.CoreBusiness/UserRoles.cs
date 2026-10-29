@@ -1,4 +1,4 @@
-namespace Jedster.CoreBuisness;
+namespace Jedster.CoreBusiness;
 
 public class UserRoles
 {

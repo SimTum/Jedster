@@ -1,7 +1,7 @@
 using System.Collections;
 using Jedster.CoreBusiness;
 
-namespace Jedster.CoreBuisness;
+namespace Jedster.CoreBusiness;
 
 public class TextBookType
 {

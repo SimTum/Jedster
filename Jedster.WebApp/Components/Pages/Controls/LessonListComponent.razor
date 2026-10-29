@@ -1,5 +1,4 @@
 @using Jedster.CoreBusiness
-@using Jedster.CoreBuisness
 @using Jedster.UseCases.Core.Scheduling
 @using Jedster.UseCases.Lessons
 @using Jedster.UseCases.PluginInterfaces
@@ -109,16 +108,16 @@
                                Margin="Margin.Dense"
                                Variant="Variant.Outlined">
                         <MudSelectItem Value="@LessonStatus.Scheduled">
-                            <MudChip T="string" Color="Color.Info" Size="Size.Medium">Agendada</MudChip>
+                            <MudText T="string" Color="Color.Info" Size="Size.Medium">Agendada</MudText>
                         </MudSelectItem>
                         <MudSelectItem Value="@LessonStatus.InProgress">
-                            <MudChip T="string" Color="Color.Warning" Size="Size.Medium">Em Andamento</MudChip>
+                            <MudText T="string" Color="Color.Warning" Size="Size.Medium">Em Andamento</MudText>
                         </MudSelectItem>
                         <MudSelectItem Value="@LessonStatus.Completed">
-                            <MudChip T="string" Color="Color.Success" Size="Size.Medium">Concluída</MudChip>
+                            <MudText T="string" Color="Color.Success" Size="Size.Medium">Concluída</MudText>
                         </MudSelectItem>
                         <MudSelectItem Value="@LessonStatus.Canceled">
-                            <MudChip T="string" Color="Color.Error" Size="Size.Medium">Cancelada</MudChip>
+                            <MudText T="string" Color="Color.Error" Size="Size.Medium">Cancelada</MudText>
                         </MudSelectItem>
                     </MudSelect>
                 </MudTd>

@@ -1,5 +1,5 @@
 using Jedster.UseCases.PluginInterfaces;
-using Jedster.CoreBuisness;
+using Jedster.CoreBusiness;
 using Jedster.UseCases.Teachers.Interfaces;
 
 namespace Jedster.UseCases.Teachers;

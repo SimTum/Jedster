@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Jedster.Plugins.InMemory")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d2817b41fa55887de89582f85745d786be313021")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9f61eb79ef3b2b205408842fb68cd6dfc5562120")]
 [assembly: System.Reflection.AssemblyProductAttribute("Jedster.Plugins.InMemory")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Jedster.Plugins.InMemory")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

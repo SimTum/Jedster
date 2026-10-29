@@ -1,4 +1,5 @@
-using Jedster.CoreBuisness;
+
+using Jedster.CoreBusiness;
 using Jedster.UseCases.PluginInterfaces;
 using Microsoft.EntityFrameworkCore;
 

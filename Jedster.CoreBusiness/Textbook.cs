@@ -1,6 +1,5 @@
 using System;
 using System.ComponentModel.DataAnnotations;
-using Jedster.CoreBuisness;
 
 namespace Jedster.CoreBusiness;
 

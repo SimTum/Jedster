@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 
-namespace Jedster.CoreBuisness;
+namespace Jedster.CoreBusiness;
 
 public class JedsterUser : IdentityUser 
 {

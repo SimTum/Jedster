@@ -1,5 +1,4 @@
-﻿using Jedster.CoreBuisness;
-using Jedster.CoreBusiness;
+﻿using Jedster.CoreBusiness;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 

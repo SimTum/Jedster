@@ -1,5 +1,5 @@
 using System.Net.Security;
-using Jedster.CoreBuisness;
+using Jedster.CoreBusiness;
 using Jedster.Plugins.EntityFrameworkCorePSQL;
 using Jedster.Plugins.InMemory;
 using Jedster.UseCases.Attendances;
